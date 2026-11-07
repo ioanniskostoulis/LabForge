@@ -1,0 +1,22 @@
+% Specimen: figures and plots side by side, with all, some or no subcaptions, and references to their parts.
+\documentclass[language=english]{.labforge}
+
+\begin{document}
+
+\mysection[label=method]{Method}
+The two setups are in \myref{fig:setup}; the second alone is \myref{fig:setup[2]}, both parts are \myref{fig:setup[1], fig:setup[2]} and the bare number is \ref{fig:setup[1]}.
+Without subcaptions, \myref{fig:plain} has no letters. \myref{fig:partial[2]} has only a letter, and \myref{plot:pair[1]} is a plot.
+
+\myfigure[label=fig:setup, caption=Two setups side by side., subcaption={Before, {After, cleaned}}]{example-image-a.png, example-image-b.png}
+
+\myfigure[label=fig:plain, caption=Three images without subcaptions., width=0.3]{example-image-a.png, example-image-b.png, example-image-c.png}
+
+\myfigure[label=fig:partial, caption=One subcaption of two., subcaption={Only the first}, height=2cm]{example-image-a.png, example-image-b.png}
+
+\myfigure[subcaption={Left, Right}]{example-image-a.png, example-image-c.png}
+
+A paragraph after a row without a caption, so it has no number and its parts no labels.
+
+\myplot[label=plot:pair, caption=The same plot twice., subcaption={Raw, Fitted}]{absorbance.tex, absorbance.tex}
+
+\end{document}

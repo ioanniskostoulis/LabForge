@@ -1,0 +1,55 @@
+{
+  "name": "labforge",
+  "productName": "LabForge",
+  "version": "2.7.0",
+  "private": true,
+  "description": "LaTeX report framework and spreadsheet table builder",
+  "author": "Ioannis Shi Kostoulis",
+  "license": "GPL-2.0-or-later",
+  "main": "build/desktop/main.cjs",
+  "scripts": {
+    "prepare": "node scripts/install-hooks.mjs",
+    "postinstall": "node node_modules/electron/install.js",
+    "check": "tsc --noEmit -p .",
+    "test": "npm run build && node --test tests/engine/*.test.mjs",
+    "test:app": "npm run build && node scripts/test-app.mjs",
+    "test:shell": "npm run build && forge-shell check-app",
+    "build": "node scripts/build.mjs",
+    "icon:document": "python3 scripts/file-icon.py",
+    "start": "npm run build && electron .",
+    "checks": "npm run check && npm test && npm run test:app && npm run test:shell",
+    "web": "node scripts/web.mjs",
+    "dev": "node scripts/web.mjs --desktop",
+    "dist": "npm run build && node scripts/package-config.mjs && node scripts/dist.mjs",
+    "installer": "node scripts/build-installer.mjs"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "6.20.3",
+    "@codemirror/commands": "6.11.1",
+    "@codemirror/language": "6.13.1",
+    "@codemirror/lint": "6.9.7",
+    "@codemirror/search": "6.7.2",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.14",
+    "@lezer/highlight": "1.2.5",
+    "@replit/codemirror-minimap": "0.5.2",
+    "forge-shell": "file:source/forge-shell-3.0.0.tgz",
+    "katex": "^0.18.7",
+    "nspell": "2.1.5",
+    "pdfjs-dist": "6.4.299",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "electron": "44.7.2",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2",
+    "node-gyp": "^12.4.0",
+    "typescript": "^7.0.2"
+  },
+  "allowScripts": {
+    "electron@44.7.2": true,
+    "esbuild@0.28.2": true,
+    "electron-winstaller@5.4.0": false
+  }
+}

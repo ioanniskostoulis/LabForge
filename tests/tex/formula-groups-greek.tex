@@ -1,0 +1,13 @@
+\documentclass[language=greek]{.labforge}
+\begin{document}
+\myformula[label=group]{a &= 1 \\ b &= 2 \\ c &= 3}
+\myref{group}. \myref{group[2]}. \ref{group}.
+Οι αριθμοί είναι \ref{group[1], group[2], group[3]}.
+\myformula[label=tin]{
+    \ce{Sn_l}:\quad \log{(\frac{p}{\text{atm}})}
+        &= -\frac{\qty{15332}{}}{T} + \qty{5.262}{} \\
+    \ce{Sn_s}:\quad \log{(\frac{p}{\text{atm}})}
+        &= -\frac{\qty{15710}{}}{T} + \qty{6.036}{}
+}
+\myref{tin}. \myref{tin[1]}. \myref{tin[2]}.
+\end{document}

@@ -1,0 +1,17 @@
+% Specimen: captions with their own alignment and hyphenation, a quantity range and short default labels.
+\documentclass[language=english]{.labforge}
+
+\begin{document}
+
+\mysection[label=method]{Method}
+A range of \qtyrange{2}{4}{\metre} and \qtyrange{1.5}{3.5}{\milli\mole\per\litre}, shown in \myref{fig:example-image-a}.
+
+\myfigure[caption=A caption that is long enough to run over two lines of the figure above it., width=0.5, caption-align=left, hyphenate=false]{example-image-a.png}
+
+\myfigure[caption=A centred caption that is also long enough to wrap onto a second line here., width=0.5, caption-align=center]{example-image-b.png}
+
+\mytable[caption={Mass, reaction time and yield per sample.}, caption-align=right]{yields.tex}
+
+A paragraph that is long enough to need several lines, with a block written in the middle of it: the arc chamber is the heart of the reactor and the first stage of the process. \myfigure[caption=Written inside a paragraph., width=0.3]{example-image-c.png} It holds the electric arc and provides the space in which nitrogen dissociates and nitric oxide forms.
+
+\end{document}

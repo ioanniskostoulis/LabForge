@@ -1,0 +1,43 @@
+<div id="canvas-wrap">
+  <div id="writing-workspace" hidden>
+    <div id="editor-side">
+      <div id="editor-find" class="find-tile" role="search" aria-label="Find and replace" hidden>
+        <button id="editor-replace-toggle" class="find-expand" type="button" aria-expanded="false" aria-controls="editor-replace-row" aria-label="Toggle replace"></button>
+        <div class="find-row">
+          <input id="editor-find-input" type="text" aria-label="Find in LaTeX source" placeholder="Find" autocomplete="off" spellcheck="false">
+          <button id="editor-find-case" class="find-toggle" type="button" aria-pressed="false" aria-label="Match case" title="Match case">Aa</button>
+          <button id="editor-find-word" class="find-toggle" type="button" aria-pressed="false" aria-label="Match whole word" title="Match whole word">ab</button>
+          <button id="editor-find-regexp" class="find-toggle" type="button" aria-pressed="false" aria-label="Use regular expression" title="Use regular expression">.*</button>
+          <span id="editor-find-count" class="find-count" aria-live="polite">No results</span>
+          <button id="editor-find-previous" class="find-icon" type="button" aria-label="Previous match"></button>
+          <button id="editor-find-next" class="find-icon" type="button" aria-label="Next match"></button>
+          <button id="editor-find-close" class="find-icon" type="button" aria-label="Close Find"></button>
+        </div>
+        <div id="editor-replace-row" class="find-row" hidden>
+          <input id="editor-replace-input" type="text" aria-label="Replace with" placeholder="Replace" autocomplete="off" spellcheck="false">
+          <button id="editor-replace-one" class="find-text" type="button">Replace</button>
+          <button id="editor-replace-all" class="find-text" type="button">Replace all</button>
+        </div>
+      </div>
+      <div id="editor-surface"></div>
+    </div>
+    <div id="pdf-split" class="split vertical" role="separator" aria-label="Resize side views" title="Sets the width of the side views." tabindex="0"></div>
+    <div id="pdf-side">
+      <div id="side-stack">
+      <section id="pdf-tile" class="side-view">
+      <div id="pdf-head" class="generator-tile-head side-view-head">
+        <h3 class="generator-tile-title">PDF</h3>
+        <span id="pdf-build-state" role="status" hidden></span>
+        <span class="generator-tile-space"></span>
+        <span id="pdf-readout" class="generator-tile-readout" aria-live="polite"></span>
+        <button id="pdf-prev" class="generator-chip" type="button" aria-label="Previous PDF page" title="Previous page." disabled></button>
+        <button id="pdf-next" class="generator-chip" type="button" aria-label="Next PDF page" title="Next page." disabled></button>
+        <button id="pdf-fit" class="generator-chip" type="button" aria-label="Fit PDF width" title="Fit the page width." disabled>Fit</button>
+        <button id="pdf-close" class="view-action view-close" type="button" aria-label="Close PDF preview" title="Close PDF preview."></button>
+      </div>
+      <div id="pdf-content"><div id="pdf-empty">No PDF in this report yet. Build to preview it.</div><div id="pdf-stage" class="pdf-stage" role="document" aria-label="Report PDF preview" hidden></div></div>
+      </section>
+      </div>
+    </div>
+  </div>
+</div>

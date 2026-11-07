@@ -1,0 +1,115 @@
+{
+  "identity": {
+    "name": "LabForge",
+    "id": "labforge",
+    "purpose": "LaTeX report workspace",
+    "wordmarkPath": "logo.txt",
+    "versionSource": "VERSION",
+    "port": 4185,
+    "repository": "ioanniskostoulis/LabForge"
+  },
+  "document": {
+    "noun": "report project",
+    "plural": "report projects",
+    "extension": "lfg",
+    "containsMultipleFiles": true,
+    "welcome": {
+      "title": "No report open",
+      "newLabel": "New report",
+      "openLabel": "Open…",
+      "detail": "Create or open a self-contained .lfg project"
+    },
+    "tabs": {
+      "noun": "report project",
+      "newTitle": "New report",
+      "closeTitle": "Close report"
+    }
+  },
+  "theme": {
+    "dark": {
+      "accent": "#e84c4c",
+      "accentLight": "#e84c4c",
+      "accentAbout": "#e84c4c",
+      "accentFill": "#a82a2d",
+      "accentHover": "#8e2225"
+    },
+    "light": {
+      "accent": "#b92d30",
+      "accentLight": "#b92d30",
+      "accentAbout": "#b92d30",
+      "accentFill": "#a82a2d",
+      "accentHover": "#8e2225"
+    }
+  },
+  "dataColors": [],
+  "html": {
+    "center": "public/center.html",
+    "panes": "public/panes.html"
+  },
+  "desktop": {
+    "appId": "com.labforge.app",
+    "copyright": "Copyright © Ioannis Shi Kostoulis. GPL-2.0-or-later.",
+    "appIcon": "assets/icon.png",
+    "macCategory": "public.app-category.productivity",
+    "extraResources": [
+      {
+        "from": "assets/framework",
+        "to": "framework"
+      },
+      {
+        "from": "assets/templates/report",
+        "to": "templates/report"
+      },
+      {
+        "from": "assets/spelling",
+        "to": "spelling"
+      },
+      {
+        "from": "node_modules/xlsx/LICENSE",
+        "to": "licenses/SHEETJS_LICENSE"
+      },
+      {
+        "from": "node_modules/pdfjs-dist/LICENSE",
+        "to": "licenses/PDFJS_LICENSE"
+      },
+      {
+        "from": "node_modules/katex/LICENSE",
+        "to": "licenses/KATEX_LICENSE"
+      },
+      {
+        "from": "node_modules/@codemirror/view/LICENSE",
+        "to": "licenses/CODEMIRROR_LICENSE"
+      },
+      {
+        "from": "node_modules/@lezer/common/LICENSE",
+        "to": "licenses/LEZER_LICENSE"
+      },
+      {
+        "from": "node_modules/style-mod/LICENSE",
+        "to": "licenses/STYLE_MOD_LICENSE"
+      },
+      {
+        "from": "node_modules/w3c-keyname/LICENSE",
+        "to": "licenses/W3C_KEYNAME_LICENSE"
+      },
+      {
+        "from": "node_modules/crelt/LICENSE",
+        "to": "licenses/CRELT_LICENSE"
+      }
+    ],
+    "document": {
+      "name": "LabForge Project",
+      "description": "LabForge report project",
+      "iconStem": "lfg",
+      "iconSource": "assets/icon.png",
+      "iconLabel": "LFG",
+      "iconInk": "#d93b3b",
+      "role": "Editor",
+      "typeIdentifier": "com.labforge.project",
+      "conformsTo": [
+        "com.apple.package"
+      ],
+      "mimeType": "application/vnd.labforge.project"
+    }
+  }
+}

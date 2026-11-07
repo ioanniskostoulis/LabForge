@@ -1,0 +1,37 @@
+% Specimen: English thesis in one column, without a bibliography.
+\documentclass[preset=thesis, language=english]{.labforge}
+
+\newcommand{\filler}{The arc chamber is the heart of the reactor and the first stage of
+the process. It holds the electric arc and provides the space in which nitrogen
+dissociates and nitric oxide forms. Its design set most of the geometry of the
+apparatus and the requirements of the other parts.}
+
+\begin{document}
+
+\mythesis[title = Fixing atmospheric nitrogen with an electric arc, author = Group B]
+
+\mysection[label=method]{Method}
+\filler{} The setup is shown in \myref{setup}.
+
+\myfigure[label=setup, caption=The chamber before assembly., width=0.5]{example-image-a.png}
+
+\filler{} Nitric oxide forms by \myref{formation}; its equilibrium follows
+\myref{equilibrium}.
+
+\myreaction[label=formation]{N2 + O2 <=> 2 NO}
+\myformula[label=equilibrium]{K_p &= \frac{p_{\mathrm{NO}}^2}{p_{\mathrm{N_2}}\, p_{\mathrm{O_2}}} \\
+                              \Delta G^\circ &= -RT \ln K_p}
+
+\myfigure[label=detail, caption=The upper flange., width=0.35, place=wrap]{example-image-b.png}
+\filler{} \filler{} The flange is shown in \myref{detail}.
+
+\myfigure[caption=The base mount., width=0.45, place=wrap-left]{example-image-a.png}
+\filler{} \filler{}
+
+\mysubsection{Measurements}
+\mytable[caption={Mass, reaction time and yield per sample.}]{yields.tex}
+
+\filler{} See \myref{tab:yields, setup} and \myref{method}.
+Mixed references: \myref{tab:yields, formation}. Indexed and mixed: \myref{equilibrium[1], formation}.
+
+\end{document}

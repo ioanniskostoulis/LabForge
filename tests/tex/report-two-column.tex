@@ -1,0 +1,66 @@
+% Specimen: Greek report in two columns. Uses every LabForge command.
+\documentclass[preset=report, language=greek, bibliography]{.labforge}
+
+\newcommand{\filler}{Ο θάλαμος του τόξου αποτελεί την καρδιά του αντιδραστήρα
+και το πρώτο στάδιο της διεργασίας. Σκοπός του είναι να φιλοξενήσει το ηλεκτρικό
+τόξο και να παράσχει το περιβάλλον εντός του οποίου πραγματοποιείται η
+αποσύνθεση του αζώτου και ο σχηματισμός του μονοξειδίου. Η σχεδίασή του καθόρισε
+σε μεγάλο βαθμό τη συνολική γεωμετρία της διάταξης.}
+
+\begin{document}
+
+\myreport[
+    header      = ΕΡΓΑΣΤΗΡΙΑΚΗ ΑΝΑΦΟΡΑ,
+    title       = Δέσμευση ατμοσφαιρικού αζώτου με ηλεκτρικό τόξο,
+    author      = Ομάδα Β,
+    conducted   = \mytoday,
+    institution = Τμήμα Χημικών Μηχανικών,
+]
+
+\begin{multicols}{2}
+
+\mysection[label=intro]{Εισαγωγή}
+\filler{} Η μέθοδος βασίζεται στην εργασία των Birkeland και Eyde \cite{birkeland}.
+
+\filler{} Οι θερμοδυναμικές σχέσεις δίνονται στο \cite{atkins}.
+
+\mysubsection[label=chamber]{Θάλαμος τόξου}
+\filler{} Η διάταξη φαίνεται στο \myref{photo}, ενώ τα μέρη της στα
+\myref{photo, fig:example-image-b}.
+
+\myfigure[label=photo, caption=Ο θάλαμος πριν από τη συναρμολόγηση., width=0.8]{example-image-a.png}
+\myfigure[caption=Στερέωση της κάτω φλάντζας σε ξύλινη βάση., width=0.6, place=float]{example-image-b.png}
+
+\filler{} Ο σχηματισμός του μονοξειδίου ακολουθεί την \myref{formation}, με σταθερά
+ισορροπίας κατά την \myref{equilibrium}.
+
+\myreaction[label=formation]{N2 + O2 <=> 2 NO}
+\myformula[label=equilibrium]{K_p = \frac{p_{\mathrm{NO}}^2}{p_{\mathrm{N_2}}\, p_{\mathrm{O_2}}}}
+\myequation{\Delta G^\circ = -RT \ln K_p}
+
+\filler{} Οι μετρήσεις συνοψίζονται στον \myref{tab:yields}.
+
+\mytable[caption={Μάζα, χρόνος αντίδρασης και απόδοση ανά δείγμα.}]{yields.tex}
+
+Ο \myref[nom]{tab:yields} συνεχίζεται στην επόμενη στήλη.
+Μικτές αναφορές: \myref{tab:yields, formation}. Ονομαστική: \myref[nom]{tab:yields, formation}.
+
+\mysection[label=results]{Αποτελέσματα}
+\filler{} Η καμπύλη βαθμονόμησης φαίνεται στο \myref{plot:absorbance}.
+
+\myplot[caption=Απορρόφηση ως συνάρτηση της συγκέντρωσης., width=0.95]{absorbance.tex}
+
+\filler{} Οι σταθερές του \myref{tab:constants} χρησιμοποιήθηκαν στην \myref*{equilibrium}.
+
+\mytable[caption=Φυσικές σταθερές., width=0.7]{constants.tex}
+
+\myfigure[place=span, caption=Εικόνα σε όλο το πλάτος της σελίδας., width=0.5]{example-image-a.png}
+
+\filler{} Η \myref{results} συνοψίζει τις \myref{intro, chamber}.
+
+\filler{}
+
+\mybibliography
+\end{multicols}
+
+\end{document}

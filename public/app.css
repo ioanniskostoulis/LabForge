@@ -1,0 +1,250 @@
+@import url("forge-tokens.css");
+@import url("forge-brand.css");
+@import url("forge-shell.css");
+
+/* Parts adapted from NodeForge. Copyright (C) Ioannis Kostoulis. Licensed under the GNU General Public License v2 or later. */
+/* Licensed under the GNU General Public License v2 or later. See LICENSE. */
+#canvas-wrap { flex: 1; min-height: 0; position: relative; display: flex; flex-direction: column; background: var(--well); }
+#writing-workspace { position: absolute; inset: 0; display: flex; min-width: 0; }
+#writing-workspace[hidden], #pdf-side[hidden], #pdf-split[hidden] { display: none; }
+#editor-side, #pdf-side { min-width: 0; display: flex; flex-direction: column; }
+#editor-side { flex: 1; }
+#editor-surface .cm-panels, #editor-surface .cm-panels-top { border: 0; background: transparent; }
+#pdf-side { width: 48%; background: var(--well); }
+#side-stack { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; }
+.side-view { position: relative; display: flex; flex: 1 1 0; flex-direction: column; min-height: 120px; overflow: hidden; background: var(--well); }
+.side-view[hidden] { display: none; }
+.side-view.drop-above::before, .side-view.drop-below::before { content: ""; position: absolute; left: 3px; right: 3px; height: 3px; z-index: 2; background: var(--accent); pointer-events: none; }
+.side-view.drop-above::before { top: 0; }
+.side-view.drop-below::before { bottom: 0; }
+.side-view-head { flex: none; cursor: grab; }
+.side-view-head:active { cursor: grabbing; }
+.side-view-divider { height: 1px; flex: none; background: var(--separator); cursor: row-resize; }
+.side-view-divider:focus-visible { outline: 1px solid var(--accent-light); }
+.supporting-editor-surface { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+.supporting-editor-surface .cm-editor { flex: 1; min-width: 0; height: 100%; background: var(--well); color: var(--text); font: var(--editor-size)/1.5 var(--mono); }
+.supporting-editor-surface .cm-scroller { font: var(--editor-size)/1.5 var(--mono); }
+.supporting-editor-surface .cm-content { padding: 10px 0; caret-color: var(--accent-light); }
+.supporting-editor-surface .cm-line { padding: 0 12px 0 4px; }
+.supporting-editor-surface .cm-gutters { border: 0; background: var(--well); color: var(--text3); }
+.supporting-editor-surface .cm-lineNumbers .cm-gutterElement { min-width: 32px; padding: 0 8px; }
+.side-view-mode { display: grid; place-items: center; width: 18px; height: 18px; color: var(--text2); }
+.side-view-mode svg { width: 14px; height: 14px; }
+.side-view-dirty { color: var(--accent-light); font-size: 10px; }
+.side-view-dirty[hidden] { display: none; }
+.side-view-close { width: 20px; height: 20px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: transparent; color: var(--text2); cursor: pointer; }
+.side-view-close:hover, .side-view-close:focus-visible { background: transparent; color: var(--text); outline: none; }
+.side-view-close svg { width: 14px; height: 14px; }
+.tree-editability { width: 14px; height: 14px; display: grid; place-items: center; color: var(--text3); }
+.tree-editability svg { width: 12px; height: 12px; }
+.file-list:focus-within .tree-row.selected .tree-editability, .tree-row.drop-target .tree-editability { color: inherit; }
+:root { --editor-size: 14px; }
+#editor-surface { --editor-selection: color-mix(in srgb, var(--accent) 30%, transparent); display: flex; flex: 1; min-height: 0; overflow: hidden; background: var(--well); }
+:is(#editor-surface, .generator-code-editor) .cm-editor { flex: 1; min-width: 0; height: 100%; background: var(--well); color: var(--text); font-size: var(--editor-size); }
+:is(#editor-surface, .generator-code-editor) .cm-editor.cm-focused { outline: none; }
+:is(#editor-surface, .generator-code-editor) .cm-scroller { font: var(--editor-size)/1.5 var(--mono); scrollbar-gutter: stable; }
+:is(#editor-surface, .generator-code-editor) .cm-content { padding: 10px 0; caret-color: var(--accent-light); }
+:is(#editor-surface, .generator-code-editor) .cm-line { padding: 0 12px 0 4px; }
+:is(#editor-surface, .generator-code-editor) .cm-gutters { border: 0; background: var(--well); color: var(--text3); user-select: none; }
+:is(#editor-surface, .generator-code-editor) .cm-lineNumbers .cm-gutterElement { min-width: 32px; padding: 0 8px 0 8px; }
+:is(#editor-surface, .generator-code-editor) .cm-cursor { border-left: 1.5px solid var(--accent-light); }
+#editor-surface .cm-selectionBackground, #editor-surface .cm-focused .cm-selectionBackground, #editor-surface .cm-content ::selection { background: var(--editor-selection); }
+#editor-surface .cm-selectionBackground { display: none; }
+#editor-surface .cm-selectionShape { position: absolute; pointer-events: none; }
+#editor-surface .cm-selectionShape svg { display: block; width: 100%; height: 100%; overflow: visible; }
+#editor-surface .cm-selectionShape path { fill: var(--editor-selection); }
+#editor-surface .cm-tooltip { border: 1px solid var(--separator); border-radius: 6px; background: var(--panel); color: var(--text); }
+.math-preview { position: fixed; z-index: 20; box-sizing: border-box; width: max-content; min-width: 160px; max-width: min(420px, 80vw); max-height: 260px; overflow: auto; padding: 12px 14px; border: 1px solid var(--separator); border-radius: 6px; background: var(--panel); color: var(--text); }
+.math-preview-label { margin-bottom: 8px; color: var(--text3); font: 11px var(--ui); }
+.math-preview-content { overflow-x: auto; font-size: 15px; }
+.math-preview-unavailable { color: var(--text2); font: 12px/1.5 var(--ui); }
+#editor-surface .cm-tooltip-autocomplete > ul { min-width: 180px; max-width: 480px; max-height: 180px; font: 12px var(--mono); display: grid; grid-template-columns: max-content minmax(0, 1fr); align-content: start; }
+/* Each row shares the list's two columns, so the notes line up whatever the length of the command. */
+#editor-surface .cm-tooltip-autocomplete > ul > li { padding: 5px 9px; display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: baseline; }
+#editor-surface .cm-completionLabel { white-space: pre; }
+#editor-surface .cm-tooltip-autocomplete > ul > li[aria-selected] { background: var(--accent-fill); color: var(--accent-foreground); }
+#editor-surface .cm-command-help { max-width: 440px; padding: 12px 14px; display: grid; gap: 10px; font: 12px/1.5 var(--ui); }
+#editor-surface .cm-command-syntax, #editor-surface .cm-command-package { color: var(--text3); }
+#editor-surface .cm-command-example { font: 12px/1.5 var(--mono); }
+#editor-surface .cm-command-description { color: var(--text); }
+#editor-surface .cm-command-keys { display: grid; gap: 6px; padding-top: 10px; border-top: 1px solid var(--separator); }
+#editor-surface .cm-command-key { color: var(--text2); }
+#editor-surface .cm-command-key-name { margin-right: 8px; color: var(--text); font-family: var(--mono); }
+#editor-surface .cm-command-example { padding-top: 10px; border-top: 1px solid var(--separator); color: var(--text3); overflow-wrap: anywhere; }
+#editor-surface .cm-completionDetail { margin-left: 16px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text3); font-style: normal; font-family: var(--ui); }
+#editor-surface .cm-tooltip-autocomplete > ul > li[aria-selected] .cm-completionDetail { color: inherit; opacity: 0.8; }
+#editor-surface .cm-completionMatchedText { text-decoration: none; }
+/* Match the editor's command and description columns; anchor the shell popup to the search field's right edge. */
+#tool-search-results { width: min(480px, calc(100vw - 16px)); display: grid; grid-template-columns: max-content minmax(0, 1fr); align-content: start; transform: translateX(calc(142px - 100%)); }
+#tool-search-results .tool-search-result { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: baseline; font: 12px var(--mono); padding: 5px 9px; }
+#tool-search-results .tool-search-category { min-width: 0; margin-left: 16px; padding-left: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 12px var(--ui); }
+/* Go to line: CodeMirror's dialog in the bottom panel, drawn like the Find tile's controls. */
+#editor-surface .cm-panels-bottom { border-top: 1px solid var(--separator); background: var(--panel); }
+#editor-surface .cm-goto-line { display: flex; align-items: center; gap: var(--gap); padding: 5px 8px; color: var(--text2); font: 12px var(--ui); }
+#editor-surface .cm-goto-line form, #editor-surface .cm-goto-line label { display: flex; align-items: center; gap: var(--gap); margin: 0; }
+#editor-surface .cm-goto-line input { width: 108px; height: 24px; box-sizing: border-box; margin: 0; padding: 0 6px; border: 1px solid var(--separator); border-radius: var(--radius); outline: none; background: var(--well); color: var(--text); font: 12px var(--mono); }
+#editor-surface .cm-goto-line input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+#editor-surface .cm-goto-line button { height: 24px; margin: 0; padding: 0 10px; border: 0; border-radius: var(--radius); background: var(--control); background-image: none; color: var(--text); font: 12px var(--ui); cursor: pointer; }
+#editor-surface .cm-goto-line button:hover { background: var(--control-hover); }
+#editor-surface .cm-goto-line button:focus-visible { outline: 1px solid var(--accent-light); }
+#editor-surface .cm-goto-line .cm-dialog-close { position: static; width: 24px; margin-left: auto; padding: 0; background: transparent; color: var(--text2); font-size: 15px; }
+:is(#editor-surface, .generator-code-editor) .cm-searchMatch { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+:is(#editor-surface, .generator-code-editor) .cm-searchMatch-selected { background: color-mix(in srgb, var(--accent) 45%, transparent); }
+:is(#editor-surface, .generator-code-editor) .cm-matchingBracket { background: color-mix(in srgb, var(--text) 14%, transparent); outline: 1px solid color-mix(in srgb, var(--text) 30%, transparent); }
+:is(#editor-surface, .generator-code-editor) .cm-nonmatchingBracket { outline: 1px solid var(--error); }
+:is(#editor-surface, .generator-code-editor, .supporting-editor-surface) .cm-activeLine { border-radius: 4px; background: color-mix(in srgb, var(--text) 5%, transparent); }
+:is(#editor-surface, .generator-code-editor, .supporting-editor-surface) .cm-activeLineGutter { background: transparent; color: var(--text); }
+:is(#editor-surface, .generator-code-editor) .cm-foldGutter .cm-gutterElement { width: 14px; display: grid; place-items: center; color: var(--text3); cursor: pointer; }
+:is(#editor-surface, .generator-code-editor) .cm-foldGutter .cm-gutterElement:hover { color: var(--text); }
+:is(#editor-surface, .generator-code-editor) .cm-foldMarker svg { width: 10px; height: 10px; transition: transform var(--duration) ease; }
+:is(#editor-surface, .generator-code-editor) .cm-foldMarker.open svg { transform: rotate(90deg); }
+:is(#editor-surface, .generator-code-editor) .cm-foldMarker.open { opacity: 0; }
+:is(#editor-surface, .generator-code-editor) .cm-gutterElement:hover .cm-foldMarker.open, :is(#editor-surface, .generator-code-editor) .cm-gutters:hover .cm-foldMarker.open { opacity: 1; }
+/* A folded range is three mono dots in the colour of comments. */
+:is(#editor-surface, .generator-code-editor) .cm-foldPlaceholder { margin: 0 6px; padding: 0; border: 0; background: transparent; font-family: var(--mono); cursor: pointer; }
+:is(#editor-surface, .generator-code-editor) .cm-selectionSpace { background: radial-gradient(circle, var(--text3) 0.09em, transparent 0.1em) center / 100% 100% no-repeat; }
+:is(#editor-surface, .generator-code-editor) .cm-smoothCaret .cm-cursor { transition: left 80ms ease-out, top 80ms ease-out; }
+:is(#editor-surface, .generator-code-editor) .cm-minimap-gutter { border-left: 1px solid var(--separator); background: var(--well); }
+:is(#editor-surface, .generator-code-editor) .cm-minimap-overlay { background: color-mix(in srgb, var(--text) 12%, transparent); }
+:is(#editor-surface, .generator-code-editor) .cm-editor.cm-smoothBlink.cm-focused > .cm-scroller > .cm-cursorLayer { animation-timing-function: ease-in-out; }
+@media (prefers-reduced-motion: reduce) { #editor-surface .cm-smoothCaret .cm-cursor, #editor-surface .cm-foldMarker svg, .find-tile .find-expand svg { transition: none; } #editor-surface .cm-editor.cm-smoothBlink.cm-focused > .cm-scroller > .cm-cursorLayer { animation-timing-function: steps(1); } }
+/* LaTeX tokens take the shared syntax colours: commands as names, preamble commands and math as keywords. */
+.syntax-command { color: var(--syntax-name); }
+.syntax-math { color: var(--syntax-keyword); }
+:is(#editor-surface, .generator-code-editor) .cm-foldPlaceholder { color: var(--syntax-comment); }
+.syntax-environment { color: var(--text); }
+/* The line is drawn in the background, not as a text decoration: Chromium repaints decorations of selected text in the text colour. */
+:is(#editor-surface, .supporting-editor-surface) :is(.cm-texError, .cm-spellingError) { --mark-tint: color-mix(in srgb, var(--error) 12%, transparent); padding-bottom: 2px; background-repeat: no-repeat, repeat-x; background-position: 0 0, 0 100%; }
+#editor-surface .cm-texError { background-image: linear-gradient(var(--mark-tint), var(--mark-tint)), linear-gradient(var(--error), var(--error)); background-size: 100% 100%, 100% 1px; }
+:is(#editor-surface, .supporting-editor-surface) .cm-spellingError { background-image: linear-gradient(var(--mark-tint), var(--mark-tint)), radial-gradient(circle, var(--error) 0.75px, transparent 1px); background-size: 100% 100%, 3px 2px; }
+#editor-surface .cm-texErrorTip { max-width: 360px; padding: 6px 10px; font: 12px/1.5 var(--ui); }
+#pdf-split { width: 1px; flex: none; cursor: col-resize; }
+#pdf-content { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+#pdf-build-state { flex: none; color: var(--accent); font: 11px var(--ui); white-space: nowrap; }
+#pdf-build-state[hidden] { display: none; }
+#pdf-content .pdf-stage { height: 100%; }
+.pdf-page { position: relative; background: white; outline: 1px solid var(--separator); }
+.pdf-page canvas { display: block; }
+/* Where a line of the source was set, after Show in PDF: one accent hairline that fades. */
+.pdf-sync-mark { position: absolute; box-sizing: border-box; border: 1px solid var(--accent-light); border-radius: var(--radius-xs); background: color-mix(in srgb, var(--accent) 10%, transparent); pointer-events: none; transition: opacity 0.4s var(--ease); }
+.pdf-sync-mark.fading { opacity: 0; }
+/* A line reached from the PDF, for a moment. */
+.cm-flash-line { background: color-mix(in srgb, var(--accent) 16%, transparent); transition: background 0.4s var(--ease); }
+#pdf-empty { padding: 20px; color: var(--text2); font: 12px/1.5 var(--ui); }
+#inspector { display: flex; flex-direction: column; }
+#inspector .section { position: relative; }
+#inspector .empty-name-row { min-height: 22px; align-items: center; }
+body.no-docs #inspector .panel-button.primary:disabled { color: var(--accent-foreground); }
+.inspector-empty { padding: 16px 12px; color: var(--text3); font: 12px var(--ui); }
+@media (max-width: 900px) { #pdf-side { width: 42%; } }
+
+/* Welcome: the workspace faded out behind the actions, instead of the shell's grid. */
+body #empty-state { position: relative; overflow: hidden; background-image: none; }
+body #empty-state > :not(.empty-backdrop) { position: relative; }
+.empty-backdrop { position: absolute; inset: 0; overflow: hidden; pointer-events: none; user-select: none; --welcome-box-width: 400px; --welcome-box-height: 120px; --welcome-box-x: 50%; --welcome-box-y: 50%; }
+/* The sketch repeats the editor's own geometry: 10 px above the first line, a 47 px gutter, text 4 px in, the editor's size and line height. */
+/* WELCOME BACKDROP, the code of assets/welcome.tex drawn behind the actions. Tune it here. The fade is measured from the box that the title, buttons and
+   hint take together (main.ts measures it into --welcome-box-*), not from the page:
+   --welcome-pad-x      clear space left and right of that box, in px
+   --welcome-pad-y      clear space above and below it, in px
+   --welcome-fade-x     how far to the left and right of the clear space the code takes to reach full strength, in px
+   --welcome-fade-y     the same above and below
+   --welcome-opacity    how strong the code is at full strength (0 to 1)
+   The code comes in along a smooth curve; there is no blur. */
+.empty-sketch { --welcome-opacity: 0.1; --welcome-pad-x: 10px; --welcome-pad-y: 5px; --welcome-fade-x: 360px; --welcome-fade-y: 200px;
+  position: absolute; inset: 0; padding: 10px 0 0; box-sizing: border-box; overflow: hidden; text-align: left; color: var(--text); font: var(--editor-size)/1.5 var(--mono); white-space: pre; opacity: var(--welcome-opacity);
+  -webkit-mask-image: linear-gradient(to right, var(--text) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 1.0)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.9)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.8)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.7)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.6)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.5)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.4)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.3)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.2)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.1)), transparent calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.0)), transparent calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.0)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.1)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.2)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.3)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.4)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.5)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.6)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.7)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.8)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.9)), var(--text) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 1.0))), linear-gradient(to bottom, var(--text) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 1.0)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.9)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.8)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.7)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.6)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.5)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.4)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.3)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.2)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.1)), transparent calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.0)), transparent calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.0)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.1)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.2)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.3)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.4)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.5)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.6)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.7)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.8)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.9)), var(--text) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 1.0))); mask-image: linear-gradient(to right, var(--text) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 1.0)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.9)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.8)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.7)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.6)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.5)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.4)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.3)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.2)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.1)), transparent calc(var(--welcome-box-x) - ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.0)), transparent calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.0)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.1)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.2)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.3)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.4)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.5)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.6)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.7)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.8)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 0.9)), var(--text) calc(var(--welcome-box-x) + ((var(--welcome-box-width) / 2 + var(--welcome-pad-x)) + var(--welcome-fade-x) * 1.0))), linear-gradient(to bottom, var(--text) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 1.0)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.9)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.8)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.7)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.6)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.5)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.4)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.3)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.2)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.1)), transparent calc(var(--welcome-box-y) - ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.0)), transparent calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.0)), color-mix(in srgb, var(--text) 2.8%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.1)), color-mix(in srgb, var(--text) 10.4%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.2)), color-mix(in srgb, var(--text) 21.6%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.3)), color-mix(in srgb, var(--text) 35.2%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.4)), color-mix(in srgb, var(--text) 50.0%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.5)), color-mix(in srgb, var(--text) 64.8%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.6)), color-mix(in srgb, var(--text) 78.4%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.7)), color-mix(in srgb, var(--text) 89.6%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.8)), color-mix(in srgb, var(--text) 97.2%, transparent) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 0.9)), var(--text) calc(var(--welcome-box-y) + ((var(--welcome-box-height) / 2 + var(--welcome-pad-y)) + var(--welcome-fade-y) * 1.0))); }
+.empty-sketch > div { padding-left: 4px; }
+.empty-sketch .syntax-comment { color: var(--text3); }
+.empty-sketch-number { display: inline-block; width: 33px; box-sizing: border-box; padding: 0 8px; margin: 0 18px 0 -4px; text-align: right; color: var(--text3); }
+
+/* Plots and Tables: the options on the left (labels with an accent > and inspector-style controls),
+   then the Code and Preview tiles side by side, headed like NodeForge's scopes. */
+.pane.generator { display: grid; grid-template-columns: var(--generator-options, 33%) 1px minmax(0, 1fr); overflow-x: auto; overflow-y: hidden; background: var(--well); }
+.pane.generator[hidden] { display: none; }
+.generator-split { background: var(--separator); }
+.generator-split:focus-visible { outline: none; background: var(--accent-light); }
+.generator-options { min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--panel); }
+.generator-fields { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 18px; padding: 12px 14px 14px; overflow: auto; }
+.generator-group { display: flex; flex-direction: column; gap: var(--pad); }
+.generator-group-title { margin: 0 0 2px; }
+/* Labels in the UI font and sentence case, as inspector property labels; one line high, so a taller control keeps its label at its top. */
+.generator-field { min-width: 0; display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: var(--pad); }
+.generator-label { color: var(--text2); font: var(--size)/22px var(--ui); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.generator-input { width: 100%; height: 22px; box-sizing: border-box; padding: 0 6px; border: 1px solid var(--separator); border-radius: var(--radius); outline: none; background: var(--well); color: var(--text); font: var(--size-sm) var(--mono); }
+select.generator-input { font: var(--size) var(--ui); }
+textarea.generator-input { height: auto; min-height: 52px; padding: 4px 6px; resize: vertical; line-height: 1.4; }
+.generator-input::placeholder { color: var(--text3); }
+.generator-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.generator-input:disabled { opacity: 0.45; }
+.generator-group.idle .generator-label, .generator-group.idle .generator-check { opacity: 0.45; }
+.generator-tile.has-note { position: relative; }
+.generator-tile.has-note .generator-preview-note { top: 32px; }
+.generator-checks { display: flex; flex-wrap: wrap; gap: 4px 18px; padding-left: calc(76px + var(--pad)); }
+.generator-check { display: flex; align-items: center; gap: var(--pad); cursor: pointer; }
+.generator-check input { margin: 0; accent-color: var(--accent); }
+.generator-chip:focus-visible { outline: 1px solid var(--accent-light); outline-offset: 1px; }
+.generator-problem { padding: 0 14px 12px; color: var(--text2); font: var(--size-sm)/1.5 var(--ui); }
+.generator-problem[hidden] { display: none; }
+.generator-tiles { min-width: 0; min-height: 0; display: grid; grid-template-columns: var(--generator-code, 50%) 1px minmax(220px, 1fr); }
+.generator-tile { min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--well); }
+.generator-tile-head { flex: none; height: 32px; box-sizing: border-box; display: flex; align-items: center; gap: var(--gap); padding: 0 8px 0 10px; }
+.generator-tile-title { margin: 0; color: var(--text); font: var(--weight-strong) var(--size-sm) var(--ui); }
+.generator-tile-space { flex: 1; }
+.generator-tile-readout { color: var(--text2); font: var(--size-xs) var(--mono); white-space: nowrap; margin-right: 6px; }
+.generator-tile-readout.busy { color: var(--accent-light); }
+.generator-tile-readout.failed { color: var(--error); }
+.generator-chip { height: 20px; padding: 0 8px; border: 1px solid var(--separator); border-radius: var(--radius-sm); background: transparent; color: var(--text2); font: var(--size-xs) var(--ui); cursor: pointer; }
+.generator-chip:hover:not(:disabled) { color: var(--text); }
+.generator-chip.primary:not(:disabled), .generator-chip[aria-pressed="true"]:not(:disabled) { border-color: transparent; background: var(--accent-fill); color: var(--accent-foreground); }
+.generator-chip.primary:hover:not(:disabled), .generator-chip[aria-pressed="true"]:hover:not(:disabled) { background: var(--accent-hover); }
+.generator-chip:disabled { color: var(--text3); cursor: default; }
+.generator-code-editor.idle { visibility: hidden; }
+.generator-code-editor { flex: 1; min-height: 0; display: flex; }
+.generator-code-editor .cm-editor { flex: 1; min-width: 0; height: 100%; background: var(--well); color: var(--text); }
+.generator-code-editor .cm-editor.cm-focused { outline: none; }
+.generator-code-editor .cm-scroller { font-family: var(--mono); line-height: 1.5; }
+/* No line numbers here, so the code starts at the tile title's inset. */
+/* Under the pane ids: the editor rules shared with the Code tile carry #editor-surface's weight. */
+:is(#plots-pane, #tables-pane) .generator-code-editor .cm-scroller { font-size: var(--generator-code-size, 12px); }
+:is(#plots-pane, #tables-pane) .generator-code-editor .cm-content { padding: 6px 0 14px; caret-color: var(--accent-light); }
+:is(#plots-pane, #tables-pane) .generator-code-editor .cm-line { padding: 0 14px 0 10px; }
+/* CodeMirror's base theme colours a focused selection light lavender with a longer selector; match its length so the accent wins. */
+.generator-code-editor .cm-editor .cm-scroller .cm-selectionLayer .cm-selectionBackground, .generator-code-editor .cm-editor.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .generator-code-editor .cm-content ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+.pdf-stage { flex: 1; min-height: 0; position: relative; overflow: hidden; cursor: grab; touch-action: none; outline: none; }
+.pdf-stage[hidden] { display: none; }
+.pdf-stage.panning { cursor: grabbing; }
+.pdf-sheets { position: absolute; left: 0; top: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; transform-origin: 0 0; }
+.pdf-sheets .pdf-page { flex: none; }
+.pdf-sheets canvas { display: block; }
+.pdf-stage { user-select: none; }
+/* The page's text sits invisibly over its drawing so it can be selected and copied; positions and sizes are in points. */
+.pdf-text-layer { --min-font-size: 1; --text-scale-factor: var(--total-scale-factor); position: absolute; inset: 0; overflow: hidden; line-height: 1; text-align: left; text-size-adjust: none; forced-color-adjust: none; transform-origin: 0 0; }
+.pdf-text-layer span, .pdf-text-layer br { position: absolute; color: transparent; white-space: pre; cursor: text; transform-origin: 0 0; user-select: text; }
+.pdf-text-layer > :not(.markedContent), .pdf-text-layer .markedContent span:not(.markedContent) { --font-height: 0; --scale-x: 1; --rotate: 0deg; font-size: calc(var(--text-scale-factor) * var(--font-height)); transform: rotate(var(--rotate)) scaleX(var(--scale-x)); }
+.pdf-text-layer .markedContent { display: contents; }
+.generator-preview-note { position: absolute; inset: 0; display: grid; place-items: center; padding: 0 24px; text-align: center; color: var(--text3); font: var(--size-sm)/1.5 var(--ui); pointer-events: none; }
+.generator-preview-note[hidden] { display: none; }
+
+/* Help › Writing helper: one column, with room for a command's syntax in the name column. */
+.about .terms.reference { grid-template-columns: minmax(0, 1fr); }
+.about .terms.reference .term { grid-template-columns: 34ch minmax(0, 1fr); }
+
+/* The shell's generic menu grid reserves a checkmark column, but tool flyouts have no checkmarks. */
+.tool-flyout.menu-popup > .menu-item .flyout-label { grid-column: 1 / 3; }
+
+/* Outline: the shell's file-list rows; the number reads like the PDF, the title takes the rest. */
+.outline-list { display: flex; flex-direction: column; max-height: 40vh; overflow: auto; padding: 0 var(--pad) var(--pad); }
+.outline-row { min-width: 0; }
+.outline-number { flex: none; color: var(--text2); font-variant-numeric: tabular-nums; }
+.outline-section .outline-number { color: var(--text); }
+.outline-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.outline-section .outline-title { font-weight: var(--weight-strong); }
+.outline-empty { padding: 2px var(--pad) var(--pad); color: var(--text3); font: var(--size-sm) var(--ui); }
+.block-form-kind { padding: 0 var(--pad) 2px; color: var(--text2); font: var(--size-sm) var(--ui); }
+.block-form-kind + .field { margin-top: 2px; }
+
+/* Command summaries in the editor: a long options group or a reference shown as one quiet chip until the cursor enters it. */
+.cm-summary { padding: 0 4px; border: 1px solid var(--separator); border-radius: var(--radius-sm); color: var(--text2); font-family: var(--ui); font-size: 0.85em; cursor: text; }
+.cm-summary-ref { border-color: transparent; background: var(--control); color: var(--text); }
+.cm-summary:hover { border-color: var(--accent-light); }

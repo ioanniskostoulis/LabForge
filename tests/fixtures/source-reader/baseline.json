@@ -1,0 +1,4367 @@
+{
+ "assets/templates/report/main.tex": {
+  "tokens": [
+   "0-62 comment",
+   "63-73 comment",
+   "74-136 comment",
+   "137-208 comment",
+   "209-277 comment",
+   "278-340 comment",
+   "341-355 keyword",
+   "387-388 brace",
+   "397-398 brace",
+   "400-462 comment",
+   "463-485 comment",
+   "486-548 comment",
+   "550-556 command",
+   "556-557 brace",
+   "557-565 environment",
+   "565-566 brace",
+   "570-574 command",
+   "574-575 brace",
+   "575-583 environment",
+   "583-584 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "assets/welcome.tex": {
+  "tokens": [
+   "0-62 comment",
+   "63-73 comment",
+   "74-136 comment",
+   "137-202 comment",
+   "203-263 comment",
+   "264-326 comment",
+   "327-341 keyword",
+   "373-374 brace",
+   "383-384 brace",
+   "386-448 comment",
+   "449-471 comment",
+   "472-534 comment",
+   "536-542 command",
+   "542-543 brace",
+   "543-551 environment",
+   "551-552 brace",
+   "554-564 command",
+   "564-565 brace",
+   "577-578 brace",
+   "580-586 command",
+   "586-587 brace",
+   "587-597 environment",
+   "597-598 brace",
+   "654-661 command",
+   "661-662 brace",
+   "715-717 keyword",
+   "785-786 brace",
+   "786-788 keyword",
+   "833-837 command",
+   "837-838 brace",
+   "838-848 environment",
+   "848-849 brace",
+   "851-855 command",
+   "855-856 brace",
+   "856-864 environment",
+   "864-865 brace"
+  ],
+  "prose": [
+   "565-577 Introduction",
+   "604-608 Code",
+   "609-616 quality",
+   "617-624 governs",
+   "625-631 output",
+   "632-643 reliability",
+   "671-672 A",
+   "673-682 discovery",
+   "683-689 rarely",
+   "690-696 begins",
+   "697-701 with",
+   "702-703 a",
+   "704-709 clear",
+   "726-730 more",
+   "731-736 often",
+   "737-739 it",
+   "740-742 is",
+   "743-744 a",
+   "745-750 quiet",
+   "752-760 stubborn",
+   "763-769 that's",
+   "770-777 strange",
+   "809-814 after",
+   "815-820 Isaac",
+   "821-827 Asimov"
+  ],
+  "lint": [],
+  "math": [
+   [
+    789,
+    789,
+    789,
+    789,
+    ""
+   ],
+   [
+    790,
+    790,
+    789,
+    790,
+    "0"
+   ],
+   [
+    791,
+    791,
+    789,
+    791,
+    "0."
+   ],
+   [
+    792,
+    792,
+    789,
+    792,
+    "0.3"
+   ],
+   [
+    793,
+    793,
+    789,
+    793,
+    "0.3e"
+   ],
+   [
+    794,
+    794,
+    789,
+    794,
+    "0.3em"
+   ],
+   [
+    795,
+    795,
+    789,
+    795,
+    "0.3em]"
+   ],
+   [
+    796,
+    796,
+    789,
+    796,
+    "0.3em]\n"
+   ],
+   [
+    797,
+    797,
+    789,
+    797,
+    "0.3em]\n "
+   ],
+   [
+    798,
+    798,
+    789,
+    798,
+    "0.3em]\n  "
+   ],
+   [
+    799,
+    799,
+    789,
+    799,
+    "0.3em]\n   "
+   ],
+   [
+    800,
+    800,
+    789,
+    800,
+    "0.3em]\n    "
+   ],
+   [
+    801,
+    801,
+    789,
+    801,
+    "0.3em]\n    \n"
+   ],
+   [
+    802,
+    802,
+    789,
+    802,
+    "0.3em]\n    \n "
+   ],
+   [
+    803,
+    803,
+    789,
+    803,
+    "0.3em]\n    \n  "
+   ],
+   [
+    804,
+    804,
+    789,
+    804,
+    "0.3em]\n    \n   "
+   ],
+   [
+    805,
+    805,
+    789,
+    805,
+    "0.3em]\n    \n    "
+   ],
+   [
+    806,
+    806,
+    789,
+    806,
+    "0.3em]\n    \n    -"
+   ],
+   [
+    807,
+    807,
+    789,
+    807,
+    "0.3em]\n    \n    --"
+   ],
+   [
+    808,
+    808,
+    789,
+    808,
+    "0.3em]\n    \n    ---"
+   ],
+   [
+    809,
+    809,
+    789,
+    809,
+    "0.3em]\n    \n    --- "
+   ],
+   [
+    810,
+    810,
+    789,
+    810,
+    "0.3em]\n    \n    --- a"
+   ],
+   [
+    811,
+    811,
+    789,
+    811,
+    "0.3em]\n    \n    --- af"
+   ],
+   [
+    812,
+    812,
+    789,
+    812,
+    "0.3em]\n    \n    --- aft"
+   ],
+   [
+    813,
+    813,
+    789,
+    813,
+    "0.3em]\n    \n    --- afte"
+   ],
+   [
+    814,
+    814,
+    789,
+    814,
+    "0.3em]\n    \n    --- after"
+   ],
+   [
+    815,
+    815,
+    789,
+    815,
+    "0.3em]\n    \n    --- after "
+   ],
+   [
+    816,
+    816,
+    789,
+    816,
+    "0.3em]\n    \n    --- after I"
+   ],
+   [
+    817,
+    817,
+    789,
+    817,
+    "0.3em]\n    \n    --- after Is"
+   ],
+   [
+    818,
+    818,
+    789,
+    818,
+    "0.3em]\n    \n    --- after Isa"
+   ],
+   [
+    819,
+    819,
+    789,
+    819,
+    "0.3em]\n    \n    --- after Isaa"
+   ],
+   [
+    820,
+    820,
+    789,
+    820,
+    "0.3em]\n    \n    --- after Isaac"
+   ],
+   [
+    821,
+    821,
+    789,
+    821,
+    "0.3em]\n    \n    --- after Isaac "
+   ],
+   [
+    822,
+    822,
+    789,
+    822,
+    "0.3em]\n    \n    --- after Isaac A"
+   ],
+   [
+    823,
+    823,
+    789,
+    823,
+    "0.3em]\n    \n    --- after Isaac As"
+   ],
+   [
+    824,
+    824,
+    789,
+    824,
+    "0.3em]\n    \n    --- after Isaac Asi"
+   ],
+   [
+    825,
+    825,
+    789,
+    825,
+    "0.3em]\n    \n    --- after Isaac Asim"
+   ],
+   [
+    826,
+    826,
+    789,
+    826,
+    "0.3em]\n    \n    --- after Isaac Asimo"
+   ],
+   [
+    827,
+    827,
+    789,
+    827,
+    "0.3em]\n    \n    --- after Isaac Asimov"
+   ],
+   [
+    828,
+    828,
+    789,
+    828,
+    "0.3em]\n    \n    --- after Isaac Asimov\n"
+   ],
+   [
+    829,
+    829,
+    789,
+    829,
+    "0.3em]\n    \n    --- after Isaac Asimov\n "
+   ],
+   [
+    830,
+    830,
+    789,
+    830,
+    "0.3em]\n    \n    --- after Isaac Asimov\n  "
+   ],
+   [
+    831,
+    831,
+    789,
+    831,
+    "0.3em]\n    \n    --- after Isaac Asimov\n   "
+   ],
+   [
+    832,
+    832,
+    789,
+    832,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    "
+   ],
+   [
+    833,
+    833,
+    789,
+    833,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n"
+   ],
+   [
+    834,
+    834,
+    789,
+    834,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\"
+   ],
+   [
+    835,
+    835,
+    789,
+    835,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\e"
+   ],
+   [
+    836,
+    836,
+    789,
+    836,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\en"
+   ],
+   [
+    837,
+    837,
+    789,
+    837,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end"
+   ],
+   [
+    838,
+    838,
+    789,
+    838,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{"
+   ],
+   [
+    839,
+    839,
+    789,
+    839,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{f"
+   ],
+   [
+    840,
+    840,
+    789,
+    840,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{fl"
+   ],
+   [
+    841,
+    841,
+    789,
+    841,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flu"
+   ],
+   [
+    842,
+    842,
+    789,
+    842,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flus"
+   ],
+   [
+    843,
+    843,
+    789,
+    843,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flush"
+   ],
+   [
+    844,
+    844,
+    789,
+    844,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushr"
+   ],
+   [
+    845,
+    845,
+    789,
+    845,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushri"
+   ],
+   [
+    846,
+    846,
+    789,
+    846,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushrig"
+   ],
+   [
+    847,
+    847,
+    789,
+    847,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushrigh"
+   ],
+   [
+    848,
+    848,
+    789,
+    848,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright"
+   ],
+   [
+    849,
+    849,
+    789,
+    849,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}"
+   ],
+   [
+    850,
+    850,
+    789,
+    850,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n"
+   ],
+   [
+    851,
+    851,
+    789,
+    851,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n"
+   ],
+   [
+    852,
+    852,
+    789,
+    852,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\"
+   ],
+   [
+    853,
+    853,
+    789,
+    853,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\e"
+   ],
+   [
+    854,
+    854,
+    789,
+    854,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\en"
+   ],
+   [
+    855,
+    855,
+    789,
+    855,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end"
+   ],
+   [
+    856,
+    856,
+    789,
+    856,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{"
+   ],
+   [
+    857,
+    857,
+    789,
+    857,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{d"
+   ],
+   [
+    858,
+    858,
+    789,
+    858,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{do"
+   ],
+   [
+    859,
+    859,
+    789,
+    859,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{doc"
+   ],
+   [
+    860,
+    860,
+    789,
+    860,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{docu"
+   ],
+   [
+    861,
+    861,
+    789,
+    861,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{docum"
+   ],
+   [
+    862,
+    862,
+    789,
+    862,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{docume"
+   ],
+   [
+    863,
+    863,
+    789,
+    863,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{documen"
+   ],
+   [
+    864,
+    864,
+    789,
+    864,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{document"
+   ],
+   [
+    865,
+    865,
+    789,
+    865,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{document}"
+   ],
+   [
+    866,
+    866,
+    789,
+    866,
+    "0.3em]\n    \n    --- after Isaac Asimov\n    \n\\end{flushright}\n\n\\end{document}\n"
+   ]
+  ],
+  "folds": [
+   "15: 578-849",
+   "17: 598-832"
+  ]
+ },
+ "tests/tex/caption-keys.tex": {
+  "tokens": [
+   "0-105 comment",
+   "106-120 keyword",
+   "138-139 brace",
+   "148-149 brace",
+   "151-157 command",
+   "157-158 brace",
+   "158-166 environment",
+   "166-167 brace",
+   "169-179 command",
+   "193-194 brace",
+   "200-201 brace",
+   "213-222 command",
+   "222-223 brace",
+   "224-226 brace",
+   "227-229 brace",
+   "229-235 command",
+   "235-236 brace",
+   "241-250 command",
+   "250-251 brace",
+   "254-256 brace",
+   "259-261 brace",
+   "261-282 command",
+   "282-283 brace",
+   "294-300 command",
+   "300-301 brace",
+   "320-321 brace",
+   "324-333 command",
+   "466-467 brace",
+   "486-487 brace",
+   "489-498 command",
+   "616-617 brace",
+   "636-637 brace",
+   "639-647 command",
+   "656-657 brace",
+   "698-699 brace",
+   "721-722 brace",
+   "732-733 brace",
+   "912-921 command",
+   "969-970 brace",
+   "989-990 brace",
+   "1095-1099 command",
+   "1099-1100 brace",
+   "1100-1108 environment",
+   "1108-1109 brace"
+  ],
+  "prose": [
+   "194-200 Method",
+   "202-203 A",
+   "204-209 range",
+   "210-212 of",
+   "237-240 and",
+   "285-290 shown",
+   "291-293 in",
+   "735-736 A",
+   "737-746 paragraph",
+   "747-751 that",
+   "752-754 is",
+   "755-759 long",
+   "760-766 enough",
+   "767-769 to",
+   "770-774 need",
+   "775-782 several",
+   "783-788 lines",
+   "790-794 with",
+   "795-796 a",
+   "797-802 block",
+   "803-810 written",
+   "811-813 in",
+   "814-817 the",
+   "818-824 middle",
+   "825-827 of",
+   "828-830 it",
+   "832-835 the",
+   "836-839 arc",
+   "840-847 chamber",
+   "848-850 is",
+   "851-854 the",
+   "855-860 heart",
+   "861-863 of",
+   "864-867 the",
+   "868-875 reactor",
+   "876-879 and",
+   "880-883 the",
+   "884-889 first",
+   "890-895 stage",
+   "896-898 of",
+   "899-902 the",
+   "903-910 process",
+   "991-993 It",
+   "994-999 holds",
+   "1000-1003 the",
+   "1004-1012 electric",
+   "1013-1016 arc",
+   "1017-1020 and",
+   "1021-1029 provides",
+   "1030-1033 the",
+   "1034-1039 space",
+   "1040-1042 in",
+   "1043-1048 which",
+   "1049-1057 nitrogen",
+   "1058-1069 dissociates",
+   "1070-1073 and",
+   "1074-1080 nitric",
+   "1081-1086 oxide",
+   "1087-1092 forms"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": [
+   "6: 201-1093"
+  ]
+ },
+ "tests/tex/formula-groups-greek.tex": {
+  "tokens": [
+   "0-14 keyword",
+   "30-31 brace",
+   "40-41 brace",
+   "42-48 command",
+   "48-49 brace",
+   "49-57 environment",
+   "57-58 brace",
+   "59-69 command",
+   "82-83 brace",
+   "85-86 keyword",
+   "90-92 keyword",
+   "95-96 keyword",
+   "100-102 keyword",
+   "105-106 keyword",
+   "109-110 brace",
+   "111-117 command",
+   "117-118 brace",
+   "123-124 brace",
+   "126-132 command",
+   "132-133 brace",
+   "141-142 brace",
+   "144-148 command",
+   "148-149 brace",
+   "154-155 brace",
+   "174-178 command",
+   "178-179 brace",
+   "207-208 brace",
+   "210-220 command",
+   "231-232 brace",
+   "237-240 command",
+   "240-241 brace",
+   "245-246 brace",
+   "247-252 command",
+   "253-257 command",
+   "257-258 brace",
+   "259-264 command",
+   "264-265 brace",
+   "266-268 brace",
+   "268-273 command",
+   "273-274 brace",
+   "277-279 brace",
+   "280-281 brace",
+   "290-291 keyword",
+   "294-299 command",
+   "299-300 brace",
+   "300-304 command",
+   "304-305 brace",
+   "310-315 brace",
+   "316-317 brace",
+   "320-324 command",
+   "324-325 brace",
+   "330-333 brace",
+   "334-336 keyword",
+   "341-344 command",
+   "344-345 brace",
+   "349-350 brace",
+   "351-356 command",
+   "357-361 command",
+   "361-362 brace",
+   "363-368 command",
+   "368-369 brace",
+   "370-372 brace",
+   "372-377 command",
+   "377-378 brace",
+   "381-383 brace",
+   "384-385 brace",
+   "394-395 keyword",
+   "398-403 command",
+   "403-404 brace",
+   "404-408 command",
+   "408-409 brace",
+   "414-419 brace",
+   "420-421 brace",
+   "424-428 command",
+   "428-429 brace",
+   "434-437 brace",
+   "438-439 brace",
+   "440-446 command",
+   "446-447 brace",
+   "450-451 brace",
+   "453-459 command",
+   "459-460 brace",
+   "466-467 brace",
+   "469-475 command",
+   "475-476 brace",
+   "482-483 brace",
+   "485-489 command",
+   "489-490 brace",
+   "490-498 environment",
+   "498-499 brace"
+  ],
+  "prose": [
+   "157-159 Οι",
+   "160-167 αριθμοί",
+   "168-173 είναι"
+  ],
+  "lint": [],
+  "math": [
+   [
+    83,
+    109,
+    83,
+    109,
+    "\\begin{aligned}a &= 1 \\\\ b &= 2 \\\\ c &= 3\\end{aligned}"
+   ],
+   [
+    232,
+    438,
+    232,
+    438,
+    "\\begin{aligned}\\ce{Sn_l}:\\quad \\log{(\\frac{p}{\\text{atm}})}\n        &= -\\frac{\\qty{15332}{}}{T} + \\qty{5.262}{} \\\\\n    \\ce{Sn_s}:\\quad \\log{(\\frac{p}{\\text{atm}})}\n        &= -\\frac{\\qty{15710}{}}{T} + \\qty{6.036}{}\\end{aligned}"
+   ]
+  ],
+  "folds": []
+ },
+ "tests/tex/formula-groups.tex": {
+  "tokens": [
+   "0-67 comment",
+   "68-82 keyword",
+   "100-101 brace",
+   "110-111 brace",
+   "112-118 command",
+   "118-119 brace",
+   "119-127 environment",
+   "127-128 brace",
+   "129-135 command",
+   "135-136 brace",
+   "136-145 environment",
+   "145-147 brace",
+   "148-149 brace",
+   "150-160 command",
+   "173-174 brace",
+   "176-177 keyword",
+   "181-183 keyword",
+   "186-187 keyword",
+   "191-200 command",
+   "201-203 keyword",
+   "206-207 keyword",
+   "210-211 brace",
+   "225-231 command",
+   "231-232 brace",
+   "237-238 brace",
+   "267-273 command",
+   "273-274 brace",
+   "282-283 brace",
+   "306-310 command",
+   "310-311 brace",
+   "316-317 brace",
+   "332-336 command",
+   "336-337 brace",
+   "345-346 brace",
+   "373-377 command",
+   "377-378 brace",
+   "396-397 brace",
+   "399-409 command",
+   "432-433 brace",
+   "435-436 keyword",
+   "440-442 keyword",
+   "445-446 keyword",
+   "449-450 brace",
+   "473-479 command",
+   "479-480 brace",
+   "484-485 brace",
+   "487-491 command",
+   "491-492 brace",
+   "492-501 environment",
+   "501-502 brace",
+   "503-513 command",
+   "527-528 brace",
+   "530-531 keyword",
+   "534-535 brace",
+   "558-564 command",
+   "564-565 brace",
+   "571-572 brace",
+   "577-581 command",
+   "581-582 brace",
+   "588-589 brace",
+   "591-595 command",
+   "595-596 brace",
+   "596-604 environment",
+   "604-605 brace"
+  ],
+  "prose": [
+   "212-215 The",
+   "216-221 group",
+   "222-224 is",
+   "240-243 its",
+   "244-250 second",
+   "251-259 numbered",
+   "260-263 row",
+   "264-266 is",
+   "285-288 The",
+   "289-293 bare",
+   "294-301 numbers",
+   "302-305 are",
+   "319-322 The",
+   "323-328 first",
+   "329-331 is",
+   "348-351 The",
+   "352-360 selected",
+   "361-368 numbers",
+   "369-372 are",
+   "451-454 The",
+   "455-463 spanning",
+   "464-469 group",
+   "470-472 is",
+   "536-539 The",
+   "540-546 single",
+   "547-554 formula",
+   "555-557 is",
+   "573-576 and"
+  ],
+  "lint": [],
+  "math": [
+   [
+    174,
+    210,
+    174,
+    210,
+    "\\begin{aligned}a &= 1 \\\\ b &= 2 \\nonumber \\\\ c &= 3\\end{aligned}"
+   ],
+   [
+    433,
+    449,
+    433,
+    449,
+    "\\begin{aligned}x &= 4 \\\\ y &= 5\\end{aligned}"
+   ],
+   [
+    528,
+    534,
+    528,
+    534,
+    "\\begin{aligned}z &= 6\\end{aligned}"
+   ]
+  ],
+  "folds": [
+   "4: 149-486"
+  ]
+ },
+ "tests/tex/reference-undefined.tex": {
+  "tokens": [
+   "0-14 keyword",
+   "32-33 brace",
+   "42-43 brace",
+   "44-50 command",
+   "50-51 brace",
+   "51-59 environment",
+   "59-60 brace",
+   "91-97 command",
+   "97-98 brace",
+   "104-105 brace",
+   "122-128 command",
+   "128-129 brace",
+   "142-143 brace",
+   "162-166 command",
+   "166-167 brace",
+   "173-174 brace",
+   "176-187 command",
+   "200-201 brace",
+   "215-216 brace",
+   "217-221 command",
+   "221-222 brace",
+   "222-230 environment",
+   "230-231 brace"
+  ],
+  "prose": [
+   "61-63 An",
+   "64-71 unknown",
+   "72-77 named",
+   "78-87 reference",
+   "88-90 is",
+   "107-108 A",
+   "109-114 mixed",
+   "115-118 one",
+   "119-121 is",
+   "145-150 Plain",
+   "151-160 reference"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "tests/tex/report-two-column.tex": {
+  "tokens": [
+   "0-69 comment",
+   "70-84 keyword",
+   "129-130 brace",
+   "139-140 brace",
+   "142-153 keyword",
+   "153-154 brace",
+   "154-161 command",
+   "161-163 brace",
+   "504-505 brace",
+   "507-513 command",
+   "513-514 brace",
+   "514-522 environment",
+   "522-523 brace",
+   "525-534 command",
+   "688-696 command",
+   "744-750 command",
+   "750-751 brace",
+   "751-760 environment",
+   "760-762 brace",
+   "763-764 brace",
+   "766-776 command",
+   "789-790 brace",
+   "798-799 brace",
+   "800-807 command",
+   "807-809 brace",
+   "866-871 command",
+   "871-872 brace",
+   "881-882 brace",
+   "885-892 command",
+   "892-894 brace",
+   "934-939 command",
+   "939-940 brace",
+   "946-947 brace",
+   "950-963 command",
+   "978-979 brace",
+   "992-993 brace",
+   "994-1001 command",
+   "1001-1003 brace",
+   "1027-1033 command",
+   "1033-1034 brace",
+   "1039-1040 brace",
+   "1062-1068 command",
+   "1068-1069 brace",
+   "1095-1096 brace",
+   "1099-1108 command",
+   "1178-1179 brace",
+   "1198-1199 brace",
+   "1200-1209 command",
+   "1285-1286 brace",
+   "1305-1306 brace",
+   "1308-1315 command",
+   "1315-1317 brace",
+   "1362-1368 command",
+   "1368-1369 brace",
+   "1378-1379 brace",
+   "1412-1418 command",
+   "1418-1419 brace",
+   "1430-1431 brace",
+   "1434-1445 command",
+   "1462-1463 brace",
+   "1479-1480 brace",
+   "1481-1491 command",
+   "1510-1511 brace",
+   "1517-1522 command",
+   "1522-1523 brace",
+   "1525-1526 brace",
+   "1526-1533 command",
+   "1533-1534 brace",
+   "1536-1538 brace",
+   "1540-1542 brace",
+   "1544-1545 brace",
+   "1545-1552 command",
+   "1552-1553 brace",
+   "1556-1558 brace",
+   "1563-1564 brace",
+   "1564-1571 command",
+   "1571-1572 brace",
+   "1575-1579 brace",
+   "1580-1591 command",
+   "1591-1592 brace",
+   "1592-1598 command",
+   "1601-1606 command",
+   "1613-1616 command",
+   "1620-1621 brace",
+   "1623-1630 command",
+   "1630-1632 brace",
+   "1664-1670 command",
+   "1670-1671 brace",
+   "1681-1682 brace",
+   "1685-1693 command",
+   "1702-1703 brace",
+   "1750-1751 brace",
+   "1752-1753 brace",
+   "1763-1764 brace",
+   "1768-1774 command",
+   "1779-1780 brace",
+   "1790-1791 brace",
+   "1841-1847 command",
+   "1847-1848 brace",
+   "1869-1870 brace",
+   "1884-1890 command",
+   "1895-1896 brace",
+   "1917-1918 brace",
+   "1921-1931 command",
+   "1946-1947 brace",
+   "1959-1960 brace",
+   "1961-1968 command",
+   "1968-1970 brace",
+   "2007-2013 command",
+   "2013-2014 brace",
+   "2029-2030 brace",
+   "2033-2040 command",
+   "2103-2104 brace",
+   "2118-2119 brace",
+   "2121-2128 command",
+   "2128-2130 brace",
+   "2147-2153 command",
+   "2153-2154 brace",
+   "2167-2168 brace",
+   "2191-2198 command",
+   "2198-2199 brace",
+   "2210-2211 brace",
+   "2214-2222 command",
+   "2260-2261 brace",
+   "2274-2275 brace",
+   "2277-2286 command",
+   "2355-2356 brace",
+   "2375-2376 brace",
+   "2378-2385 command",
+   "2385-2387 brace",
+   "2390-2396 command",
+   "2396-2397 brace",
+   "2404-2405 brace",
+   "2420-2426 command",
+   "2426-2427 brace",
+   "2441-2442 brace",
+   "2445-2452 command",
+   "2452-2454 brace",
+   "2456-2471 command",
+   "2472-2476 command",
+   "2476-2477 brace",
+   "2477-2486 environment",
+   "2486-2487 brace",
+   "2489-2493 command",
+   "2493-2494 brace",
+   "2494-2502 environment",
+   "2502-2503 brace"
+  ],
+  "prose": [
+   "790-798 Εισαγωγή",
+   "810-811 Η",
+   "812-819 μέθοδος",
+   "820-829 βασίζεται",
+   "830-834 στην",
+   "835-842 εργασία",
+   "843-846 των",
+   "847-856 Birkeland",
+   "857-860 και",
+   "861-865 Eyde",
+   "895-897 Οι",
+   "898-912 θερμοδυναμικές",
+   "913-920 σχέσεις",
+   "921-929 δίνονται",
+   "930-933 στο",
+   "979-986 Θάλαμος",
+   "987-992 τόξου",
+   "1004-1005 Η",
+   "1006-1013 διάταξη",
+   "1014-1022 φαίνεται",
+   "1023-1026 στο",
+   "1042-1045 ενώ",
+   "1046-1048 τα",
+   "1049-1053 μέρη",
+   "1054-1057 της",
+   "1058-1061 στα",
+   "1318-1319 Ο",
+   "1320-1331 σχηματισμός",
+   "1332-1335 του",
+   "1336-1347 μονοξειδίου",
+   "1348-1357 ακολουθεί",
+   "1358-1361 την",
+   "1381-1383 με",
+   "1384-1391 σταθερά",
+   "1392-1402 ισορροπίας",
+   "1403-1407 κατά",
+   "1408-1411 την",
+   "1633-1635 Οι",
+   "1636-1645 μετρήσεις",
+   "1646-1658 συνοψίζονται",
+   "1659-1663 στον",
+   "1766-1767 Ο",
+   "1792-1803 συνεχίζεται",
+   "1804-1808 στην",
+   "1809-1816 επόμενη",
+   "1817-1822 στήλη",
+   "1824-1830 Μικτές",
+   "1831-1839 αναφορές",
+   "1872-1882 Ονομαστική",
+   "1947-1959 Αποτελέσματα",
+   "1971-1972 Η",
+   "1973-1980 καμπύλη",
+   "1981-1993 βαθμονόμησης",
+   "1994-2002 φαίνεται",
+   "2003-2006 στο",
+   "2131-2133 Οι",
+   "2134-2142 σταθερές",
+   "2143-2146 του",
+   "2169-2185 χρησιμοποιήθηκαν",
+   "2186-2190 στην",
+   "2388-2389 Η",
+   "2406-2415 συνοψίζει",
+   "2416-2419 τις"
+  ],
+  "lint": [],
+  "math": [
+   [
+    1511,
+    1578,
+    1511,
+    1578,
+    "K_p = \\frac{p_{\\mathrm{NO}}^2}{p_{\\mathrm{N_2}}\\, p_{\\mathrm{O_2}}}"
+   ],
+   [
+    1592,
+    1620,
+    1592,
+    1620,
+    "\\Delta G^\\circ = -RT \\ln K_p"
+   ]
+  ],
+  "folds": [
+   "20: 764-2471",
+   "22: 799-1919",
+   "27: 993-1919",
+   "48: 1960-2487"
+  ]
+ },
+ "tests/tex/side-figures.tex": {
+  "tokens": [
+   "0-108 comment",
+   "109-123 keyword",
+   "141-142 brace",
+   "151-152 brace",
+   "154-160 command",
+   "160-161 brace",
+   "161-169 environment",
+   "169-170 brace",
+   "172-182 command",
+   "196-197 brace",
+   "203-204 brace",
+   "227-233 command",
+   "233-234 brace",
+   "243-244 brace",
+   "266-272 command",
+   "272-273 brace",
+   "285-286 brace",
+   "303-309 command",
+   "309-310 brace",
+   "336-337 brace",
+   "361-365 command",
+   "365-366 brace",
+   "378-379 brace",
+   "402-408 command",
+   "408-409 brace",
+   "418-419 brace",
+   "436-442 command",
+   "442-443 brace",
+   "457-458 brace",
+   "482-488 command",
+   "488-489 brace",
+   "501-502 brace",
+   "515-524 command",
+   "587-588 brace",
+   "596-597 brace",
+   "611-613 brace",
+   "614-615 brace",
+   "655-656 brace",
+   "658-667 command",
+   "738-739 brace",
+   "800-801 brace",
+   "803-812 command",
+   "875-876 brace",
+   "890-891 brace",
+   "904-905 brace",
+   "945-946 brace",
+   "948-957 command",
+   "969-970 brace",
+   "981-982 brace",
+   "983-984 brace",
+   "1024-1025 brace",
+   "1116-1123 command",
+   "1182-1183 brace",
+   "1194-1195 brace",
+   "1196-1197 brace",
+   "1227-1228 brace",
+   "1230-1234 command",
+   "1234-1235 brace",
+   "1235-1243 environment",
+   "1243-1244 brace"
+  ],
+  "prose": [
+   "197-203 Method",
+   "205-208 The",
+   "209-212 two",
+   "213-219 setups",
+   "220-223 are",
+   "224-226 in",
+   "246-249 the",
+   "250-256 second",
+   "257-262 alone",
+   "263-265 is",
+   "288-292 both",
+   "293-298 parts",
+   "299-302 are",
+   "338-341 and",
+   "342-345 the",
+   "346-350 bare",
+   "351-357 number",
+   "358-360 is",
+   "381-388 Without",
+   "389-400 subcaptions",
+   "420-423 has",
+   "424-426 no",
+   "427-434 letters",
+   "459-462 has",
+   "463-467 only",
+   "468-469 a",
+   "470-476 letter",
+   "478-481 and",
+   "503-505 is",
+   "506-507 a",
+   "508-512 plot",
+   "1027-1028 A",
+   "1029-1038 paragraph",
+   "1039-1044 after",
+   "1045-1046 a",
+   "1047-1050 row",
+   "1051-1058 without",
+   "1059-1060 a",
+   "1061-1068 caption",
+   "1070-1072 so",
+   "1073-1075 it",
+   "1076-1079 has",
+   "1080-1082 no",
+   "1083-1089 number",
+   "1090-1093 and",
+   "1094-1097 its",
+   "1098-1103 parts",
+   "1104-1106 no",
+   "1107-1113 labels"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": [
+   "6: 204-1228"
+  ]
+ },
+ "tests/tex/thesis-one-column.tex": {
+  "tokens": [
+   "0-65 comment",
+   "66-80 keyword",
+   "113-114 brace",
+   "123-124 brace",
+   "126-137 keyword",
+   "137-138 brace",
+   "138-145 command",
+   "145-147 brace",
+   "423-424 brace",
+   "426-432 command",
+   "432-433 brace",
+   "433-441 environment",
+   "441-442 brace",
+   "444-453 command",
+   "531-541 command",
+   "555-556 brace",
+   "562-563 brace",
+   "564-571 command",
+   "571-573 brace",
+   "596-602 command",
+   "602-603 brace",
+   "608-609 brace",
+   "612-621 command",
+   "683-684 brace",
+   "703-704 brace",
+   "706-713 command",
+   "713-715 brace",
+   "738-744 command",
+   "744-745 brace",
+   "754-755 brace",
+   "781-787 command",
+   "787-788 brace",
+   "799-800 brace",
+   "803-814 command",
+   "831-832 brace",
+   "848-849 brace",
+   "850-860 command",
+   "879-880 brace",
+   "884-885 keyword",
+   "887-892 command",
+   "892-893 brace",
+   "895-896 brace",
+   "896-903 command",
+   "903-904 brace",
+   "906-908 brace",
+   "910-912 brace",
+   "914-915 brace",
+   "915-922 command",
+   "922-923 brace",
+   "926-928 brace",
+   "933-934 brace",
+   "934-941 command",
+   "941-942 brace",
+   "945-948 brace",
+   "949-951 keyword",
+   "982-988 command",
+   "991-996 command",
+   "997-998 keyword",
+   "1004-1007 command",
+   "1011-1012 brace",
+   "1014-1023 command",
+   "1088-1089 brace",
+   "1108-1109 brace",
+   "1110-1117 command",
+   "1117-1119 brace",
+   "1120-1127 command",
+   "1127-1129 brace",
+   "1153-1159 command",
+   "1159-1160 brace",
+   "1166-1167 brace",
+   "1170-1179 command",
+   "1233-1234 brace",
+   "1253-1254 brace",
+   "1255-1262 command",
+   "1262-1264 brace",
+   "1265-1272 command",
+   "1272-1274 brace",
+   "1276-1289 command",
+   "1289-1290 brace",
+   "1302-1303 brace",
+   "1304-1312 command",
+   "1321-1322 brace",
+   "1363-1364 brace",
+   "1365-1366 brace",
+   "1376-1377 brace",
+   "1379-1386 command",
+   "1386-1388 brace",
+   "1393-1399 command",
+   "1399-1400 brace",
+   "1417-1418 brace",
+   "1423-1429 command",
+   "1429-1430 brace",
+   "1436-1437 brace",
+   "1457-1463 command",
+   "1463-1464 brace",
+   "1485-1486 brace",
+   "1507-1513 command",
+   "1513-1514 brace",
+   "1539-1540 brace",
+   "1543-1547 command",
+   "1547-1548 brace",
+   "1548-1556 environment",
+   "1556-1557 brace"
+  ],
+  "prose": [
+   "556-562 Method",
+   "574-577 The",
+   "578-583 setup",
+   "584-586 is",
+   "587-592 shown",
+   "593-595 in",
+   "716-722 Nitric",
+   "723-728 oxide",
+   "729-734 forms",
+   "735-737 by",
+   "757-760 its",
+   "761-772 equilibrium",
+   "773-780 follows",
+   "1130-1133 The",
+   "1134-1140 flange",
+   "1141-1143 is",
+   "1144-1149 shown",
+   "1150-1152 in",
+   "1290-1302 Measurements",
+   "1389-1392 See",
+   "1419-1422 and",
+   "1439-1444 Mixed",
+   "1445-1455 references",
+   "1488-1495 Indexed",
+   "1496-1499 and",
+   "1500-1505 mixed"
+  ],
+  "lint": [],
+  "math": [
+   [
+    880,
+    1011,
+    880,
+    1011,
+    "\\begin{aligned}K_p &= \\frac{p_{\\mathrm{NO}}^2}{p_{\\mathrm{N_2}}\\, p_{\\mathrm{O_2}}} \\\\\n                              \\Delta G^\\circ &= -RT \\ln K_p\\end{aligned}"
+   ]
+  ],
+  "folds": [
+   "13: 563-1541",
+   "31: 1303-1541"
+  ]
+ },
+ "input 0": {
+  "tokens": [
+   "0-14 keyword",
+   "14-15 brace",
+   "24-25 brace",
+   "26-32 command",
+   "32-33 brace",
+   "33-41 environment",
+   "41-42 brace",
+   "84-90 command",
+   "90-91 brace",
+   "112-113 brace",
+   "114-124 command",
+   "139-140 brace",
+   "152-153 brace",
+   "154-159 command",
+   "159-160 brace",
+   "169-170 brace",
+   "171-176 command",
+   "187-188 brace",
+   "196-197 brace",
+   "198-204 command",
+   "204-205 brace",
+   "213-214 brace",
+   "215-221 keyword",
+   "221-222 brace",
+   "240-241 brace",
+   "242-252 command",
+   "265-266 brace",
+   "268-269 keyword",
+   "273-275 keyword",
+   "278-279 keyword",
+   "282-283 brace",
+   "284-285 math",
+   "290-291 math",
+   "304-310 command",
+   "310-311 brace",
+   "311-316 environment",
+   "316-317 brace",
+   "320-321 keyword",
+   "325-329 command",
+   "329-330 brace",
+   "330-335 environment",
+   "335-336 brace",
+   "337-342 command",
+   "353-359 command",
+   "359-360 brace",
+   "360-368 environment",
+   "368-369 brace",
+   "377-381 command",
+   "381-382 brace",
+   "382-390 environment",
+   "390-391 brace",
+   "392-411 comment",
+   "439-443 command",
+   "443-444 brace",
+   "468-469 brace",
+   "471-475 command",
+   "475-476 brace",
+   "476-484 environment",
+   "484-485 brace"
+  ],
+  "prose": [
+   "43-46 The",
+   "47-54 dawdawd",
+   "55-60 table",
+   "61-64 and",
+   "65-66 η",
+   "67-77 λανθασμενη",
+   "78-82 λέξη",
+   "140-146 Useful",
+   "147-152 title",
+   "412-415 See",
+   "435-438 and"
+  ],
+  "lint": [],
+  "math": [
+   [
+    266,
+    282,
+    266,
+    282,
+    "\\begin{aligned}a &= 1 \\\\ b &= 2\\end{aligned}"
+   ],
+   [
+    285,
+    290,
+    285,
+    290,
+    "x + y"
+   ],
+   [
+    294,
+    295,
+    294,
+    295,
+    "z"
+   ],
+   [
+    300,
+    301,
+    300,
+    301,
+    "w"
+   ],
+   [
+    317,
+    325,
+    317,
+    325,
+    "\\begin{align} p &= q \\end{align}"
+   ]
+  ],
+  "folds": [
+   "4: 241-470"
+  ]
+ },
+ "input 1": {
+  "tokens": [
+   "4-6 math",
+   "11-13 math"
+  ],
+  "prose": [
+   "0-3 One",
+   "14-17 two",
+   "28-33 three"
+  ],
+  "lint": [],
+  "math": [
+   [
+    6,
+    11,
+    6,
+    11,
+    " a\nb "
+   ],
+   [
+    20,
+    25,
+    20,
+    25,
+    " c\nd "
+   ]
+  ],
+  "folds": []
+ },
+ "input 2": {
+  "tokens": [
+   "13-14 math",
+   "20-21 math"
+  ],
+  "prose": [
+   "0-4 Cost",
+   "9-12 and",
+   "22-26 more"
+  ],
+  "lint": [],
+  "math": [
+   [
+    14,
+    20,
+    14,
+    20,
+    "a \\$ b"
+   ]
+  ],
+  "folds": []
+ },
+ "input 3": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-12 environment",
+   "12-13 brace",
+   "18-22 command",
+   "22-23 brace",
+   "23-28 environment",
+   "28-29 brace"
+  ],
+  "prose": [
+   "30-35 after"
+  ],
+  "lint": [],
+  "math": [
+   [
+    13,
+    18,
+    13,
+    18,
+    "\\begin{align} a\nb \\end{align}"
+   ]
+  ],
+  "folds": []
+ },
+ "input 4": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-15 environment",
+   "15-16 brace",
+   "31-35 command",
+   "35-36 brace",
+   "36-44 environment",
+   "44-45 brace"
+  ],
+  "prose": [
+   "46-51 prose"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": [
+   "1: 20-21"
+  ]
+ },
+ "input 5": {
+  "tokens": [
+   "0-9 command",
+   "9-10 brace",
+   "21-22 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 6": {
+  "tokens": [
+   "0-7 command",
+   "7-8 brace",
+   "15-16 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 7": {
+  "tokens": [
+   "0-9 command",
+   "9-10 brace",
+   "19-20 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 8": {
+  "tokens": [
+   "0-7 command",
+   "7-8 brace",
+   "13-14 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 9": {
+  "tokens": [
+   "0-8 command",
+   "8-9 brace",
+   "16-17 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 10": {
+  "tokens": [
+   "0-6 keyword",
+   "6-7 brace",
+   "15-16 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 11": {
+  "tokens": [
+   "0-11 command",
+   "11-12 brace",
+   "21-22 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-11 \\mygraphics is not a LabForge command. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 12": {
+  "tokens": [
+   "0-14 keyword",
+   "14-15 brace",
+   "23-24 brace",
+   "24-39 command"
+  ],
+  "prose": [],
+  "lint": [
+   "24-39 \\mybibliography needs the bibliography class option. Enable Bibliography in Builder."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 13": {
+  "tokens": [
+   "0-15 command"
+  ],
+  "prose": [],
+  "lint": [
+   "0-15 \\mybibliography needs the bibliography class option. Enable Bibliography in Builder."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 14": {
+  "tokens": [
+   "0-14 keyword",
+   "28-29 brace",
+   "37-38 brace",
+   "38-53 command"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 15": {
+  "tokens": [
+   "0-14 keyword",
+   "14-15 brace",
+   "23-24 brace",
+   "25-31 command",
+   "31-32 brace",
+   "32-40 environment",
+   "40-41 brace",
+   "42-52 command",
+   "52-53 brace",
+   "63-64 math",
+   "65-66 math",
+   "71-73 math",
+   "74-76 math",
+   "76-77 brace",
+   "78-105 comment",
+   "106-111 command",
+   "112-113 brace",
+   "114-115 math",
+   "130-136 command",
+   "136-137 brace",
+   "137-145 environment",
+   "145-146 brace",
+   "147-148 brace",
+   "149-150 math",
+   "151-155 command",
+   "155-156 brace",
+   "156-159 environment",
+   "159-160 brace",
+   "161-165 command",
+   "165-166 brace",
+   "166-174 environment",
+   "174-175 brace",
+   "176-180 command",
+   "180-181 brace",
+   "181-189 environment",
+   "189-190 brace"
+  ],
+  "prose": [
+   "53-54 A",
+   "58-59 b",
+   "67-70 and",
+   "117-120 and"
+  ],
+  "lint": [],
+  "math": [
+   [
+    64,
+    65,
+    64,
+    65,
+    "x"
+   ],
+   [
+    73,
+    74,
+    73,
+    74,
+    "y"
+   ],
+   [
+    115,
+    149,
+    115,
+    149,
+    "| and 50\\% \\$5\n\\begin{verbatim}\n{ "
+   ]
+  ],
+  "folds": [
+   "3: 77-175",
+   "6: 146-160"
+  ]
+ },
+ "input 16": {
+  "tokens": [
+   "0-1 brace",
+   "9-10 brace",
+   "27-28 brace",
+   "59-60 brace"
+  ],
+  "prose": [
+   "4-8 This",
+   "11-14 has",
+   "15-17 no",
+   "18-26 matching",
+   "30-36 Remove",
+   "37-39 it",
+   "40-42 or",
+   "43-46 add",
+   "47-50 the",
+   "51-58 opening"
+  ],
+  "lint": [
+   "0-1 This } has no matching {. Remove it or add the opening {.",
+   "9-10 This } has no matching {. Remove it or add the opening {.",
+   "27-28 This { is never closed. Add the closing }.",
+   "59-60 This { is never closed. Add the closing }."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 17": {
+  "tokens": [
+   "0-10 command",
+   "10-11 brace"
+  ],
+  "prose": [
+   "11-12 A"
+  ],
+  "lint": [
+   "10-11 This { is never closed. Add the closing }."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 18": {
+  "tokens": [
+   "0-1 brace",
+   "9-10 brace",
+   "44-45 brace"
+  ],
+  "prose": [
+   "4-8 This",
+   "11-13 is",
+   "14-19 never",
+   "20-26 closed",
+   "28-31 Add",
+   "32-35 the",
+   "36-43 closing"
+  ],
+  "lint": [
+   "0-1 This { is never closed. Add the closing }."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 19": {
+  "tokens": [
+   "0-7 command",
+   "7-8 brace",
+   "9-10 brace",
+   "11-12 brace"
+  ],
+  "prose": [
+   "8-9 a",
+   "10-11 b"
+  ],
+  "lint": [
+   "7-8 This { is never closed. Add the closing }."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 20": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-14 environment",
+   "14-15 brace",
+   "16-21 command"
+  ],
+  "prose": [
+   "22-23 a"
+  ],
+  "lint": [
+   "0-15 \\begin{itemize} is never closed. Add \\end{itemize}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 21": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-14 environment",
+   "14-15 brace",
+   "18-24 command",
+   "24-25 brace",
+   "25-32 environment",
+   "32-33 brace",
+   "55-59 command",
+   "59-60 brace",
+   "60-67 environment",
+   "67-68 brace"
+  ],
+  "prose": [
+   "34-36 is",
+   "37-42 never",
+   "43-49 closed",
+   "51-54 Add"
+  ],
+  "lint": [
+   "0-15 \\begin{itemize} is never closed. Add \\end{itemize}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 22": {
+  "tokens": [
+   "0-4 command",
+   "4-5 brace",
+   "5-12 environment",
+   "12-13 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-13 \\end{itemize} has no \\begin{itemize}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 23": {
+  "tokens": [
+   "0-4 command",
+   "4-5 brace",
+   "5-12 environment",
+   "12-13 brace",
+   "16-20 command",
+   "20-21 brace",
+   "21-28 environment",
+   "28-29 brace",
+   "37-43 command",
+   "43-44 brace",
+   "44-51 environment",
+   "51-52 brace"
+  ],
+  "prose": [
+   "30-33 has",
+   "34-36 no"
+  ],
+  "lint": [
+   "0-13 \\end{itemize} has no \\begin{itemize}.",
+   "16-29 \\end{itemize} has no \\begin{itemize}.",
+   "37-52 \\begin{itemize} is never closed. Add \\end{itemize}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 24": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-8 environment",
+   "8-9 brace",
+   "9-15 command",
+   "15-16 brace",
+   "16-17 environment",
+   "17-18 brace",
+   "18-22 command",
+   "22-23 brace",
+   "23-24 environment",
+   "24-25 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "9-18 \\begin{b} is never closed. Add \\end{b}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 25": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-8 environment",
+   "8-9 brace",
+   "12-18 command",
+   "18-19 brace",
+   "19-20 environment",
+   "20-21 brace",
+   "43-47 command",
+   "47-48 brace",
+   "48-49 environment",
+   "49-50 brace"
+  ],
+  "prose": [
+   "22-24 is",
+   "25-30 never",
+   "31-37 closed",
+   "39-42 Add"
+  ],
+  "lint": [
+   "0-9 \\begin{b} is never closed. Add \\end{b}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 26": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-8 environment",
+   "8-9 brace",
+   "9-13 command",
+   "13-14 brace",
+   "14-15 environment",
+   "15-16 brace",
+   "16-20 command",
+   "20-21 brace",
+   "21-22 environment",
+   "22-23 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "9-16 \\end{b} does not match \\begin{a}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 27": {
+  "tokens": [
+   "0-4 command",
+   "4-5 brace",
+   "5-6 environment",
+   "6-7 brace",
+   "10-14 command",
+   "14-15 brace",
+   "15-16 environment",
+   "16-17 brace",
+   "33-39 command",
+   "39-40 brace",
+   "40-41 environment",
+   "41-42 brace"
+  ],
+  "prose": [
+   "18-22 does",
+   "23-26 not",
+   "27-32 match"
+  ],
+  "lint": [
+   "0-7 \\end{b} has no \\begin{b}.",
+   "10-17 \\end{b} has no \\begin{b}.",
+   "33-42 \\begin{a} is never closed. Add \\end{a}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 28": {
+  "tokens": [
+   "3-4 math"
+  ],
+  "prose": [
+   "0-2 so",
+   "11-15 next",
+   "16-25 paragraph"
+  ],
+  "lint": [
+   "3-4 This $ is never closed. Add the closing $ before the blank line."
+  ],
+  "math": [
+   [
+    4,
+    4,
+    4,
+    4,
+    ""
+   ],
+   [
+    5,
+    5,
+    4,
+    5,
+    "x"
+   ],
+   [
+    6,
+    6,
+    4,
+    6,
+    "x "
+   ],
+   [
+    7,
+    7,
+    4,
+    7,
+    "x ="
+   ],
+   [
+    8,
+    8,
+    4,
+    8,
+    "x = "
+   ],
+   [
+    9,
+    9,
+    4,
+    9,
+    "x = 1"
+   ],
+   [
+    10,
+    10,
+    4,
+    10,
+    "x = 1\n"
+   ],
+   [
+    11,
+    11,
+    4,
+    11,
+    "x = 1\n\n"
+   ],
+   [
+    12,
+    12,
+    4,
+    12,
+    "x = 1\n\nn"
+   ],
+   [
+    13,
+    13,
+    4,
+    13,
+    "x = 1\n\nne"
+   ],
+   [
+    14,
+    14,
+    4,
+    14,
+    "x = 1\n\nnex"
+   ],
+   [
+    15,
+    15,
+    4,
+    15,
+    "x = 1\n\nnext"
+   ],
+   [
+    16,
+    16,
+    4,
+    16,
+    "x = 1\n\nnext "
+   ],
+   [
+    17,
+    17,
+    4,
+    17,
+    "x = 1\n\nnext p"
+   ],
+   [
+    18,
+    18,
+    4,
+    18,
+    "x = 1\n\nnext pa"
+   ],
+   [
+    19,
+    19,
+    4,
+    19,
+    "x = 1\n\nnext par"
+   ],
+   [
+    20,
+    20,
+    4,
+    20,
+    "x = 1\n\nnext para"
+   ],
+   [
+    21,
+    21,
+    4,
+    21,
+    "x = 1\n\nnext parag"
+   ],
+   [
+    22,
+    22,
+    4,
+    22,
+    "x = 1\n\nnext paragr"
+   ],
+   [
+    23,
+    23,
+    4,
+    23,
+    "x = 1\n\nnext paragra"
+   ],
+   [
+    24,
+    24,
+    4,
+    24,
+    "x = 1\n\nnext paragrap"
+   ],
+   [
+    25,
+    25,
+    4,
+    25,
+    "x = 1\n\nnext paragraph"
+   ]
+  ],
+  "folds": []
+ },
+ "input 29": {
+  "tokens": [
+   "0-1 math",
+   "9-10 math",
+   "44-45 math"
+  ],
+  "prose": [
+   "11-13 is",
+   "14-19 never",
+   "20-26 closed",
+   "28-31 Add",
+   "32-35 the",
+   "36-43 closing"
+  ],
+  "lint": [
+   "44-45 This $ is never closed. Add the closing $ before the blank line."
+  ],
+  "math": [
+   [
+    1,
+    9,
+    1,
+    9,
+    " | This "
+   ],
+   [
+    45,
+    45,
+    45,
+    45,
+    ""
+   ],
+   [
+    46,
+    46,
+    45,
+    46,
+    " "
+   ],
+   [
+    47,
+    47,
+    45,
+    47,
+    " b"
+   ],
+   [
+    48,
+    48,
+    45,
+    48,
+    " be"
+   ],
+   [
+    49,
+    49,
+    45,
+    49,
+    " bef"
+   ],
+   [
+    50,
+    50,
+    45,
+    50,
+    " befo"
+   ],
+   [
+    51,
+    51,
+    45,
+    51,
+    " befor"
+   ],
+   [
+    52,
+    52,
+    45,
+    52,
+    " before"
+   ],
+   [
+    53,
+    53,
+    45,
+    53,
+    " before "
+   ],
+   [
+    54,
+    54,
+    45,
+    54,
+    " before t"
+   ],
+   [
+    55,
+    55,
+    45,
+    55,
+    " before th"
+   ],
+   [
+    56,
+    56,
+    45,
+    56,
+    " before the"
+   ],
+   [
+    57,
+    57,
+    45,
+    57,
+    " before the "
+   ],
+   [
+    58,
+    58,
+    45,
+    58,
+    " before the b"
+   ],
+   [
+    59,
+    59,
+    45,
+    59,
+    " before the bl"
+   ],
+   [
+    60,
+    60,
+    45,
+    60,
+    " before the bla"
+   ],
+   [
+    61,
+    61,
+    45,
+    61,
+    " before the blan"
+   ],
+   [
+    62,
+    62,
+    45,
+    62,
+    " before the blank"
+   ],
+   [
+    63,
+    63,
+    45,
+    63,
+    " before the blank "
+   ],
+   [
+    64,
+    64,
+    45,
+    64,
+    " before the blank l"
+   ],
+   [
+    65,
+    65,
+    45,
+    65,
+    " before the blank li"
+   ],
+   [
+    66,
+    66,
+    45,
+    66,
+    " before the blank lin"
+   ],
+   [
+    67,
+    67,
+    45,
+    67,
+    " before the blank line"
+   ],
+   [
+    68,
+    68,
+    45,
+    68,
+    " before the blank line."
+   ]
+  ],
+  "folds": []
+ },
+ "input 30": {
+  "tokens": [
+   "0-2 math"
+  ],
+  "prose": [
+   "5-9 next"
+  ],
+  "lint": [
+   "0-2 This $$ is never closed. Add the closing $$ before the blank line."
+  ],
+  "math": [
+   [
+    2,
+    2,
+    2,
+    2,
+    ""
+   ],
+   [
+    3,
+    3,
+    2,
+    3,
+    "x"
+   ],
+   [
+    4,
+    4,
+    2,
+    4,
+    "x\n"
+   ],
+   [
+    5,
+    5,
+    2,
+    5,
+    "x\n\n"
+   ],
+   [
+    6,
+    6,
+    2,
+    6,
+    "x\n\nn"
+   ],
+   [
+    7,
+    7,
+    2,
+    7,
+    "x\n\nne"
+   ],
+   [
+    8,
+    8,
+    2,
+    8,
+    "x\n\nnex"
+   ],
+   [
+    9,
+    9,
+    2,
+    9,
+    "x\n\nnext"
+   ]
+  ],
+  "folds": []
+ },
+ "input 31": {
+  "tokens": [
+   "0-2 math",
+   "10-12 math",
+   "46-48 math"
+  ],
+  "prose": [
+   "13-15 is",
+   "16-21 never",
+   "22-28 closed",
+   "30-33 Add",
+   "34-37 the",
+   "38-45 closing"
+  ],
+  "lint": [
+   "46-48 This $$ is never closed. Add the closing $$ before the blank line."
+  ],
+  "math": [
+   [
+    2,
+    10,
+    2,
+    10,
+    " | This "
+   ],
+   [
+    48,
+    48,
+    48,
+    48,
+    ""
+   ],
+   [
+    49,
+    49,
+    48,
+    49,
+    " "
+   ],
+   [
+    50,
+    50,
+    48,
+    50,
+    " b"
+   ],
+   [
+    51,
+    51,
+    48,
+    51,
+    " be"
+   ],
+   [
+    52,
+    52,
+    48,
+    52,
+    " bef"
+   ],
+   [
+    53,
+    53,
+    48,
+    53,
+    " befo"
+   ],
+   [
+    54,
+    54,
+    48,
+    54,
+    " befor"
+   ],
+   [
+    55,
+    55,
+    48,
+    55,
+    " before"
+   ],
+   [
+    56,
+    56,
+    48,
+    56,
+    " before "
+   ],
+   [
+    57,
+    57,
+    48,
+    57,
+    " before t"
+   ],
+   [
+    58,
+    58,
+    48,
+    58,
+    " before th"
+   ],
+   [
+    59,
+    59,
+    48,
+    59,
+    " before the"
+   ],
+   [
+    60,
+    60,
+    48,
+    60,
+    " before the "
+   ],
+   [
+    61,
+    61,
+    48,
+    61,
+    " before the b"
+   ],
+   [
+    62,
+    62,
+    48,
+    62,
+    " before the bl"
+   ],
+   [
+    63,
+    63,
+    48,
+    63,
+    " before the bla"
+   ],
+   [
+    64,
+    64,
+    48,
+    64,
+    " before the blan"
+   ],
+   [
+    65,
+    65,
+    48,
+    65,
+    " before the blank"
+   ],
+   [
+    66,
+    66,
+    48,
+    66,
+    " before the blank "
+   ],
+   [
+    67,
+    67,
+    48,
+    67,
+    " before the blank l"
+   ],
+   [
+    68,
+    68,
+    48,
+    68,
+    " before the blank li"
+   ],
+   [
+    69,
+    69,
+    48,
+    69,
+    " before the blank lin"
+   ],
+   [
+    70,
+    70,
+    48,
+    70,
+    " before the blank line"
+   ],
+   [
+    71,
+    71,
+    48,
+    71,
+    " before the blank line."
+   ]
+  ],
+  "folds": []
+ },
+ "input 32": {
+  "tokens": [
+   "0-1 math",
+   "2-3 math",
+   "8-9 math",
+   "10-11 math",
+   "13-15 math",
+   "16-18 math"
+  ],
+  "prose": [
+   "4-7 and"
+  ],
+  "lint": [],
+  "math": [
+   [
+    1,
+    2,
+    1,
+    2,
+    "x"
+   ],
+   [
+    9,
+    10,
+    9,
+    10,
+    "y"
+   ],
+   [
+    15,
+    16,
+    15,
+    16,
+    "z"
+   ]
+  ],
+  "folds": []
+ },
+ "input 33": {
+  "tokens": [
+   "0-9 command",
+   "9-10 brace",
+   "11-12 brace"
+  ],
+  "prose": [
+   "10-11 A"
+  ],
+  "lint": [
+   "0-9 \\mysecton is not a LabForge command. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 34": {
+  "tokens": [
+   "0-9 command",
+   "12-21 command",
+   "86-97 keyword"
+  ],
+  "prose": [
+   "22-24 is",
+   "25-28 not",
+   "29-30 a",
+   "31-39 LabForge",
+   "40-47 command",
+   "49-54 Check",
+   "55-58 the",
+   "59-67 spelling",
+   "68-70 or",
+   "71-77 define",
+   "78-80 it",
+   "81-85 with"
+  ],
+  "lint": [
+   "0-9 \\mysecton is not a LabForge command. Check the spelling or define it with \\newcommand.",
+   "12-21 \\mysecton is not a LabForge command. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 35": {
+  "tokens": [
+   "0-11 keyword",
+   "11-12 brace",
+   "12-18 command",
+   "18-19 brace",
+   "22-23 brace",
+   "23-30 command",
+   "30-31 brace",
+   "33-35 brace",
+   "36-42 command",
+   "42-43 brace",
+   "44-45 brace",
+   "46-53 command",
+   "53-54 brace",
+   "55-56 brace"
+  ],
+  "prose": [
+   "43-44 v",
+   "54-55 x"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 36": {
+  "tokens": [
+   "0-14 keyword",
+   "14-15 brace",
+   "15-26 command",
+   "26-28 brace",
+   "30-31 brace",
+   "31-35 command",
+   "35-36 brace",
+   "37-39 brace",
+   "39-50 command",
+   "50-51 brace"
+  ],
+  "prose": [
+   "28-30 su"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 37": {
+  "tokens": [
+   "0-14 keyword",
+   "28-29 brace",
+   "37-38 brace",
+   "38-48 command",
+   "48-49 brace",
+   "50-51 brace",
+   "51-64 command",
+   "64-65 brace",
+   "66-67 brace",
+   "67-76 command",
+   "76-77 brace",
+   "78-79 brace",
+   "79-86 command",
+   "86-87 brace",
+   "88-89 brace",
+   "89-97 command",
+   "97-98 brace",
+   "99-100 brace",
+   "100-106 command",
+   "106-107 brace",
+   "108-109 brace",
+   "109-119 command",
+   "119-120 brace",
+   "121-122 brace",
+   "122-133 command",
+   "133-134 brace",
+   "135-136 brace",
+   "136-147 command",
+   "147-148 brace",
+   "149-150 brace",
+   "150-202 command"
+  ],
+  "prose": [
+   "49-50 A",
+   "65-66 B"
+  ],
+  "lint": [],
+  "math": [
+   [
+    120,
+    121,
+    120,
+    121,
+    "x"
+   ],
+   [
+    134,
+    135,
+    134,
+    135,
+    "y"
+   ]
+  ],
+  "folds": []
+ },
+ "input 38": {
+  "tokens": [
+   "6-9 command"
+  ],
+  "prose": [
+   "0-5 every",
+   "10-17 command",
+   "18-21 the",
+   "22-27 class",
+   "28-35 defines",
+   "36-38 is",
+   "39-44 known",
+   "45-47 to",
+   "48-51 the",
+   "52-58 editor"
+  ],
+  "lint": [
+   "6-9 \\my is not a LabForge command. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 39": {
+  "tokens": [
+   "0-9 command",
+   "18-19 brace",
+   "25-26 brace",
+   "38-39 brace",
+   "40-41 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "10-17 captoin is not a key of \\myfigure. Did you mean caption?"
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 40": {
+  "tokens": [
+   "0-8 command",
+   "17-18 brace",
+   "23-24 brace",
+   "49-50 brace",
+   "51-52 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 41": {
+  "tokens": [
+   "0-6 command",
+   "11-12 brace",
+   "13-14 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 42": {
+  "tokens": [
+   "0-9 command",
+   "17-18 brace",
+   "19-20 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "10-14 zzzz is not a key of \\myfigure. Keys: label, caption, subcaption, caption-align, hyphenate, width, height, place."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 43": {
+  "tokens": [
+   "0-7 command",
+   "21-22 brace",
+   "23-24 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "14-20 middle is not a value of place. Use here, float, span, wrap, wrap-left."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 44": {
+  "tokens": [
+   "0-7 command",
+   "16-17 brace",
+   "18-19 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "8-15 caption needs a value. Write caption=<value>."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 45": {
+  "tokens": [
+   "0-7 command",
+   "18-19 brace",
+   "20-21 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "7-8 This [ after \\myplot is never closed. Add the closing ]."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 46": {
+  "tokens": [
+   "17-24 command"
+  ],
+  "prose": [
+   "4-8 This",
+   "11-16 after",
+   "25-27 is",
+   "28-33 never",
+   "34-40 closed",
+   "42-45 Add",
+   "46-49 the",
+   "50-57 closing"
+  ],
+  "lint": [
+   "17-24 \\myplot needs {file} after it."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 47": {
+  "tokens": [
+   "0-9 command"
+  ],
+  "prose": [
+   "21-25 next"
+  ],
+  "lint": [
+   "0-9 \\myfigure needs {file} after it."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 48": {
+  "tokens": [
+   "0-9 command",
+   "12-21 command",
+   "28-29 brace",
+   "33-34 brace"
+  ],
+  "prose": [
+   "22-27 needs",
+   "29-33 file",
+   "35-40 after",
+   "41-43 it"
+  ],
+  "lint": [
+   "0-9 \\myfigure needs {file} after it.",
+   "12-21 \\myfigure needs {file} after it."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 49": {
+  "tokens": [
+   "0-10 command",
+   "11-12 brace",
+   "17-18 brace"
+  ],
+  "prose": [
+   "12-17 Title"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": [
+   "1: 10-18"
+  ]
+ },
+ "input 50": {
+  "tokens": [
+   "0-13 keyword",
+   "13-14 brace",
+   "14-24 command",
+   "24-25 brace",
+   "28-29 brace",
+   "31-32 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 51": {
+  "tokens": [
+   "0-12 command",
+   "12-14 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-12 \\dwadawdawda is not a command LaTeX knows here. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 52": {
+  "tokens": [
+   "0-12 command",
+   "15-27 command",
+   "100-111 keyword"
+  ],
+  "prose": [
+   "28-30 is",
+   "31-34 not",
+   "35-36 a",
+   "37-44 command",
+   "45-50 LaTeX",
+   "51-56 knows",
+   "57-61 here",
+   "63-68 Check",
+   "69-72 the",
+   "73-81 spelling",
+   "82-84 or",
+   "85-91 define",
+   "92-94 it",
+   "95-99 with"
+  ],
+  "lint": [
+   "0-12 \\dwadawdawda is not a command LaTeX knows here. Check the spelling or define it with \\newcommand.",
+   "15-27 \\dwadawdawda is not a command LaTeX knows here. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 53": {
+  "tokens": [
+   "0-8 command",
+   "8-9 brace",
+   "10-11 brace"
+  ],
+  "prose": [
+   "9-10 a"
+  ],
+  "lint": [
+   "0-8 \\textbff is not a command LaTeX knows here. Did you mean \\textbf? Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 54": {
+  "tokens": [
+   "0-7 command",
+   "7-8 brace",
+   "9-10 brace",
+   "11-16 command",
+   "16-17 brace",
+   "18-20 brace",
+   "21-22 brace",
+   "23-29 command",
+   "30-33 command",
+   "33-34 brace",
+   "37-38 brace",
+   "39-44 command",
+   "45-51 command",
+   "52-59 command",
+   "59-60 brace",
+   "63-64 brace",
+   "65-74 command",
+   "75-82 command",
+   "82-83 brace",
+   "84-85 brace"
+  ],
+  "prose": [
+   "8-9 a",
+   "61-63 em",
+   "83-84 R"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 55": {
+  "tokens": [
+   "0-11 keyword",
+   "11-12 brace",
+   "12-17 command",
+   "17-18 brace",
+   "21-22 brace",
+   "24-25 brace",
+   "25-30 command",
+   "30-31 brace",
+   "32-33 brace",
+   "34-45 command",
+   "45-46 brace",
+   "50-51 brace",
+   "51-59 command",
+   "60-73 command",
+   "74-83 command",
+   "84-88 keyword",
+   "88-90 command",
+   "90-91 brace",
+   "92-93 brace",
+   "93-95 command",
+   "96-116 keyword",
+   "116-117 brace",
+   "117-120 command",
+   "120-122 brace",
+   "124-125 brace",
+   "125-126 math",
+   "126-129 command",
+   "129-130 math"
+  ],
+  "prose": [
+   "31-32 v",
+   "46-50 step",
+   "122-124 tr"
+  ],
+  "lint": [],
+  "math": [
+   [
+    126,
+    129,
+    126,
+    129,
+    "\\tr"
+   ]
+  ],
+  "folds": []
+ },
+ "input 56": {
+  "tokens": [
+   "0-11 keyword",
+   "11-12 brace",
+   "19-20 brace",
+   "21-24 command",
+   "24-25 brace",
+   "26-28 brace",
+   "29-30 brace",
+   "31-40 command"
+  ],
+  "prose": [
+   "28-29 m"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 57": {
+  "tokens": [
+   "0-14 comment",
+   "15-20 command",
+   "21-33 command"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 58": {
+  "tokens": [
+   "0-7 command",
+   "7-8 brace",
+   "9-10 brace",
+   "11-16 command",
+   "16-17 brace",
+   "18-19 brace",
+   "20-28 command",
+   "28-29 brace",
+   "30-31 brace",
+   "32-38 command",
+   "38-39 brace",
+   "40-41 brace",
+   "42-46 command",
+   "46-47 brace",
+   "48-49 brace",
+   "50-55 command",
+   "55-56 brace",
+   "57-58 brace",
+   "59-68 command",
+   "68-69 brace",
+   "70-71 brace",
+   "72-82 command",
+   "83-89 command",
+   "90-96 command",
+   "97-106 command",
+   "107-114 command",
+   "114-115 brace",
+   "118-119 brace",
+   "120-128 command",
+   "129-139 command",
+   "140-144 command",
+   "145-150 command",
+   "151-157 command",
+   "158-163 command",
+   "164-168 command",
+   "169-173 command",
+   "174-179 command",
+   "179-180 brace",
+   "181-182 brace",
+   "183-188 command",
+   "190-196 command",
+   "198-205 command",
+   "205-206 brace",
+   "207-208 brace",
+   "209-214 command",
+   "214-215 brace",
+   "216-217 brace",
+   "218-224 command",
+   "225-230 command",
+   "231-242 command",
+   "243-259 command",
+   "259-260 brace",
+   "261-262 brace",
+   "263-273 command",
+   "273-274 brace",
+   "275-276 brace",
+   "277-284 command",
+   "284-285 brace",
+   "286-287 brace",
+   "288-293 command",
+   "294-302 command",
+   "303-313 command",
+   "314-326 command",
+   "327-337 command",
+   "338-344 command",
+   "344-345 brace",
+   "348-349 brace",
+   "350-360 command",
+   "360-361 brace",
+   "365-367 brace",
+   "368-369 brace",
+   "370-379 command",
+   "382-383 brace",
+   "384-385 brace",
+   "386-391 command",
+   "391-392 brace",
+   "393-395 brace",
+   "396-397 brace",
+   "398-402 command",
+   "402-403 brace",
+   "404-405 brace",
+   "406-418 command",
+   "418-420 brace",
+   "421-429 command",
+   "430-435 command",
+   "436-444 command",
+   "444-445 brace",
+   "446-447 brace",
+   "448-466 command",
+   "467-479 command",
+   "479-480 brace",
+   "481-482 brace",
+   "483-498 command",
+   "498-499 brace",
+   "506-507 brace",
+   "508-524 command",
+   "524-525 brace",
+   "532-534 brace",
+   "535-536 brace",
+   "537-549 command",
+   "549-550 brace",
+   "551-553 brace",
+   "554-555 brace",
+   "556-564 command",
+   "565-572 command",
+   "572-573 brace",
+   "577-578 brace"
+  ],
+  "prose": [
+   "8-9 a",
+   "17-18 b",
+   "29-30 c",
+   "69-70 g",
+   "116-118 cm",
+   "180-181 x",
+   "206-207 m",
+   "215-216 t",
+   "274-275 u",
+   "285-286 m",
+   "345-348 red",
+   "361-365 blue",
+   "367-368 x",
+   "383-384 b",
+   "395-396 t",
+   "445-446 A",
+   "480-481 X",
+   "499-506 english",
+   "525-532 english",
+   "534-535 a",
+   "550-551 a",
+   "553-554 b",
+   "573-577 page"
+  ],
+  "lint": [
+   "294-302 \\midrule is not a command LaTeX knows here. Did you mean \\middle? Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 59": {
+  "tokens": [
+   "7-17 command",
+   "30-31 brace",
+   "33-34 keyword",
+   "38-40 keyword",
+   "43-44 keyword",
+   "46-49 command",
+   "49-50 brace",
+   "53-55 brace"
+  ],
+  "prose": [
+   "0-6 Before",
+   "56-61 After"
+  ],
+  "lint": [],
+  "math": [
+   [
+    31,
+    54,
+    31,
+    54,
+    "\\begin{aligned}a &= 1 \\\\ b &= \\ce{H2O}\\end{aligned}"
+   ]
+  ],
+  "folds": []
+ },
+ "input 60": {
+  "tokens": [
+   "9-10 math",
+   "16-17 math",
+   "23-34 comment",
+   "35-41 command",
+   "41-42 brace",
+   "42-47 environment",
+   "47-48 brace",
+   "49-50 keyword",
+   "52-56 command",
+   "56-57 brace",
+   "57-62 environment",
+   "62-63 brace"
+  ],
+  "prose": [
+   "0-8 Ελληνικά",
+   "18-22 text"
+  ],
+  "lint": [],
+  "math": [
+   [
+    10,
+    16,
+    10,
+    16,
+    "E=mc^2"
+   ],
+   [
+    48,
+    52,
+    48,
+    52,
+    "\\begin{align}x&=1\\end{align}"
+   ]
+  ],
+  "folds": []
+ },
+ "input 61": {
+  "tokens": [],
+  "prose": [
+   "0-4 Text"
+  ],
+  "lint": [],
+  "math": [
+   [
+    7,
+    7,
+    7,
+    7,
+    ""
+   ],
+   [
+    8,
+    8,
+    7,
+    8,
+    "x"
+   ],
+   [
+    9,
+    9,
+    7,
+    9,
+    "x+"
+   ],
+   [
+    10,
+    10,
+    7,
+    10,
+    "x+1"
+   ]
+  ],
+  "folds": []
+ },
+ "input 62": {
+  "tokens": [
+   "11-26 command"
+  ],
+  "prose": [
+   "0-5 First",
+   "6-10 line",
+   "27-30 and",
+   "31-35 text"
+  ],
+  "lint": [
+   "11-26 \\missingcommand is not a command LaTeX knows here. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 63": {
+  "tokens": [
+   "0-15 command"
+  ],
+  "prose": [],
+  "lint": [
+   "0-15 \\missingcommand is not a command LaTeX knows here. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 64": {
+  "tokens": [
+   "0-6 command"
+  ],
+  "prose": [],
+  "lint": [
+   "0-6 \\other is not a command LaTeX knows here. Did you mean \\outer? Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 65": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-12 environment",
+   "12-13 brace",
+   "14-20 comment",
+   "21-32 keyword",
+   "32-33 brace",
+   "34-35 brace",
+   "36-37 math",
+   "38-39 math",
+   "43-54 command",
+   "54-55 brace",
+   "56-57 brace"
+  ],
+  "prose": [
+   "55-56 A"
+  ],
+  "lint": [
+   "0-13 \\begin{table} is never closed. Add \\end{table}."
+  ],
+  "math": [
+   [
+    37,
+    38,
+    37,
+    38,
+    "a"
+   ]
+  ],
+  "folds": []
+ },
+ "input 66": {
+  "tokens": [
+   "8-19 keyword"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 67": {
+  "tokens": [
+   "8-10 command"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 68": {
+  "tokens": [
+   "8-22 keyword"
+  ],
+  "prose": [],
+  "lint": [
+   "8-22 \\labforgesetup needs {key} after it."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 69": {
+  "tokens": [
+   "8-10 keyword"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 70": {
+  "tokens": [
+   "8-16 command"
+  ],
+  "prose": [],
+  "lint": [
+   "8-16 \\mytable needs {file} after it."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 71": {
+  "tokens": [
+   "0-8 command",
+   "8-10 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 72": {
+  "tokens": [
+   "0-11 command",
+   "11-13 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 73": {
+  "tokens": [
+   "0-14 command",
+   "14-16 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 74": {
+  "tokens": [
+   "0-10 command"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 75": {
+  "tokens": [
+   "0-6 command"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 76": {
+  "tokens": [
+   "0-8 command",
+   "8-10 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 77": {
+  "tokens": [
+   "0-5 command",
+   "5-7 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 78": {
+  "tokens": [
+   "0-4 command"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 79": {
+  "tokens": [
+   "0-8 command",
+   "8-10 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 80": {
+  "tokens": [
+   "0-11 command",
+   "11-12 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "11-12 This { is never closed. Add the closing }."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 81": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-8 environment",
+   "8-9 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-9 \\begin{|} is never closed. Add \\end{|}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 82": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-11 environment",
+   "11-12 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-12 \\begin{ali|} is never closed. Add \\end{ali|}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 83": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "6-7 This { is never closed. Add the closing }."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 84": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-14 environment",
+   "14-15 brace",
+   "16-22 command",
+   "22-23 brace",
+   "23-32 environment",
+   "32-33 brace",
+   "34-38 command",
+   "38-39 brace",
+   "39-40 environment",
+   "40-41 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-15 \\begin{itemize} is never closed. Add \\end{itemize}.",
+   "16-33 \\begin{enumerate} is never closed. Add \\end{enumerate}.",
+   "34-41 \\end{|} does not match \\begin{enumerate}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 85": {
+  "tokens": [
+   "0-15 keyword",
+   "15-16 brace",
+   "23-28 brace",
+   "29-35 command",
+   "35-36 brace",
+   "36-40 environment",
+   "40-41 brace"
+  ],
+  "prose": [
+   "16-23 special"
+  ],
+  "lint": [
+   "29-41 \\begin{spe|} is never closed. Add \\end{spe|}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 86": {
+  "tokens": [
+   "0-11 comment"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 87": {
+  "tokens": [
+   "0-15 command",
+   "15-16 brace",
+   "21-22 brace",
+   "57-62 comment"
+  ],
+  "prose": [
+   "16-21 greek",
+   "23-31 Καλημέρα",
+   "32-37 κόσμε",
+   "42-45 αβγ",
+   "47-55 indented"
+  ],
+  "lint": [
+   "0-15 \\setdoclanguage is not a command LaTeX knows here. Check the spelling or define it with \\newcommand."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 88": {
+  "tokens": [
+   "0-8 comment"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 89": {
+  "tokens": [
+   "0-14 keyword",
+   "14-15 brace",
+   "22-23 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 90": {
+  "tokens": [
+   "0-6 keyword",
+   "6-7 brace",
+   "8-9 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 91": {
+  "tokens": [
+   "0-14 comment"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 92": {
+  "tokens": [
+   "0-22 comment"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 93": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-15 environment",
+   "15-16 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-16 \\begin{document} is never closed. Add \\end{document}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 94": {
+  "tokens": [
+   "0-10 command",
+   "10-11 brace",
+   "14-15 brace"
+  ],
+  "prose": [
+   "11-14 One"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 95": {
+  "tokens": [
+   "0-11 command",
+   "11-12 brace",
+   "13-14 brace"
+  ],
+  "prose": [
+   "12-13 A"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 96": {
+  "tokens": [
+   "0-8 command",
+   "8-9 brace",
+   "12-13 brace"
+  ],
+  "prose": [
+   "9-12 Two"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 97": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-12 environment",
+   "12-13 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-13 \\begin{table} is never closed. Add \\end{table}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 98": {
+  "tokens": [
+   "0-4 command",
+   "4-5 brace",
+   "5-10 environment",
+   "10-11 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-11 \\end{table} has no \\begin{table}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 99": {
+  "tokens": [
+   "0-4 command",
+   "4-5 brace",
+   "5-13 environment",
+   "13-14 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-14 \\end{document} has no \\begin{document}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 100": {
+  "tokens": [
+   "12-18 command",
+   "18-19 brace",
+   "19-23 environment",
+   "23-24 brace",
+   "43-47 command"
+  ],
+  "prose": [
+   "0-5 Enter",
+   "6-11 after",
+   "25-29 adds",
+   "30-33 the",
+   "34-42 matching",
+   "48-52 once"
+  ],
+  "lint": [
+   "12-24 \\begin{name} is never closed. Add \\end{name}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 101": {
+  "tokens": [
+   "2-8 command",
+   "8-9 brace",
+   "9-16 environment",
+   "16-17 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "2-17 \\begin{itemize} is never closed. Add \\end{itemize}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 102": {
+  "tokens": [
+   "2-8 command",
+   "8-9 brace",
+   "9-16 environment",
+   "16-17 brace",
+   "27-31 command",
+   "31-32 brace",
+   "32-39 environment",
+   "39-40 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": [
+   "1: 17-24"
+  ]
+ },
+ "input 103": {
+  "tokens": [
+   "2-8 command",
+   "8-9 brace",
+   "9-16 environment",
+   "16-17 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "2-17 \\begin{itemize} is never closed. Add \\end{itemize}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 104": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-13 environment",
+   "13-14 brace"
+  ],
+  "prose": [
+   "15-16 h"
+  ],
+  "lint": [
+   "0-14 \\begin{figure} is never closed. Add \\end{figure}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 105": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-13 environment",
+   "13-14 brace",
+   "23-27 command",
+   "27-28 brace",
+   "28-34 environment",
+   "34-35 brace"
+  ],
+  "prose": [
+   "15-16 h"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": [
+   "1: 17-22"
+  ]
+ },
+ "input 106": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-12 environment",
+   "12-13 brace",
+   "15-19 command",
+   "19-20 brace",
+   "20-25 environment",
+   "25-26 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 107": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-15 environment",
+   "15-16 brace"
+  ],
+  "prose": [],
+  "lint": [
+   "0-16 \\begin{document} is never closed. Add \\end{document}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 108": {
+  "tokens": [
+   "0-6 command",
+   "6-7 brace",
+   "7-8 environment",
+   "8-9 brace"
+  ],
+  "prose": [
+   "10-11 y"
+  ],
+  "lint": [
+   "0-9 \\begin{x} is never closed. Add \\end{x}."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 109": {
+  "tokens": [
+   "0-9 command"
+  ],
+  "prose": [],
+  "lint": [
+   "10-11 | is not a key of \\myreport. Keys: header, title, author, conducted, submitted, institution."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 110": {
+  "tokens": [
+   "0-9 command"
+  ],
+  "prose": [],
+  "lint": [
+   "9-10 This [ after \\myreport is never closed. Add the closing ]."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 111": {
+  "tokens": [
+   "0-9 command"
+  ],
+  "prose": [],
+  "lint": [
+   "9-10 This [ after \\myreport is never closed. Add the closing ]."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 112": {
+  "tokens": [
+   "2-4 command",
+   "4-5 brace",
+   "6-7 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 113": {
+  "tokens": [
+   "2-4 command",
+   "4-5 brace",
+   "15-16 brace"
+  ],
+  "prose": [],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 114": {
+  "tokens": [
+   "0-9 command"
+  ],
+  "prose": [],
+  "lint": [
+   "10-12 |x is not a key of \\myreport. Keys: header, title, author, conducted, submitted, institution."
+  ],
+  "math": [],
+  "folds": []
+ },
+ "input 115": {
+  "tokens": [
+   "0-2 command",
+   "2-3 brace",
+   "7-8 brace",
+   "9-11 brace",
+   "15-18 comment",
+   "19-21 brace"
+  ],
+  "prose": [
+   "3-4 b",
+   "5-6 c",
+   "8-9 d"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ },
+ "input 116": {
+  "tokens": [
+   "3-4 brace",
+   "5-6 brace"
+  ],
+  "prose": [
+   "0-1 f",
+   "2-3 x",
+   "4-5 y",
+   "11-12 a"
+  ],
+  "lint": [],
+  "math": [],
+  "folds": []
+ }
+}

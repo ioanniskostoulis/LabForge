@@ -1,0 +1,250 @@
+{
+ "report-two-column": {
+  "success": true,
+  "issues": [
+   {
+    "severity": "warning",
+    "message": "Package hyperref Warning: Rerun to get /PageLabels entry."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Citation 'birkeland' on page 1 undefined on input line 23."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Citation 'atkins' on page 1 undefined on input line 25."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `photo' on page 1 undefined on input line 28."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `photo' on page 1 undefined on input line 29."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `fig:example-image-b' on page 1 undefined on input lin"
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `formation' on page 1 undefined on input line 34."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `equilibrium' on page 1 undefined on input line 35."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `tab:yields' on page 2 undefined on input line 41."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `tab:yields' on page 2 undefined on input line 45."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `tab:yields' on page 2 undefined on input line 46."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `formation' on page 2 undefined on input line 46."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `plot:absorbance' on page 2 undefined on input line 49"
+   },
+   {
+    "severity": "warning",
+    "message": "Overfull \\hbox (5.97345pt too wide) detected at line 51"
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `tab:constants' on page 3 undefined on input line 53."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `equilibrium[1]' on page 3 undefined on input line 53."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `results' on page 4 undefined on input line 59."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `intro' on page 4 undefined on input line 59."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `chamber' on page 4 undefined on input line 59."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Empty bibliography on input line 64."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: There were undefined references."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right."
+   },
+   {
+    "severity": "warning",
+    "message": "Package rerunfilecheck Warning: File `main.out' has changed."
+   },
+   {
+    "severity": "warning",
+    "message": "Package biblatex Warning: Please (re)run Biber on the file:"
+   },
+   {
+    "severity": "warning",
+    "message": "Package biblatex Warning: Please rerun LaTeX."
+   }
+  ]
+ },
+ "thesis-one-column": {
+  "success": true,
+  "issues": [
+   {
+    "severity": "warning",
+    "message": "Package hyperref Warning: Rerun to get /PageLabels entry."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `setup' on page 1 undefined on input line 14."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `formation' on page 1 undefined on input line 18."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `equilibrium' on page 1 undefined on input line 19."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `detail' on page 1 undefined on input line 26."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `tab:yields' on page 3 undefined on input line 34."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `setup' on page 3 undefined on input line 34."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `method' on page 3 undefined on input line 34."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `tab:yields' on page 3 undefined on input line 35."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `formation' on page 3 undefined on input line 35."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `equilibrium[1]' on page 3 undefined on input line 35."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: There were undefined references."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right."
+   },
+   {
+    "severity": "warning",
+    "message": "Package rerunfilecheck Warning: File `main.out' has changed."
+   }
+  ]
+ },
+ "reference-undefined": {
+  "success": true,
+  "issues": [
+   {
+    "severity": "warning",
+    "message": "Package hyperref Warning: Rerun to get /PageLabels entry."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `absent' on page 1 undefined on input line 3."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `known' on page 1 undefined on input line 3."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `absent' on page 1 undefined on input line 4."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: There were undefined references."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right."
+   },
+   {
+    "severity": "warning",
+    "message": "Package rerunfilecheck Warning: File `main.out' has changed."
+   }
+  ]
+ },
+ "input-warning": {
+  "success": true,
+  "issues": [
+   {
+    "severity": "warning",
+    "message": "Package hyperref Warning: Rerun to get /PageLabels entry."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `nowhere' on page 1 undefined on input line 3."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `alsomissing' on page 1 undefined on input line 5."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: There were undefined references."
+   },
+   {
+    "severity": "warning",
+    "message": "Package rerunfilecheck Warning: File `main.out' has changed."
+   }
+  ]
+ },
+ "input-error": {
+  "success": false,
+  "issues": [
+   {
+    "severity": "warning",
+    "message": "Package hyperref Warning: Rerun to get /PageLabels entry."
+   },
+   {
+    "severity": "warning",
+    "message": "LaTeX Warning: Reference `nowhere' on page 1 undefined on input line 3."
+   },
+   {
+    "severity": "error",
+    "message": "Undefined control sequence.",
+    "file": "chapters/part.tex",
+    "line": 4,
+    "token": "\\doesnotexist"
+   },
+   {
+    "severity": "error",
+    "message": "The document produced no pages. Add content inside the document environment."
+   }
+  ]
+ }
+}

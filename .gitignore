@@ -1,0 +1,29 @@
+# macOS and editor files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.vscode/
+.idea/
+
+# Dependencies and generated output
+node_modules/
+build/
+dist/
+
+# LaTeX output from a TeX run in the repository (the TeX tests build in a temporary folder)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.run.xml
+*.synctex.gz
+*.xdv
+*.pdf

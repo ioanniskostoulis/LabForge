@@ -1,0 +1,14 @@
+% Numbered top-level rows, a skipped row, and a single-row formula.
+\documentclass[language=english]{.labforge}
+\begin{document}
+\begin{multicols}{2}
+\myformula[label=steps]{a &= 1 \\ b &= 2 \nonumber \\ c &= 3}
+The group is \myref{steps}; its second numbered row is \myref{steps[2]}.
+The bare numbers are \ref{steps}. The first is \ref{steps[1]}.
+The selected numbers are \ref{steps[1], steps[2]}.
+\myformula[label=span,place=span]{x &= 4 \\ y &= 5}
+The spanning group is \myref{span}.
+\end{multicols}
+\myformula[label=single]{z &= 6}
+The single formula is \myref{single} and \ref{single}.
+\end{document}
