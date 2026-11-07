@@ -4,8 +4,6 @@
 import { createCheckRow } from "forge-shell/app/builders";
 import { buildTree, moveTarget as shellMoveTarget, renameProblem as shellRenameProblem, renameTarget, renderFileTree, topLevel, type FileSelection, type FileTreeHost, type MoveRules, type TreeFile, type TreeNode } from "forge-shell/app/file-tree";
 import type { MenuEntry } from "forge-shell/app/context-menu";
-import { UI_ICONS } from "forge-shell/app/tool-icons";
-import { setTip } from "forge-shell/app/tips";
 import { isProtectedProjectPath, renameBlockReason } from "../engine/project-paths";
 import { supportingFileEditable, supportingTextFile } from "./supporting-file-rules";
 import type { FilesSettings } from "./file-settings";
@@ -155,18 +153,9 @@ export function renderFileArea(section: HTMLElement, files: readonly ProjectFile
         { label: "Copy TeX source", action: () => copy(host.readText(file.path).then(copyableSource), `Copied the TeX source of ${file.path}.`) },
       ];
     },
+    // Every file shows its status: main.tex and the editable supporting files can be edited here; the rest are read-only.
+    status: file => (file.path === "main.tex" || (supportingTextFile(file.path) && supportingFileEditable(file.path)) ? "editable" : "readOnly"),
     moved: from => { if (from.startsWith("graphics/")) host.warn(`${from} moved. A \\myfigure line that names it needs the new path.`); },
   };
   renderFileTree(list, tree, treeHost);
-  for (const row of list.querySelectorAll<HTMLElement>(".tree-row[data-path]")) {
-    const path = row.dataset.path ?? "";
-    if (path !== "main.tex" && !supportingTextFile(path)) continue;
-    const editable = path === "main.tex" || supportingFileEditable(path);
-    const badge = document.createElement("span"); badge.className = "tree-editability";
-    badge.innerHTML = editable ? UI_ICONS.edit : UI_ICONS.readOnly;
-    const label = editable ? "Editable file." : "Read-only file.";
-    badge.setAttribute("aria-label", label); setTip(badge, label);
-    row.querySelector(".tree-lock")?.before(badge);
-    if (!row.querySelector(".tree-lock")) row.append(badge);
-  }
 }

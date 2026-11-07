@@ -663,6 +663,8 @@ export class LatexEditor {
       EditorView.contentAttributes.of({ "aria-label": "LaTeX source editor", autocapitalize: "off", autocorrect: "off" }),
       EditorView.domEventHandlers({
         contextmenu: event => spellingContextMenu(this.view, event, this.settings.spellcheck),
+        // Files dropped from the system are not pasted as text: the window opens the reports among them.
+        drop: event => !!event.dataTransfer && Array.from(event.dataTransfer.types).includes("Files"),
         focus: () => { this.reportCommandInputContext(this.settings.commandLanguage); this.scheduleMathPreview(); return false; },
         keydown: event => {
           if (event.shiftKey && event.key === "F10" && spellingContextMenu(this.view, event, this.settings.spellcheck)) return true;

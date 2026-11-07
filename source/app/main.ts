@@ -1,5 +1,6 @@
 // Licensed under the GNU General Public License v2 or later. See LICENSE.
 import { DocumentTabs } from "forge-shell/app/tabs";
+import { attachFileDrop } from "forge-shell/app/file-drop";
 import { createButton, createCheckRow, createField, createRow } from "forge-shell/app/builders";
 import { createBottomTabs } from "forge-shell/app/bottom-tabs";
 import { createPanelLayout } from "forge-shell/app/panel-layout";
@@ -74,6 +75,8 @@ type Api = {
   listOpen(): Promise<Snapshot[]>; create(): Promise<Snapshot | null>; open(): Promise<Snapshot[]>; activate(id: string): Promise<Snapshot>;
   /** Open a report by its path, for File › Open recent; null when the person declined to convert it. Desktop only. */
   openPath?(file: string): Promise<Snapshot | null>;
+  /** The path on disk of a file dropped on the window (Electron's `webUtils`). Desktop only. */
+  pathForFile?(file: File): string;
   /** Download and install an update, then restart into it (the shell's `registerUpdater`). Desktop only. */
   installUpdate?(asset: ReleaseAsset): Promise<InstallResult>;
   save(id: string): Promise<Snapshot | null>; configure(id: string, patch: { name?: string; builder?: ProjectBuilder }): Promise<Snapshot>; close(id: string): Promise<boolean>; files(id: string): Promise<ProjectFile[]>;
@@ -1202,14 +1205,18 @@ function shortcutGroups(): [string, [string, string][]][] {
 async function openRecent(index: string): Promise<void> {
   if (index === "clear") { recentReports.clear(); refreshMenu(); return; }
   const file = recentReports.list()[Number(index)];
-  if (!file || !api.openPath) return;
+  if (file) await openReportAt(file, true);
+}
+/** Open the report at `file`, from File › Open recent or a drop on the window. A recent report that is gone leaves the list. */
+async function openReportAt(file: string, recent = false): Promise<void> {
+  if (!api.openPath) return;
   try {
     const value = await api.openPath(file);
     if (!value) return;
     if (projects.length === 1 && !projects[0].archive && !projects[0].dirty && projects[0].id !== value.id) await close(projects[0]);
     await include(value);
   } catch (error) {
-    recentReports.remove(file); refreshMenu();
+    if (recent) { recentReports.remove(file); refreshMenu(); }
     report(problemText(error), "error");
   }
 }
@@ -1546,6 +1553,10 @@ async function boot(): Promise<void> {
   const backdrop = welcomeSketch();
   welcome.prepend(backdrop);
   trackWelcomeBox(welcome, backdrop);
+  // Reports dropped from Finder or File Explorer open, one after another; the file tree takes the drops made on it.
+  if (api.pathForFile) attachFileDrop($("canvas-wrap"), { accept: [".lfg"], label: "Drop a report to open it.", pathFor: file => api.pathForFile!(file),
+    onRefused: text => report(text, "error"),
+    onFiles: async dropped => { for (const item of dropped) if (item.path) await openReportAt(item.path); } });
   document.body.dataset.theme = prefs.appearance;
   document.body.dataset.inspectorSide = prefs.inspectorSide;
   // macOS desktop: room for the window buttons, except in full screen.

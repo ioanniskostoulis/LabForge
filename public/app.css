@@ -28,16 +28,11 @@
 .supporting-editor-surface .cm-line { padding: 0 12px 0 4px; }
 .supporting-editor-surface .cm-gutters { border: 0; background: var(--well); color: var(--text3); }
 .supporting-editor-surface .cm-lineNumbers .cm-gutterElement { min-width: 32px; padding: 0 8px; }
-.side-view-mode { display: grid; place-items: center; width: 18px; height: 18px; color: var(--text2); }
-.side-view-mode svg { width: 14px; height: 14px; }
 .side-view-dirty { color: var(--accent-light); font-size: 10px; }
 .side-view-dirty[hidden] { display: none; }
 .side-view-close { width: 20px; height: 20px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: transparent; color: var(--text2); cursor: pointer; }
 .side-view-close:hover, .side-view-close:focus-visible { background: transparent; color: var(--text); outline: none; }
 .side-view-close svg { width: 14px; height: 14px; }
-.tree-editability { width: 14px; height: 14px; display: grid; place-items: center; color: var(--text3); }
-.tree-editability svg { width: 12px; height: 12px; }
-.file-list:focus-within .tree-row.selected .tree-editability, .tree-row.drop-target .tree-editability { color: inherit; }
 :root { --editor-size: 14px; }
 #editor-surface { --editor-selection: color-mix(in srgb, var(--accent) 30%, transparent); display: flex; flex: 1; min-height: 0; overflow: hidden; background: var(--well); }
 :is(#editor-surface, .generator-code-editor) .cm-editor { flex: 1; min-width: 0; height: 100%; background: var(--well); color: var(--text); font-size: var(--editor-size); }

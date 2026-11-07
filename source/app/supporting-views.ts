@@ -76,7 +76,7 @@ export class SupportingViews {
     // The shell's view header; its unsaved dot follows the file below. The header is also the handle that drags the view.
     let file: SupportingView | null = null;
     const manager = navigator.platform.includes("Mac") ? "Finder" : "File Explorer";
-    const head = createViewHeader({ title: path, mode: editable ? "editable" : "readOnly", closeLabel: `Close ${path}`,
+    const head = createViewHeader({ title: path, closeLabel: `Close ${path}`,
       actions: [{ icon: UI_ICONS.reveal, label: `Show in ${manager}`, run: () => { if (file) this.revealRequested(file); } }],
       onClose: () => { if (file) this.closeRequested(file); } });
     head.classList.add("side-view-head");

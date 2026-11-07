@@ -2,7 +2,7 @@
 // Runs every interface test: LabForge's own project tests, then the conformance tests shipped with the pinned forge-shell.
 import { build } from "esbuild";
 import { spawnSync } from "node:child_process";
-import { readdirSync } from "node:fs";
+import { cpSync, readdirSync } from "node:fs";
 
 const ownTs = readdirSync("tests/app").filter((file) => file.endsWith(".test.ts"));
 await build({ entryPoints: ownTs.map((file) => `tests/app/${file}`), bundle: true, platform: "node", format: "esm", outdir: "build/tests/app", logLevel: "error" });
@@ -16,6 +16,8 @@ const shellMjs = readdirSync(conformance).filter((file) => file.endsWith(".mjs")
 
 await build({ entryPoints: shellTs.map((file) => `${conformance}/${file}`), bundle: true, platform: "node", format: "esm",
   outdir: "build/tests/forge-shell", logLevel: "error" });
+// Some conformance tests read the shell's stylesheet beside them (../../source/styles from build/tests/forge-shell).
+cpSync("node_modules/forge-shell/source/styles", "build/source/styles", { recursive: true });
 
 const runs = [
   ...own,

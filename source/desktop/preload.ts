@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld("labforge", {
   create: () => ipcRenderer.invoke("project:new"),
   open: () => ipcRenderer.invoke("project:open"),
   openPath: (file: string) => ipcRenderer.invoke("project:open-path", file),
+  pathForFile: (file: File) => webUtils.getPathForFile(file),
   activate: (id: string) => ipcRenderer.invoke("project:activate", id),
   save: (id: string) => ipcRenderer.invoke("project:save", id),
   configure: (id: string, patch: { name?: string; builder?: "xelatex" | "pdflatex" | "lualatex" }) => ipcRenderer.invoke("project:configure", id, patch),
