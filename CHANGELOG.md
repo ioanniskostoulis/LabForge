@@ -4,7 +4,7 @@
 
 - Opens a report dropped on the window from Finder or File Explorer; files dropped on the file tree are still added to the report, and a file that is not a report is named in Messages.
 - Shows a status at the right of every file in the inspector's tree, editable or read-only, and no longer on the header of a supporting file beside the editor.
-- Updates the shared Forge frame to forge-shell 3.1.0: chips drawn as a button group, a legible label on a disabled primary button, a focus ring on the panel buttons and the tool flyout with its tools' names.
+- Updates the shared Forge frame to forge-shell 3.1.1: chips drawn as a button group, a legible label on a disabled primary button, a focus ring on the panel buttons and the tool flyout with its tools' names.
 
 ## 2.7.0
 
