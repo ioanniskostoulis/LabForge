@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.4
+
+- Updates the shared Forge frame to forge-shell 3.4.0: Lucide icons at the size of the earlier set, menus sized to their content, and the Builder section built by the shell's first-section helper.
+- Fixes in the file tree: one key press now acts once after the tree redraws, and New folder in an unlisted folder goes inside it.
+- Fixes Find, which skipped the match under the cursor as the query grew, and Cmd or Ctrl with the mouse wheel, which zoomed too far per notch.
+
 ## 2.7.1
 
 - Opens a report dropped on the window from Finder or File Explorer; files dropped on the file tree are still added to the report, and a file that is not a report is named in Messages.
