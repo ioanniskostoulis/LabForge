@@ -1,8 +1,7 @@
 // Licensed under the GNU General Public License v2 or later. See LICENSE.
 import { DocumentTabs } from "forge-shell/app/tabs";
 import { attachFileDrop } from "forge-shell/app/file-drop";
-import { fillGeneralSection, type GeneralAction } from "forge-shell/app/inspector-general";
-import { createCheckRow, createField, createRow } from "forge-shell/app/builders";
+import { createButton, createButtonGroup, createCheckRow, createField, createRow } from "forge-shell/app/builders";
 import { createBottomTabs } from "forge-shell/app/bottom-tabs";
 import { createPanelLayout } from "forge-shell/app/panel-layout";
 import { createToolStrip } from "forge-shell/app/tool-strip";
@@ -845,8 +844,9 @@ function renderTree(): void {
   });
   const builderField = createField("Builder", builderSelect);
   // While a build runs the same button cancels it: its label names what a click does next (toggle buttons).
-  const build: GeneralAction = { label: active?.building ? "Cancel" : "Build PDF", primary: true, disabled: !active || !!api.preview, onClick: () => { if (active?.building) void cancelBuild(); else void buildPdf(); } };
-  const openPdf: GeneralAction = { label: "Open PDF", disabled: !active?.hasPdf, onClick: () => { if (active) void api.external(active.id, "main.pdf").catch(error => report(`Could not open the PDF: ${problemText(error)}`, "error")); } };
+  const build = createButton({ label: active?.building ? "Cancel" : "Build PDF", primary: true, disabled: !active || !!api.preview, onClick: () => { if (active?.building) void cancelBuild(); else void buildPdf(); } });
+  if (api.preview) setTip(build, "Building needs the LabForge desktop app.");
+  const openPdf = createButton({ label: "Open PDF", disabled: !active?.hasPdf, onClick: () => { if (active) void api.external(active.id, "main.pdf").catch(error => report(`Could not open the PDF: ${problemText(error)}`, "error")); } });
   const previewField = createCheckRow("Preview PDF", active?.pdfOpen ?? false, checked => { if (!active) return; active.pdfOpen = checked; void loadPdf(); });
   const definedPresets = active?.presets ?? ["default", "report", "thesis"];
   const selectedPreset = active ? readClassOptions(active.text)?.preset : null;
@@ -863,8 +863,7 @@ function renderTree(): void {
   const bibliography = bibliographyField.querySelector("input")!;
   Object.assign(classControls, { preset: presetSelect, language: languageSelect, fontsize: fontsizeSelect, bibliography });
   syncClassControls();
-  fillGeneralSection(builder, [build, openPdf], [nameField, builderField, presetField, languageField, fontsizeField, bibliographyField, previewField]);
-  if (api.preview) setTip(builder.querySelector<HTMLElement>(".buttons .primary")!, "Building needs the LabForge desktop app.");
+  builder.append(createButtonGroup([build, openPdf]), nameField, builderField, presetField, languageField, fontsizeField, bibliographyField, previewField);
 
   // The Outline and Block sections (outline.ts, block-form.ts) are switched off for now; with no host they draw nothing.
 

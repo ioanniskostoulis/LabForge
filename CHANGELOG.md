@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.5
+
+- Updates the shared Forge frame to forge-shell 4.0.0, and returns the Builder section to its earlier form: Build PDF and Open PDF as a button group, then the report's settings.
+
 ## 2.7.4
 
 - Updates the shared Forge frame to forge-shell 3.4.0: Lucide icons at the size of the earlier set, menus sized to their content, and the Builder section built by the shell's first-section helper.

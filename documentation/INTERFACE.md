@@ -69,7 +69,7 @@ LabForge has no colours of its own beyond the accents; `dataColors` in `forge.co
 |---|---|
 | Centre views | The LaTeX editor (CodeMirror 6) with an optional PDF preview tile, closed when a report opens |
 | Inspector sections | Builder and Files, both expanded |
-| First section | Builder (`fillGeneralSection`): Build PDF (primary) and Open PDF, then the report rows |
+| Builder section | A button group of Build PDF (primary) and Open PDF, then the report rows |
 | Folds that persist | None; both sections expand at every launch |
 | Bottom tabs | Terminal, Plots, Tables, Messages |
 | Default panel sizes | Inspector 246 px on the right; bottom panel 246 px; no override |
