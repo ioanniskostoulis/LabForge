@@ -2,6 +2,7 @@
 // The inspector's Block section: the options of the heading, figure, plot, table or formula under the cursor as fields.
 // A changed field rewrites only that key of the command, as one undoable edit in main.tex.
 import { createField } from "forge-shell/app/builders";
+import { createSelectControl } from "forge-shell/app/select-control";
 import { setTip } from "forge-shell/app/tips";
 import { setOption, splitSpans, type IndexEntry } from "./source-index";
 
@@ -66,12 +67,10 @@ export function renderBlockForm(host: HTMLElement, entry: IndexEntry | undefined
     if (spec.key === "subcaption") value = parts(value).join(", ");
     let control: HTMLElement;
     if (spec.choices) {
-      const select = document.createElement("select");
-      select.setAttribute("aria-label", spec.label);
-      for (const [choice, name] of spec.choices) { const option = document.createElement("option"); option.value = choice; option.textContent = name; select.append(option); }
-      if (value && !spec.choices.some(([choice]) => choice === value)) { const option = document.createElement("option"); option.value = value; option.textContent = value; select.append(option); }
-      select.value = spec.key === "place" && value === "here" ? "" : value;
-      select.addEventListener("change", () => apply(setOption(source, entry, spec.key, select.value)));
+      const choiceValue = spec.key === "place" && value === "here" ? "" : value;
+      const choices = [...spec.choices.map(([choice, name]) => ({ value: choice, label: name }))];
+      if (choiceValue && !choices.some(choice => choice.value === choiceValue)) choices.push({ value: choiceValue, label: choiceValue });
+      const select = createSelectControl({ label: spec.label, choices, value: choiceValue, onChange: next => apply(setOption(source, entry, spec.key, next)) });
       control = select;
     } else control = text(value, spec.label, next => apply(setOption(source, entry, spec.key, spec.key === "subcaption" && next.trim() ? parts(next).map(part => `{${part}}`).join(", ") : next)));
     const field = createField(spec.label, control);

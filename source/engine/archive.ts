@@ -40,7 +40,7 @@ function projectFiles(root: string): { name: string; bytes: Buffer; directory: b
   return files;
 }
 
-export function saveArchive(root: string, destination: string): void {
+export function archiveBytes(root: string): Buffer {
   const parts: Buffer[] = [];
   const directory: Buffer[] = [];
   let offset = 0;
@@ -69,8 +69,12 @@ export function saveArchive(root: string, destination: string): void {
   const end = Buffer.alloc(22);
   end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(files.length, 8); end.writeUInt16LE(files.length, 10);
   end.writeUInt32LE(centralBytes.length, 12); end.writeUInt32LE(offset, 16);
+  return Buffer.concat([...parts, centralBytes, end]);
+}
+
+export function saveArchive(root: string, destination: string): void {
   const temp = `${destination}.tmp`;
-  fs.writeFileSync(temp, Buffer.concat([...parts, centralBytes, end]));
+  fs.writeFileSync(temp, archiveBytes(root));
   fs.renameSync(temp, destination);
 }
 

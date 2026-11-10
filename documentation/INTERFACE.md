@@ -136,7 +136,7 @@ With Spell check on, the desktop editor marks misspelled prose after a short typ
 |---|---|---|
 | Edit | Undo, Redo | Action name with the shortcut from the registry |
 | Clipboard | Cut, Copy, Paste | As above |
-| View | Actual size, Zoom in, Zoom out | As above |
+| View | Zoom out, Zoom in, Actual size | As above |
 | Insert families | Structure, Maths, Figures, References, Custom commands (shell `createFlyoutGroup`) | Family name; each item writes its framework command at the cursor or around the selection |
 | Search | Search commands (shell `createToolSearch`) | Finds every indexed command available to the report by name, syntax, description, example or package; scrolls all matches |
 
@@ -160,7 +160,7 @@ The catalogue is `source/app/commands.ts`. Descriptions follow the imperative fo
 | `build`, `cancel` | `build`, `cancel` | `build` | Document | No | Yes, with Ctrl+C | One sentence |
 | `status` | `status` | `status` | Document | No | No | One sentence |
 
-Aliases accepted and not listed in help: `<command> -h`, `<command> --help` and `<command> ?`. The welcome overview lists File (`new`, `open`, `recent`, `tabs`), View, Editor, Help and Console only; a document-only command answers `Open a report project first.` `panel` also takes `terminal`, `plots`, `tables` and `messages`. A bare `theme` reports the appearance, which the shared syntax does not yet accept. LabForge has no `autosave`: a report is written as it is edited, and only an untitled report waits for Save.
+Aliases accepted and not listed in help: `<command> -h`, `<command> --help` and `<command> ?`. The welcome overview lists File (`new`, `open`, `recent`, `tabs`), View, Editor, Help and Console only; a document-only command answers `Open a report project first.` `panel` also takes `terminal`, `plots`, `tables` and `messages`. A bare `theme` reports the appearance, which the shared syntax does not yet accept. Autosave applies to saved reports; untitled reports remain available through crash recovery until they are saved or discarded. Health history stays on this device.
 
 ## 8. Messages
 

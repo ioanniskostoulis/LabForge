@@ -2,7 +2,7 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { extractArchive, isZip, saveArchive } from "./archive";
+import { archiveBytes, extractArchive, isZip, saveArchive } from "./archive";
 import { isProtectedProjectPath, projectClassFile, projectSettingsFile, renameBlockReason } from "./project-paths";
 export { isProtectedProjectPath, projectClassFile, projectSettingsFile, renameBlockReason };
 
@@ -121,6 +121,8 @@ export function exportProjectZip(project: ProjectArchive, destination: string): 
   if (path.resolve(destination).startsWith(project.root + path.sep)) throw new Error("Choose a location outside the report.");
   saveArchive(project.root, destination);
 }
+/** The ZIP bytes exported through the shell's guarded export flow. */
+export function exportProjectZipBytes(project: ProjectArchive): Uint8Array { return archiveBytes(project.root); }
 /** Replace a project's report class with the app's when they differ. Projects without the class (older layouts) are left alone. Returns whether it changed. */
 export function refreshProjectClass(project: ProjectArchive, framework: string): boolean {
   const current = path.join(project.root, projectClassFile), latest = path.join(framework, "labforge.cls");

@@ -12,6 +12,7 @@ import { FindController, createFindBar } from "forge-shell/app/find-bar";
 import { syntaxHighlighting } from "@codemirror/language";
 import { PdfStage } from "./pdf-stage";
 import { setTip } from "forge-shell/app/tips";
+import { createSelectControl } from "forge-shell/app/select-control";
 import { editorOptionExtensions, latexHighlight, latexLanguage } from "./latex-editor";
 import type { EditorSettings } from "./editor-settings";
 import { reindent, writePlot, type GeneratorSettings, type PlotSettings } from "../engine/generators";
@@ -406,7 +407,9 @@ export class GeneratorPane {
     }
     // With no source chosen, everything but Source is greyed out; the tiles say why.
     const idle = !form.source;
-    if (idle) for (const control of groups.flatMap(box => [...box.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("input, select, textarea")])) if (control !== sourceSelect) control.disabled = true;
+    if (idle) for (const control of groups.flatMap(box => [...box.querySelectorAll<HTMLElement>("input, select, textarea, button")])) if (control !== sourceSelect) {
+      if (control instanceof HTMLButtonElement || control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement) control.disabled = true;
+    }
     for (const box of groups) box.classList.toggle("idle", idle);
     this.setIdle(idle);
     this.form.replaceChildren(...groups);
@@ -592,14 +595,8 @@ function text(value: string, onInput: (value: string) => void, title: string, hi
 }
 /** In a list of options, a line between two groups. */
 const rule = "---";
-function select(options: [string, string][], value: string, onChange: (value: string) => void, title: string): HTMLSelectElement {
-  const control = document.createElement("select");
-  control.className = "generator-input";
-  setTip(control, title);
-  for (const [optionValue, label] of options) {
-    if (optionValue === rule) control.append(document.createElement("hr"));
-    else control.append(new Option(label, optionValue, false, optionValue === value));
-  }
-  control.addEventListener("change", () => onChange(control.value));
+function select(options: [string, string][], value: string, onChange: (value: string) => void, title: string): HTMLButtonElement {
+  const control = createSelectControl({ className: "generator-input select-control", label: title, title,
+    choices: options.filter(([optionValue]) => optionValue !== rule).map(([optionValue, label]) => ({ value: optionValue, label })), value, onChange });
   return control;
 }

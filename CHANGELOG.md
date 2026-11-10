@@ -1,7 +1,9 @@
 # Changelog
 
-## 2.7.5
+## 2.8.0
 
+- Adds the shell's Health page and local break reminders, autosave choices, and crash recovery for unsaved report text.
+- Updates the shared Forge frame to forge-shell 6.0.0: Settings rows teach their Terminal commands, and Help follows the shell's current guide order with updates in Settings.
 - Updates the shared Forge frame to forge-shell 4.0.0, and returns the Builder section to its earlier form: Build PDF and Open PDF as a button group, then the report's settings.
 
 ## 2.7.4

@@ -29,17 +29,18 @@ const optionCommands: readonly CommandSpec[] = [
 /** The standard actions LabForge has; the shell's shared commands run them as their menu items do. LabForge has no Save as
  * (Save asks for a place the first time) and no Fit (Actual size is the editor's text size). */
 export const ACTIONS: readonly StandardAction[] = ["file.new", "file.open", "file.save", "file.close", "edit.undo", "edit.redo",
-  "view.zoomIn", "view.zoomOut", "view.actualSize", "about", "about.whatsNew", "about.shortcuts", "about.licenses",
-  ...(forgeApp.identity.repository ? ["about.updates" as const] : [])];
+  "view.zoomIn", "view.zoomOut", "view.actualSize", "app.settings", "about", "about.whatsNew", "about.shortcuts", "about.licenses"];
 /** The bottom panes, Terminal first and Messages last. */
 export const PANES = ["terminal", "plots", "tables", "messages"] as const;
-/** The shell's shared commands for these actions. Reports are written as they are edited, so there is no autosave. */
-export const shared: readonly SharedCommand[] = sharedCommands(ACTIONS);
+/** The shell's shared commands for these actions, including its autosave preference. */
+export const shared: readonly SharedCommand[] = sharedCommands(ACTIONS, { autosave: true });
 const sharedSpecs: readonly CommandSpec[] = shared.map(({ spec }) => spec.name === "panel"
   ? { ...spec, choices: ["on", "off", ...PANES], example: "panel messages" } : spec);
 
 /** LabForge's own commands, after the shared ones. */
 const own: readonly CommandSpec[] = [
+  { name: "health", syntax: "health [reminder [off|2|3|4|5|6]]", description: "Show or set active-use break reminders", args: /^(?:|reminder (?:off|2|3|4|5|6))$/, choices: ["reminder"], example: "health reminder off",
+    subcommands: [{ syntax: "health", description: "Show the active-use reminder setting" }, { syntax: "health reminder [off|2|3|4|5|6]", description: "Set the active-use break reminder" }] },
   { name: "tabs", syntax: "tabs", description: "List the open reports", args: /^$/ },
   { name: "tab", syntax: "tab <number>", description: "Switch to an open report", args: /^\d+$/, example: "tab 2" },
   { name: "editor", syntax: "editor [<option>] [on|off]", description: "List or change editor options", example: "editor minimap on",
@@ -111,9 +112,10 @@ export const commands: readonly CommandSpec[] = [...sharedSpecs, ...own];
 
 /** Commands and forms that work with no report open. `files` and `panel` also have forms that need one. */
 export const availableOnWelcome: ReadonlySet<string> = new Set([...shared.filter(entry => !entry.document).map(entry => entry.spec.name),
-  "editor", ...optionCommands.map(command => command.name), "hidden", "files", "tabs"]);
+  "editor", ...optionCommands.map(command => command.name), "health", "hidden", "files", "tabs"]);
 
 const details: Record<string, HelpDetails> = {
+  health: { notes: ["Active-use history stays on this device.", "The reminder is shown after the selected number of active hours in a day."] },
   editor: {
     choices: [...editorToggles.map(toggle => [toggle.name, toggle.label] as [string, string]), ...editorChoices.map(item => [item.name, item.comment] as [string, string])],
     notes: ["Editor options are app preferences and apply to every report.", "Brackets, caret and highlight are also commands: brackets dimmed on, caret blink off."],
@@ -154,6 +156,7 @@ function helpGroups(): [string, string[]][] {
   const add = (group: string, names: string[]) => groups.set(group, [...(groups.get(group) ?? []), ...names]);
   add("File", ["tabs", "tab", "finder"]);
   add("View", ["files", "hidden", "pdf"]);
+  add("View", ["health"]);
   const order: [string, string[]][] = [["File", []], ["Edit", []], ["View", []], ["Editor", ["editor", ...optionCommands.map(command => command.name)]],
     ["Document", ["preset", "language", "bibliography", "latex", "label", "build", "cancel", "status"]], ["Help", []], ["Plots and tables", ["plots", "tables", "plot", "table"]], ["Console", []]];
   return order.map(([group, names]) => [group, [...(groups.get(group) ?? []), ...names]] as [string, string[]]).filter(([, names]) => names.length);
@@ -171,6 +174,7 @@ export function firstArguments(verb: string, welcome: boolean): string[] {
   if (verb === "latex") return [...latexTopics, "new", ...latexNames()];
   if (verb === "plot") return ["add", "open", "regenerate", "remove", "default", "defaults"];
   if (verb === "table") return ["add", "open", "regenerate", "remove", "header", "align", "smart"];
+  if (verb === "health") return ["reminder"];
   if (verb === "panel" && welcome) return ["on", "off", "terminal"];
   return findCommand(verb)?.choices ?? [];
 }

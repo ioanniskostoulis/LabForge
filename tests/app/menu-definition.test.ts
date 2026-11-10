@@ -32,9 +32,9 @@ test("standard items keep the shell's labels and keys, and Build and Cancel buil
   assert.equal(find("cancelBuild").key, undefined);
 });
 
-test("Help ends with Check for updates…, after Writing helper", () => {
+test("Help uses the shell's 6.0.0 guide order without an updates action", () => {
   const help = menuForState(state, { desktop: true, mac: false }).find(menu => menu.label === "Help")!;
-  assert.deepEqual(ids(help.submenu!), ["about", "about.whatsNew", "about.shortcuts", "about.licenses", "writingHelper", "about.updates"]);
+  assert.deepEqual(ids(help.submenu!), ["about", "about.whatsNew", "about.shortcuts", "writingHelper", "about.licenses"]);
   const mac = menuForState(state, { desktop: true, mac: true }).find(menu => menu.label === "Help")!;
   assert.equal(ids(mac.submenu!)[0], "about.whatsNew", "macOS keeps About in the application menu");
 });

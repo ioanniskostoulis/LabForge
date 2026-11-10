@@ -1,17 +1,20 @@
 // Licensed under the GNU General Public License v2 or later. See LICENSE.
 import { app, BrowserWindow, clipboard, dialog, ipcMain, Menu, shell, utilityProcess, type UtilityProcess } from "electron";
 import * as fs from "node:fs";
+import { readdir, writeFile } from "node:fs/promises";
 import * as path from "node:path";
 import { randomUUID } from "node:crypto";
 import { createNativeMenuTemplate } from "forge-shell/desktop/native-menu";
 import { forwardFullScreen } from "forge-shell/desktop/full-screen";
 import { DARK_WINDOW_BACKGROUND, registerTitleBarIpc, usesNativeMenu, windowChrome } from "forge-shell/desktop/title-bar";
 import { registerUpdater } from "forge-shell/desktop/updater";
+import { registerExportIpc } from "forge-shell/desktop/export-main";
+import type { ExportFormat } from "forge-shell/app/export-plan";
 import { forgeApp } from "../app/profile";
 import { menuForState, type MenuState } from "../app/menu-definition";
 import { editorDefaults, restoreEditorSettings } from "../app/editor-settings";
 import { filesDefaults, restoreFilesSettings } from "../app/file-settings";
-import { addProjectFile, closeProjectArchive, copyProjectFile, createProjectFolder, createUntitledProject, migrateProjectDotFiles, migrateProjectStyles, refreshProjectClass, listProjectFiles, openProjectArchive, isLegacyArchive, convertLegacyArchive, exportProjectZip, readProjectSettings, readProjectText, removableProjectPath, renameProjectFile, resolveProjectFile, saveProjectArchiveAs, updateProjectSettings, writeProjectText, type ProjectArchive, type ProjectBuilder } from "../engine/project-archive";
+import { addProjectFile, closeProjectArchive, copyProjectFile, createProjectFolder, createUntitledProject, migrateProjectDotFiles, migrateProjectStyles, refreshProjectClass, listProjectFiles, openProjectArchive, isLegacyArchive, convertLegacyArchive, exportProjectZipBytes, readProjectSettings, readProjectText, removableProjectPath, renameProjectFile, resolveProjectFile, saveProjectArchiveAs, updateProjectSettings, writeProjectText, type ProjectArchive, type ProjectBuilder } from "../engine/project-archive";
 import { buildProjectPdf } from "../engine/tex-build";
 import { pdfAt, sourceAt } from "../engine/synctex";
 import { checkTex, isTexDownload } from "../engine/tex-check";
@@ -24,6 +27,39 @@ import { presetNames } from "../app/document-class";
 
 type Session = { id: string; project: ProjectArchive; watcher: fs.FSWatcher | null; watchTimer: NodeJS.Timeout | null; building: boolean; pdfStale: boolean; abort?: AbortController };
 const sessions = new Map<string, Session>();
+const exportFormats: ExportFormat[] = [{ id: "zip", name: "ZIP archive", extensions: ["zip"], mime: "application/zip" }];
+function projectSourceFiles(): string[] {
+  const files: string[] = [];
+  const visit = (folder: string) => {
+    for (const item of fs.readdirSync(folder, { withFileTypes: true })) {
+      const full = path.join(folder, item.name);
+      if (item.isSymbolicLink()) continue;
+      if (item.isDirectory()) visit(full); else if (item.isFile()) files.push(full);
+    }
+  };
+  for (const session of sessions.values()) visit(session.project.root);
+  return files;
+}
+const exportIpc = registerExportIpc(ipcMain, {
+  formats: exportFormats,
+  ignoreCase: process.platform !== "linux",
+  protectedPaths: () => projectSourceFiles(),
+  saveDialog: async (event, options) => {
+    const owner = BrowserWindow.fromWebContents(event.sender as Electron.WebContents);
+    const result = owner ? await dialog.showSaveDialog(owner, options) : await dialog.showSaveDialog(options);
+    return result.canceled || !result.filePath ? null : result.filePath;
+  },
+  folderDialog: async (event, options) => {
+    const owner = BrowserWindow.fromWebContents(event.sender as Electron.WebContents);
+    const settings = { ...options, properties: ["openDirectory", "createDirectory"] as ("openDirectory" | "createDirectory")[] };
+    const result = owner ? await dialog.showOpenDialog(owner, settings) : await dialog.showOpenDialog(settings);
+    return result.canceled ? null : result.filePaths[0] ?? null;
+  },
+  readdir: folder => readdir(folder),
+  writeFile: (file, bytes, flag) => writeFile(file, bytes, { flag }),
+  resolve: file => path.resolve(file),
+  dirname: file => path.dirname(file),
+});
 let window: BrowserWindow | null = null;
 let activeId: string | null = null;
 let pendingFile: string | null = null;
@@ -120,14 +156,12 @@ function include(project: ProjectArchive): ReturnType<typeof snapshot> {
 function resourceFolder(...parts: string[]): string {
   return path.join(app.isPackaged ? process.resourcesPath : path.resolve(__dirname, "../../assets"), ...parts);
 }
-function open(file: string): ReturnType<typeof snapshot> & { staleGenerated?: string[] } {
+function open(file: string, convertLegacy = false): ReturnType<typeof snapshot> & { staleGenerated?: string[] } {
   const absolute = path.resolve(file);
   const already = [...sessions.values()].find(item => item.project.archive === absolute);
   if (already) { activeId = already.id; return snapshot(already); }
   if (fs.existsSync(absolute) && isLegacyArchive(absolute)) {
-    const answer = dialog.showMessageBoxSync(window!, { type: "question", buttons: ["Convert", "Cancel"], defaultId: 0, cancelId: 1, message: `Convert ${path.basename(absolute)} to a package?`,
-      detail: `${path.basename(absolute)} is an older ZIP report. LabForge opens it as a folder; the ZIP is kept beside it as ${path.basename(absolute)}.zip.` });
-    if (answer !== 0) throw new Error("Cancelled");
+    if (!convertLegacy) throw new Error("This report is an older ZIP archive and needs confirmation before conversion.");
     convertLegacyArchive(absolute);
   }
   const project = openProjectArchive(absolute);
@@ -175,7 +209,7 @@ function createWindow(): void {
     event.preventDefault();
     if (!closeRequested) { closeRequested = true; window?.webContents.send("app:close-request"); }
   });
-  window.on("closed", () => { window = null; if (quitAfterClose) app.quit(); });
+  window.on("closed", () => { if (window) exportIpc.forget(window.webContents.id); window = null; if (quitAfterClose) app.quit(); });
   window.on("blur", () => { commandEditorActive = false; commandInputSource("restore"); });
   // Shown once the page has painted in its saved appearance, so no window colour flashes first.
   window.once("ready-to-show", () => window?.show());
@@ -183,8 +217,7 @@ function createWindow(): void {
   forwardFullScreen(window);
   window.webContents.on("did-finish-load", () => {
     if (pendingFile) {
-      try { window?.webContents.send("project:opened", open(pendingFile)); }
-      catch (error) { dialog.showErrorBox("Could not open report", String(error)); }
+      window?.webContents.send("project:open-request", pendingFile);
       pendingFile = null;
     }
   });
@@ -216,18 +249,16 @@ ipcMain.handle("project:new", () => {
 ipcMain.handle("project:open", async () => {
   // Windows cannot choose files and folders in one dialog; a .lfg there is a folder.
   const choice = await dialog.showOpenDialog(window!, { title: "Open LabForge report", properties: [...(process.platform === "win32" ? [] : ["openFile" as const]), "openDirectory", "multiSelections"], filters: process.platform === "win32" ? [] : [{ name: "LabForge report", extensions: ["lfg"] }] });
-  const opened: ReturnType<typeof open>[] = [];
-  for (const file of choice.canceled ? [] : choice.filePaths) {
-    try { opened.push(open(file)); } catch (error) { if (String(error) !== "Error: Cancelled") throw error; }
-  }
-  return opened;
+  return choice.canceled ? [] : choice.filePaths;
 });
-/** Opens a report by its path, for File › Open recent; null when it was not converted. */
-ipcMain.handle("project:open-path", (_event, file: string) => {
+ipcMain.handle("project:is-legacy", (_event, file: string) => typeof file === "string" && fs.existsSync(file) && isLegacyArchive(file));
+/** Opens a report by its path after any legacy conversion choice was made in the page. */
+ipcMain.handle("project:open-path", (_event, file: string, convertLegacy = false) => {
   if (typeof file !== "string" || !file.toLowerCase().replace(/[\\/]+$/, "").endsWith(".lfg")) throw new Error("Only LabForge reports (.lfg) open from Open recent.");
   if (!fs.existsSync(file)) throw new Error(`${path.basename(file)} is no longer there. It was removed from Open recent.`);
-  try { return open(file); } catch (error) { if (String(error) === "Error: Cancelled") return null; throw error; }
+  return open(file, convertLegacy === true);
 });
+ipcMain.handle("project:export-bytes", (_event, id: string) => exportProjectZipBytes(selected(id).project));
 ipcMain.handle("project:activate", (_event, id: string) => { activeId = selected(id).id; return snapshot(selected(id)); });
 ipcMain.handle("project:save", async (_event, id: string) => {
   const session = selected(id);
@@ -240,13 +271,6 @@ ipcMain.handle("project:save", async (_event, id: string) => {
   }
   notify(session);
   return snapshot(session);
-});
-ipcMain.handle("project:export", async (_event, id: string) => {
-  const session = selected(id);
-  const choice = await dialog.showSaveDialog(window!, { title: "Export report as ZIP", defaultPath: `${readProjectSettings(session.project).name}.zip`, filters: [{ name: "ZIP archive", extensions: ["zip"] }] });
-  if (choice.canceled || !choice.filePath) return null;
-  exportProjectZip(session.project, choice.filePath);
-  return choice.filePath;
 });
 ipcMain.handle("project:configure", (_event, id: string, patch: { name?: string; builder?: ProjectBuilder }) => {
   const session = selected(id); updateProjectSettings(session.project, patch); notify(session); return snapshot(session);
@@ -415,11 +439,11 @@ if (!app.requestSingleInstanceLock()) app.quit();
 else {
   app.on("second-instance", (_event, argv) => {
     const file = argv.find(arg => arg.toLowerCase().replace(/[\\/]+$/, "").endsWith(".lfg"));
-    if (file) { try { window?.webContents.send("project:opened", open(file)); } catch (error) { dialog.showErrorBox("Could not open report", String(error)); } }
+    if (file) window?.webContents.send("project:open-request", file);
     window?.show(); window?.focus();
   });
   app.on("open-file", (event, file) => { event.preventDefault(); if (!window || window.webContents.isLoading()) pendingFile = file; else {
-    try { window.webContents.send("project:opened", open(file)); } catch (error) { dialog.showErrorBox("Could not open report", String(error)); }
+    window.webContents.send("project:open-request", file);
   } });
   app.whenReady().then(() => { pendingFile ||= process.argv.find(arg => arg.toLowerCase().endsWith(".lfg")) ?? null; createWindow(); });
   app.on("will-quit", () => { commandInputSource("restore"); for (const session of sessions.values()) dispose(session); });

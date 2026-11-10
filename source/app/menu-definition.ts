@@ -58,7 +58,7 @@ export function menuForState(state: MenuState, options: { desktop: boolean; mac:
   return [
     { label: "File", submenu: [standard("file.new"), standard("file.open"),
       ...(options.desktop ? [recentMenu(state.recent ?? [])] : []),
-      { separator: true }, standard("file.save", { enabled: desktopReport }), item("showContents", "Show project contents", undefined, desktopReport), item("showInFinder", options.mac ? "Show file in Finder" : "Show file in File Explorer", undefined, desktopReport), item("exportZip", "Export as ZIP…", undefined, desktopReport), standard("file.close", { enabled: report })] },
+      { separator: true }, standard("file.save", { enabled: desktopReport }), item("showContents", "Show project contents", undefined, desktopReport), item("showInFinder", options.mac ? "Show file in Finder" : "Show file in File Explorer", undefined, desktopReport), item("exportZip", "Export as ZIP…", undefined, desktopReport), standard("file.close", { enabled: report }), standard("app.settings")] },
     { label: "Edit", submenu: [...edit, { separator: true },
       standard("edit.toggleComment", { enabled: report }), item("joinLines", "Join lines", undefined, report), item("sortLines", "Sort lines", undefined, report), item("trimWhitespace", "Trim trailing whitespace", undefined, report),
       { separator: true }, standard("edit.find", { enabled: report }), standard("edit.replace", { enabled: report }),
@@ -79,10 +79,7 @@ export function menuForState(state: MenuState, options: { desktop: boolean; mac:
   ];
 }
 
-/** The shell's Help menu with Writing helper after the information dialogs; Check for updates… ends it. */
+/** The shell's Help menu with the LabForge writing guide. */
 function help(appMenuHasAbout: boolean): MenuNode {
-  const shared = helpMenu(forgeApp.identity.name, appMenuHasAbout, !!forgeApp.identity.repository).submenu ?? [];
-  const updates = shared.findIndex(node => node.id === "about.updates");
-  const informational = updates < 0 ? shared : shared.slice(0, updates - 1);
-  return { label: "Help", submenu: [...informational, { separator: true }, { id: "writingHelper", label: "Writing helper…" }, ...(updates < 0 ? [] : shared.slice(updates - 1))] };
+  return helpMenu(forgeApp.identity.name, appMenuHasAbout, false, [{ id: "writingHelper", label: "Writing helper…" }]);
 }

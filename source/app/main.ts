@@ -24,19 +24,25 @@ import { classLineChange, fontSizes, presetNames, readClassOptions, type ClassOp
 import { renderMenubar, matchesKey, collectShortcuts, drawsMenubar, shortcutText, titleBarColors, type MenuNode } from "forge-shell/app/menus";
 import { newEntryName } from "forge-shell/app/file-tree";
 import { moveItem } from "forge-shell/app/content-selection";
-import { askToSave } from "forge-shell/app/dialogs";
+import { askToChoose, askToSave } from "forge-shell/app/dialogs";
+import { exportFiles, type ExportBridge } from "forge-shell/app/export-files";
+import type { ExportFormat } from "forge-shell/app/export-plan";
 import { TOOL_ICONS, UI_ICONS } from "forge-shell/app/tool-icons";
 import { createFlyoutGroup } from "forge-shell/app/tool-flyout";
 import { createToolSearch } from "forge-shell/app/tool-search";
+import { createSelectControl } from "forge-shell/app/select-control";
 import { customTools, figureTools, insertFamilies, searchCommands, type InsertTool } from "./insert-tools";
 import { commandDefinition, commandProblem, parseCustomCommands } from "./tex-commands";
 import { addToPreamble } from "../engine/preamble";
 import { findFrameworkCommand, getCustomCommands, latexHelp, setCustomCommands, setReportPackageSource } from "./framework-commands";
 import { settingsStorageKey, terminalHistoryStorageKey } from "forge-shell/app/profile";
+import { createAutosave, createRecovery, askToRecover, type AutosaveChoice } from "forge-shell/app/saving";
+import { createHealthTracker, healthCommand, healthPage, type HealthTracker } from "forge-shell/app/health";
 import { forgeApp } from "./profile";
 import { infoOptions, showAbout, showLicenses, showWritingHelper } from "./about";
 import { menuShortcutGroups, showShortcuts, showWhatsNew } from "forge-shell/app/about";
-import { showUpdateCheck, checkForUpdate, updateCheckDue, type InstallResult, type ReleaseAsset } from "forge-shell/app/updates";
+import { showUpdateNotice, type InstallResult, type ReleaseAsset } from "forge-shell/app/updates";
+import { generalPage, showSettings, terminalPage, updatesPage, type SettingsPage } from "forge-shell/app/settings-dialog";
 import { createRecentFiles } from "forge-shell/app/saving";
 import { menuForState, type MenuState } from "./menu-definition";
 import { PdfViewer } from "./pdf-viewer";
@@ -72,13 +78,22 @@ type Snapshot = { id: string; name: string; projectName: string; builder: Projec
 type ProjectView = Snapshot & { path: string | null; dirty: boolean; text: string; revision: number; pdfBuiltRevision: number; /** What main.tex held when LabForge last read or wrote it. */ diskText: string; asking: boolean; loaded: boolean; editorState: EditorState | null; pdfOpen: boolean; pdfWidth: number; pdfView: PdfView | null; pdfBuildState: "idle" | "succeeded" | "failed"; buildProblem: string; logs: MessageLog };
 type Api = {
   platform: string; preview?: boolean;
-  listOpen(): Promise<Snapshot[]>; create(): Promise<Snapshot | null>; open(): Promise<Snapshot[]>; activate(id: string): Promise<Snapshot>;
-  /** Open a report by its path, for File › Open recent; null when the person declined to convert it. Desktop only. */
-  openPath?(file: string): Promise<Snapshot | null>;
+  listOpen(): Promise<Snapshot[]>; create(): Promise<Snapshot | null>; open(): Promise<string[]>; activate(id: string): Promise<Snapshot>;
+  /** Whether a path is an older ZIP report that needs the in-page conversion choice. */
+  isLegacyArchive?(file: string): Promise<boolean>;
+  /** Open a report by its path after the in-page legacy conversion choice. Desktop only. */
+  openPath?(file: string, convertLegacy?: boolean): Promise<Snapshot | null>;
+  onOpenRequest?(callback: (file: string) => void): void;
   /** The path on disk of a file dropped on the window (Electron's `webUtils`). Desktop only. */
   pathForFile?(file: File): string;
   /** Download and install an update, then restart into it (the shell's `registerUpdater`). Desktop only. */
   installUpdate?(asset: ReleaseAsset): Promise<InstallResult>;
+  onUpdateProgress?(listener: (progress: { done: number; total: number }) => void): void;
+  exportZipBytes?(id: string): Promise<Uint8Array>;
+  exportDialog?(name: string, formats?: readonly string[]): Promise<string | null>;
+  exportFolder?(title?: string): Promise<{ folder: string; names: string[] } | null>;
+  exportFolderNames?(path: string): Promise<string[]>;
+  writeExport?(path: string, bytes: Uint8Array, originals?: readonly string[], replace?: boolean): Promise<void>;
   save(id: string): Promise<Snapshot | null>; configure(id: string, patch: { name?: string; builder?: ProjectBuilder }): Promise<Snapshot>; close(id: string): Promise<boolean>; files(id: string): Promise<ProjectFile[]>;
   read(id: string, file: string): Promise<string>; write(id: string, file: string, content: string): Promise<Snapshot>;
   copyText(text: string): Promise<void>;
@@ -96,7 +111,7 @@ type Api = {
   /** SyncTeX: the source line at a point of the PDF, and the boxes a line was set in. Desktop only. */
   sourceAt?(id: string, page: number, x: number, y: number): Promise<{ file: string; line: number } | null>;
   pdfAt?(id: string, file: string, line: number): Promise<{ page: number; left: number; top: number; width: number; height: number }[]>;
-  external(id: string, file: string): Promise<void>; reveal(id: string, file: string): Promise<void>; trash(id: string, file: string): Promise<Snapshot>; contents(id: string): Promise<void>; exportZip(id: string): Promise<string | null>; pdf(id: string): Promise<string | null>; build(id: string): Promise<{ success: boolean; summary: string; hasPdf: boolean; stale: boolean; diagnostics: string[]; issues: BuildDiagnostic[]; cancelled?: boolean }>; cancelBuild(id: string): Promise<boolean>; checkTex(builder: ProjectBuilder): Promise<{ ok: boolean; missing: string[]; message: string; url: string }>; openLink(url: string): Promise<void>;
+  external(id: string, file: string): Promise<void>; reveal(id: string, file: string): Promise<void>; trash(id: string, file: string): Promise<Snapshot>; contents(id: string): Promise<void>; pdf(id: string): Promise<string | null>; build(id: string): Promise<{ success: boolean; summary: string; hasPdf: boolean; stale: boolean; diagnostics: string[]; issues: BuildDiagnostic[]; cancelled?: boolean }>; cancelBuild(id: string): Promise<boolean>; checkTex(builder: ProjectBuilder): Promise<{ ok: boolean; missing: string[]; message: string; url: string }>; openLink(url: string): Promise<void>;
   onOpened(callback: (project: Snapshot) => void): void; onChanged(callback: (project: Snapshot) => void): void;
   onError(callback: (id: string, error: string) => void): void;
   onCommand(callback: (id: string) => void): void; onCloseRequest(callback: () => void): void; closeReady(): void; closeCancel(): void;
@@ -134,7 +149,7 @@ function browserAdapter(): Api {
   };
   const unavailable = () => { throw new Error("This action needs the LabForge desktop app."); };
   return { platform: navigator.platform.includes("Mac") ? "darwin" : "browser", preview: true,
-    async listOpen() { return []; }, async create() { return make(); }, async open() { return [await make()]; },
+    async listOpen() { return []; }, async create() { return make(); }, async open() { return []; },
     async activate(id) { return sample.get(id)!.snapshot; }, async save() { return unavailable(); },
     async configure(id, patch) {
       const item = sample.get(id)!;
@@ -155,7 +170,7 @@ function browserAdapter(): Api {
       else { item.others.set(file, text); if (!item.snapshot.files.some(entry => entry.path === file)) item.snapshot.files = [...item.snapshot.files, { path: file, kind: "tex", size: text.length }]; else item.snapshot.files = item.snapshot.files.map(entry => entry.path === file ? { ...entry, size: text.length } : entry); if (file === ".settings.tex") item.snapshot.presets = presetNames(text); }
       return item.snapshot;
     },
-    async exportZip() { return unavailable(); }, async rename() { return unavailable(); }, async mkdir() { return unavailable(); }, async copy() { return unavailable(); }, async add() { return unavailable(); }, async addDropped() { return unavailable(); }, async external() { return unavailable(); }, async reveal() { return unavailable(); }, async trash() { return unavailable(); }, async contents() { return unavailable(); },
+    async rename() { return unavailable(); }, async mkdir() { return unavailable(); }, async copy() { return unavailable(); }, async add() { return unavailable(); }, async addDropped() { return unavailable(); }, async external() { return unavailable(); }, async reveal() { return unavailable(); }, async trash() { return unavailable(); }, async contents() { return unavailable(); },
     async pdf() { return null; }, async build() { return unavailable(); }, async cancelBuild() { return false; }, async checkTex() { return new URLSearchParams(location.search).has("tex-missing") ? { ok: false, missing: ["latexmk", "xelatex", "biber"], message: "TeX is not fully installed (missing: latexmk, xelatex, biber), so PDFs cannot be built. Editing and saving still work. Install a TeX distribution from https://tug.org/mactex/, restart LabForge, then build again. The smaller BasicTeX also works, with latexmk and biber added through tlmgr.", url: "https://tug.org/mactex/" } : { ok: true, missing: [], message: "", url: "" }; }, async openLink() {},
     async generated() { return []; }, async regenerate() { return unavailable(); }, async previewGenerated() { return unavailable(); }, async pickSpreadsheet() { return null; }, async sheets() { return []; }, async generatedCode() { return unavailable(); }, async saveGenerated() { return unavailable(); }, async createGenerated() { return unavailable(); }, async rewriteGenerated() { return unavailable(); }, onOpened() {}, onChanged() {}, onError() {}, onFullScreen() {}, onCommand() {}, onCloseRequest() {}, closeReady() {}, closeCancel() {}, updateMenuState() {} };
 }
@@ -169,8 +184,6 @@ function rememberReport(value: Snapshot): void {
   recentReports.add(value.archive);
   refreshMenu();
 }
-/** A newer release found at launch, logged in the Messages of the first report that opens when none was open. */
-let updateNotice = "";
 const $ = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
 const projects: ProjectView[] = [];
 let active: ProjectView | null = null;
@@ -384,8 +397,8 @@ async function showInPdf(): Promise<void> {
   if (pdfBehind(project)) updateStatus("The PDF is older than the text, so the place may be off. Build PDF to update it.", "info");
 }
 
-type Preferences = { generatorOptionsShare: number; generatorCodeShare: number; appearance: "dark" | "light" | "pride"; showInspector: boolean; inspectorSide: "left" | "right"; inspectorWidth: number; showBottomPanel: boolean; bottomPanelHeight: number; editorFontSize: number; editor: EditorSettings; files: FilesSettings; terminalFontSize: number; pdfFollow: boolean; buildOnSave: boolean };
-const defaults: Preferences = { generatorOptionsShare: optionsShare.initial, generatorCodeShare: codeShare.initial, appearance: "dark", showInspector: true, inspectorSide: "right", inspectorWidth: 246, showBottomPanel: true, bottomPanelHeight: 246, editorFontSize: 14, editor: editorDefaults, files: filesDefaults, terminalFontSize: 12, pdfFollow: false, buildOnSave: false };
+type Preferences = { generatorOptionsShare: number; generatorCodeShare: number; appearance: "dark" | "light" | "pride"; showInspector: boolean; inspectorSide: "left" | "right"; inspectorWidth: number; showBottomPanel: boolean; bottomPanelHeight: number; editorFontSize: number; editor: EditorSettings; files: FilesSettings; terminalFontSize: number; autosave: AutosaveChoice; pdfFollow: boolean; buildOnSave: boolean };
+const defaults: Preferences = { generatorOptionsShare: optionsShare.initial, generatorCodeShare: codeShare.initial, appearance: "dark", showInspector: true, inspectorSide: "right", inspectorWidth: 246, showBottomPanel: true, bottomPanelHeight: 246, editorFontSize: 14, editor: editorDefaults, files: filesDefaults, terminalFontSize: 12, autosave: "off", pdfFollow: false, buildOnSave: false };
 const settingsStore = createSettingsStore<Preferences>(settingsStorageKey(forgeApp), defaults, stored => {
   const validNumber = (value: unknown, min: number, max: number, fallback: number): number =>
     typeof value === "number" && Number.isFinite(value) && value >= min && value <= max ? value : fallback;
@@ -401,6 +414,7 @@ const settingsStore = createSettingsStore<Preferences>(settingsStorageKey(forgeA
     editor: restoreEditorSettings(stored.editor, (stored as Record<string, unknown>).editorWrap),
     files: restoreFilesSettings(stored.files),
     terminalFontSize: validNumber(stored.terminalFontSize, 10, 24, defaults.terminalFontSize),
+    autosave: (stored.autosave === "1m" || stored.autosave === "5m" || stored.autosave === "focus" ? stored.autosave : defaults.autosave),
     pdfFollow: stored.pdfFollow === true,
     buildOnSave: stored.buildOnSave === true,
     generatorOptionsShare: restoreShare(stored.generatorOptionsShare, optionsShare),
@@ -408,6 +422,8 @@ const settingsStore = createSettingsStore<Preferences>(settingsStorageKey(forgeA
   };
 });
 const prefs = settingsStore.settings;
+const recovery = createRecovery(`${settingsStorageKey(forgeApp)}.drafts`);
+const health: HealthTracker = createHealthTracker({ storageKey: `${settingsStorageKey(forgeApp)}.health` });
 const supportingViews = new SupportingViews(prefs.editor, prefs.editorFontSize,
   file => { if (active) { renderTabs(); if (file.path === bibliographyPath(active)) refreshCitations(); } }, file => { void closeSupportingView(file); }, file => { revealFiles([file.path]); });
 const editor = new LatexEditor({
@@ -669,7 +685,6 @@ async function include(value: Snapshot): Promise<void> {
   await activate(project);
   warnTex(project);
   rememberReport(value);
-  if (updateNotice) { report(updateNotice, "info", project); updateNotice = ""; }
   // Sent once, when the report opens: plots and tables whose data file changed since they were generated.
   const stale = existing ? [] : value.staleGenerated ?? [];
   // A standing condition: logged once under its key, and again only after it has been gone for 30 s (shell ConditionWatch).
@@ -694,12 +709,38 @@ async function create(): Promise<void> {
   await include(value);
   editor.goToWriting(); editor.focus();
 }
+/** Restore drafts left in local storage by a previous crash. Normal saves and discarded closes clear them. */
+async function restoreDrafts(): Promise<void> {
+  const drafts = recovery.list();
+  if (!drafts.length) return;
+  const chosen = await askToRecover(drafts, forgeApp.identity.name);
+  if (!chosen?.length) return;
+  for (const draft of drafts.filter(item => chosen.includes(item.key))) {
+    try {
+      let project: ProjectView | undefined;
+      if (draft.path && api.openPath) {
+        await openReportAt(draft.path);
+        project = projects.find(item => item.path === draft.path);
+      } else if (!draft.path) {
+        const value = await api.create();
+        if (value) { await include(value); project = projects.find(item => item.id === value.id); }
+      }
+      if (!project) continue;
+      await activate(project);
+      editor.replaceAll(draft.text);
+      editor.focus();
+      recovery.clear(draft.key);
+      report(`Recovered unsaved changes in ${draft.name}.`, "info", project);
+    } catch (error) { report(`Could not recover ${draft.name}: ${problemText(error)}`, "error"); }
+  }
+}
 /** Open reports from the Open dialog; returns how many were opened. */
 async function open(): Promise<number> {
-  const values = await api.open();
-  if (values.length && projects.length === 1 && !projects[0].archive && !projects[0].dirty) await close(projects[0]);
-  for (const value of values) await include(value);
-  return values.length;
+  const files = await api.open();
+  if (files.length && projects.length === 1 && !projects[0].archive && !projects[0].dirty) await close(projects[0]);
+  let opened = 0;
+  for (const file of files) if (await openReportAt(file)) opened++;
+  return opened;
 }
 async function saveText(project = active): Promise<boolean> {
   if (!project || !project.dirty) return true;
@@ -714,7 +755,7 @@ async function saveText(project = active): Promise<boolean> {
     return true;
   } catch (error) { report(`Could not save main.tex: ${problemText(error)}`, "error", project); return false; }
 }
-async function save(project = active): Promise<boolean> {
+async function save(project = active, announce = true): Promise<boolean> {
   if (!project) return false;
   if (!(await saveText(project))) return false;
   if (!(await saveSupportingFiles(project))) return false;
@@ -724,13 +765,19 @@ async function save(project = active): Promise<boolean> {
     updateSnapshot(result);
     rememberReport(result);
     project.dirty = false;
+    recovery.clear(project.id);
     renderTabs();
-    report("Report saved.", "info", project);
+    if (announce) report("Report saved.", "info", project);
     checkReferences(project);
     if (prefs.buildOnSave && !api.preview && project === active && !project.building) void buildPdf();
     return true;
   } catch (error) { report(`Could not save the report: ${problemText(error)}`, "error", project); return false; }
 }
+const autosave = createAutosave<ProjectView>({
+  choice: () => prefs.autosave,
+  canSave: project => !!project.path,
+  save: project => save(project, false),
+});
 async function close(project = active): Promise<boolean> {
   if (!project) return true;
   if (project.dirty || supportingViews.hasDirty(project.id)) {
@@ -741,6 +788,8 @@ async function close(project = active): Promise<boolean> {
   catch (error) { report(`Could not close the report: ${problemText(error)}`, "error", project); return false; }
   if (project === active) pdfViewer.close();
   supportingViews.forget(project.id);
+  autosave.forget(project);
+  recovery.clear(project.id);
   for (const pane of generatorPanes) pane.forget(project.id);
   const index = projects.indexOf(project); projects.splice(index, 1);
   if (active === project) { active = null; const next = projects[Math.min(index, projects.length - 1)]; if (next) await activate(next); else setWorkspace(); }
@@ -754,8 +803,10 @@ function editorChanged(text: string): void {
   scheduleCustomMain();
   scheduleNavigation();
   if (importing) return;
-  // Edits are unsaved until Save (or Build PDF, which writes main.tex to build it); closing or quitting asks first.
+  // Edits stay dirty until Save, Build PDF or an enabled autosave writes them; closing or quitting asks first.
   active.dirty = true;
+  recovery.keep({ key: active.id, name: active.name, path: active.path, text });
+  autosave.edited(active);
   renderPdfBuildState();
   renderTabs(); syncClassControls();
   const language = writingLanguage(active);
@@ -791,12 +842,12 @@ function editAction(id: "undo" | "redo" | "cut" | "copy" | "paste"): void {
   else document.execCommand(id);
 }
 /** The Builder's class controls, kept in step with the class line of main.tex. */
-const classControls: { preset?: HTMLSelectElement; language?: HTMLSelectElement; fontsize?: HTMLSelectElement; bibliography?: HTMLInputElement } = {};
+const classControls: { preset?: HTMLButtonElement; language?: HTMLButtonElement; fontsize?: HTMLButtonElement; bibliography?: HTMLInputElement } = {};
 function syncClassControls(): void {
   const options = active ? readClassOptions(active.text) : null;
   for (const key of ["preset", "language", "fontsize"] as const) {
     const select = classControls[key]; if (!select) continue;
-    select.disabled = !options; select.value = options?.[key] ?? "";
+    select.disabled = !options; select.setAttribute("aria-disabled", String(!options));
   }
   const bibliography = classControls.bibliography;
   if (bibliography) { bibliography.disabled = !options; bibliography.checked = options?.bibliography ?? false; }
@@ -809,15 +860,10 @@ function setClassOptions(patch: Partial<ClassOptions>): boolean {
   editor.replace(change.from, change.to, change.insert);
   return true;
 }
-function selectField(label: string, tooltip: string, choices: readonly (readonly [string, string])[], change: (value: string) => void): [HTMLLabelElement, HTMLSelectElement] {
+function selectField(label: string, tooltip: string, choices: readonly (readonly [string, string])[], value: string, change: (value: string) => void): [HTMLLabelElement, HTMLButtonElement] {
   const field = document.createElement("label"); field.className = "field"; setTip(field, tooltip);
   const name = document.createElement("span"); name.className = "label"; name.textContent = label;
-  const select = document.createElement("select"); select.setAttribute("aria-label", label);
-  for (const [value, text] of choices) {
-    if (value === "-") { select.append(document.createElement("hr")); continue; }
-    const option = document.createElement("option"); option.value = value; option.textContent = text; select.append(option);
-  }
-  select.addEventListener("change", () => change(select.value));
+  const select = createSelectControl({ label, choices: choices.filter(([choice]) => choice !== "-").map(([choice, text]) => ({ value: choice, label: text })), value, onChange: change });
   field.append(name, select);
   return [field, select];
 }
@@ -832,16 +878,13 @@ function renderTree(): void {
     onError: text => report(text, "error", named),
     apply: name => { void api.configure(named.id, { name }).then(value => { updateSnapshot(value); report(`Report renamed to ${name}.`, "info", named); }).catch(error => report(`Could not rename the report: ${problemText(error)}`, "error", named)); } } : undefined);
   nameField.classList.add("empty-name-row");
-  const builderSelect = document.createElement("select"); builderSelect.setAttribute("aria-label", "PDF builder");
-  for (const [value, label] of [["xelatex", "XeLaTeX"], ["lualatex", "LuaLaTeX"]] as const) {
-    const option = document.createElement("option"); option.value = value; option.textContent = label; builderSelect.append(option);
-  }
-  builderSelect.value = active?.builder ?? "xelatex";
-  builderSelect.addEventListener("change", () => {
+  let builderValue = active?.builder ?? "xelatex";
+  const builderSelect = createSelectControl({ label: "PDF builder", choices: [["xelatex", "XeLaTeX"], ["lualatex", "LuaLaTeX"]].map(([value, label]) => ({ value, label })), value: builderValue, onChange: value => {
+    builderValue = value as ProjectBuilder;
     if (!active) return;
     const project = active;
-    void api.configure(project.id, { builder: builderSelect.value as ProjectBuilder }).then(updateSnapshot).catch(error => { builderSelect.value = project.builder; report(`Could not change the builder: ${problemText(error)}`, "error", project); });
-  });
+    void api.configure(project.id, { builder: value as ProjectBuilder }).then(updateSnapshot).catch(error => { builderValue = project.builder; renderTree(); report(`Could not change the builder: ${problemText(error)}`, "error", project); });
+  } });
   const builderField = createField("Builder", builderSelect);
   // While a build runs the same button cancels it: its label names what a click does next (toggle buttons).
   const build = createButton({ label: active?.building ? "Cancel" : "Build PDF", primary: true, disabled: !active || !!api.preview, onClick: () => { if (active?.building) void cancelBuild(); else void buildPdf(); } });
@@ -853,11 +896,11 @@ function renderTree(): void {
   const presetChoices: [string, string][] = definedPresets.map(name => [name, name[0].toUpperCase() + name.slice(1)]);
   if (selectedPreset && !definedPresets.includes(selectedPreset)) presetChoices.push([selectedPreset, `${selectedPreset} (not defined)`]);
   const [presetField, presetSelect] = selectField("Preset", "Sets preset= in the class line of main.tex.",
-    presetChoices, value => setClassOptions({ preset: value }));
+    presetChoices, selectedPreset ?? presetChoices[0][0], value => setClassOptions({ preset: value }));
   const [languageField, languageSelect] = selectField("Language", "Sets language= in the class line of main.tex.",
-    [["greek", "Greek"], ["english", "English"]], value => setClassOptions({ language: value }));
+    [["greek", "Greek"], ["english", "English"]], readClassOptions(active?.text ?? "")?.language ?? "greek", value => setClassOptions({ language: value }));
   const [fontsizeField, fontsizeSelect] = selectField("Font size", "Sets fontsize= in the class line of main.tex.",
-    fontSizes.map(size => [size, size.replace("pt", " pt")] as const), value => setClassOptions({ fontsize: value }));
+    fontSizes.map(size => [size, size.replace("pt", " pt")] as const), readClassOptions(active?.text ?? "")?.fontsize ?? "10pt", value => setClassOptions({ fontsize: value }));
   const bibliographyField = createCheckRow("Bibliography", false, checked => setClassOptions({ bibliography: checked }));
   setTip(bibliographyField, "Sets bibliography in the class line of main.tex; biber then reads references.bib.");
   const bibliography = bibliographyField.querySelector("input")!;
@@ -983,7 +1026,7 @@ function setupToolbar(): void {
   const tool = (id: ToolAction, icon: keyof typeof TOOL_ICONS) => toolbar.tool({ id, icon: TOOL_ICONS[icon], label: TOOL_LABELS[id], shortcut: keys.get(id), enabled: false });
   toolbar.group([tool("edit.undo", "undo"), tool("edit.redo", "redo")], "", "history");
   toolbar.group([tool("edit.cut", "cut"), tool("edit.copy", "copy"), tool("edit.paste", "paste")], "", "clipboard");
-  toolbar.group([tool("view.actualSize", "fit"), tool("view.zoomIn", "zoomIn"), tool("view.zoomOut", "zoomOut")], "", "view");
+  toolbar.group([tool("view.zoomOut", "zoomOut"), tool("view.zoomIn", "zoomIn"), tool("view.actualSize", "fit")], "", "view");
   // Families of report commands: choosing one writes it at the cursor, and the button then shows the last one used.
   for (const id of [...insertFamilies.map(family => family.id), "insert-custom"]) {
     const slot = document.createElement("span"); slot.className = "flyout-slot"; slot.dataset.family = id;
@@ -1134,9 +1177,16 @@ async function runAction(id: string): Promise<void> {
     else if (id === "file.open") await open();
     else if (id === "file.save") await save();
     else if (id === "file.close") await close();
+    else if (id === "app.settings") showSettings({ pages: settingsPages() });
     else if (id === "showContents" && active) await api.contents(active.id);
     else if (id === "showInFinder" && active) revealFiles([supportingViews.focused()?.path ?? "main.tex"]);
-    else if (id === "exportZip" && active) { const file = await api.exportZip(active.id); if (file) report(`Exported ${file}.`, "info", active); }
+    else if (id === "exportZip" && active && api.exportZipBytes) {
+      const project = active;
+      const format: ExportFormat = { id: "zip", name: "ZIP archive", extensions: ["zip"], mime: "application/zip" };
+      const result = await exportFiles({ bridge: api.preview ? null : api as ExportBridge, formats: [format], overwrite: "ask", protectedPaths: () => [] },
+        [{ name: project.name, format, bytes: () => api.exportZipBytes!(project.id) }]);
+      if (result?.written[0]) report(`Exported ${result.written[0]}.`, "info", project);
+    }
     else if (id === "build" && !api.preview && !active?.building) await buildPdf();
     else if (id === "cancelBuild" && !api.preview) await cancelBuild();
     else if (id === "edit.find" || id === "edit.replace") findTarget()?.openFind(id === "edit.replace");
@@ -1178,7 +1228,7 @@ async function runAction(id: string): Promise<void> {
     else if (id === "view.bottomPanel") updatePrefs({ showBottomPanel: !prefs.showBottomPanel });
     else if (id.startsWith("theme")) updatePrefs({ appearance: id.slice(5).toLowerCase() as Preferences["appearance"] });
     else if (id.startsWith("file.recent.")) await openRecent(id.slice("file.recent.".length));
-    else if (["about", "about.whatsNew", "writingHelper", "about.shortcuts", "about.licenses", "about.updates"].includes(id)) showInfo(id);
+    else if (["about", "about.whatsNew", "writingHelper", "about.shortcuts", "about.licenses"].includes(id)) showInfo(id);
   } catch (error) { report(problemText(error), "error"); }
 }
 function showInfo(id: string): void {
@@ -1188,8 +1238,6 @@ function showInfo(id: string): void {
   else if (id === "writingHelper") showWritingHelper(info);
   else if (id === "about.licenses") void showLicenses(info);
   else if (id === "about.shortcuts") showShortcuts(info, shortcutGroups());
-  else if (id === "about.updates" && forgeApp.identity.repository)
-    void showUpdateCheck(info, forgeApp.identity.repository, { platform: api.preview ? undefined : api.platform, install: api.installUpdate });
   // The shell's dialogs leave the focus where it was; from the Terminal, Esc would then only leave the prompt.
   requestAnimationFrame(() => document.querySelector<HTMLElement>(".about button.close")?.focus());
 }
@@ -1198,6 +1246,24 @@ function shortcutGroups(): [string, [string, string][]][] {
   const groups = menuShortcutGroups(menuForState({ ...currentMenuState(), hasReport: true }, { desktop: false, mac: isMac }), shortcutText);
   return [...groups, ["Editor", [["Tab", "Insert an indent or accept a completion"], [shortcutText("Enter"), "After \\begin{…}, add the matching \\end{…}"], [shortcutText("Escape"), "Close completions or Find"]]], ["PDF", [[shortcutText("CmdOrCtrl+Click"), "Show the source line of a spot"]]], ["Code", [[shortcutText("CmdOrCtrl+Click"), "Go to a reference's label, a file or a citation"]]]];
 }
+/** Settings pages supplied by LabForge and the shell. */
+function settingsPages(): SettingsPage[] {
+  const info = infoOptions(__LABFORGE_LOGO__.trimEnd(), __FORGE_VERSION__);
+  const updateOptions = { platform: api.preview ? undefined : api.platform, install: api.installUpdate,
+    onProgress: api.onUpdateProgress, storageKey: `${settingsStorageKey(forgeApp)}.updates` };
+  const pages: SettingsPage[] = [
+    generalPage({ settings: prefs, update: updatePrefs }),
+    { id: "editor", title: "Editor", icon: UI_ICONS.code, sections: [{ rows: [
+      ...editorToggles.filter(item => item.key !== "summaries").map(item => ({ kind: "check" as const, label: item.label, value: () => prefs.editor[item.key], set: (value: boolean) => setEditorSettings({ [item.key]: value }), command: (value: boolean) => `${item.name} ${value ? "on" : "off"}` })),
+      { kind: "select" as const, label: "Tab size", choices: [2, 4, 8].map(size => [String(size), `${size} spaces`] as const), value: () => String(prefs.editor.tabSize), set: (value: string) => setEditorSettings({ tabSize: Number(value) as TabSize }), command: (value: string) => `editor tabsize ${value}` },
+    ] }] },
+    { id: "files", title: "Files", icon: UI_ICONS.settings, sections: [{ rows: [{ kind: "check", label: "Show hidden files", value: () => prefs.files.showHidden, set: (value: boolean) => setFilesSettings({ showHidden: value }), command: (value: boolean) => `files hidden ${value ? "on" : "off"}` }] }] },
+    terminalPage({ fontSize: () => prefs.terminalFontSize, setFontSize: size => updatePrefs({ terminalFontSize: size }) }),
+    healthPage(health),
+  ];
+  if (forgeApp.identity.repository) pages.push(updatesPage({ info, repository: forgeApp.identity.repository, ...updateOptions }));
+  return pages;
+}
 /** File › Open recent: the report at `index`, or Clear menu. A report that is gone leaves the list. */
 async function openRecent(index: string): Promise<void> {
   if (index === "clear") { recentReports.clear(); refreshMenu(); return; }
@@ -1205,26 +1271,27 @@ async function openRecent(index: string): Promise<void> {
   if (file) await openReportAt(file, true);
 }
 /** Open the report at `file`, from File › Open recent or a drop on the window. A recent report that is gone leaves the list. */
-async function openReportAt(file: string, recent = false): Promise<void> {
-  if (!api.openPath) return;
+async function openReportAt(file: string, recent = false): Promise<boolean> {
+  if (!api.openPath) return false;
   try {
-    const value = await api.openPath(file);
-    if (!value) return;
+    let convertLegacy = false;
+    if (await api.isLegacyArchive?.(file)) {
+      const choice = await askToChoose({ title: "Convert this older ZIP report?",
+        detail: "LabForge will convert it to a package and keep the original ZIP beside it.",
+        buttons: [{ id: "convert", label: "Convert", role: "primary" }, { id: "cancel", label: "Cancel", role: "cancel" }] });
+      if (choice !== "convert") return false;
+      convertLegacy = true;
+    }
+    const value = await api.openPath(file, convertLegacy);
+    if (!value) return false;
     if (projects.length === 1 && !projects[0].archive && !projects[0].dirty && projects[0].id !== value.id) await close(projects[0]);
     await include(value);
+    return true;
   } catch (error) {
     if (recent) { recentReports.remove(file); refreshMenu(); }
     report(problemText(error), "error");
+    return false;
   }
-}
-/** At most once a day, a newer release is noted in Messages; nothing is said when LabForge is current or the check fails. */
-async function noteUpdate(): Promise<void> {
-  const repository = forgeApp.identity.repository;
-  if (!repository || api.preview || !updateCheckDue(`${settingsStorageKey(forgeApp)}.updateCheck`)) return;
-  const result = await checkForUpdate(repository, __FORGE_VERSION__).catch(() => null);
-  if (result?.status !== "available") return;
-  const text = `${forgeApp.identity.name} ${result.release.version} is available. Help › Check for updates… installs it.`;
-  if (active) report(text, "info"); else updateNotice = text;
 }
 async function consoleCommand(input: string, signal?: AbortSignal): Promise<ConsoleResult> {
   // `<command> -h`, `--help` and `?` mean `help <command>`.
@@ -1241,10 +1308,12 @@ async function consoleCommand(input: string, signal?: AbortSignal): Promise<Cons
   if (verb === "theme" && !arg) return { lines: [`Appearance is ${prefs.appearance}.`] };
   if (!entry.args.test(arg)) return invalidUsage(entry);
   if (verb === "clear") return { clear: true };
+  if (verb === "health") return healthCommand(arg, health);
   // The shared commands run their menu actions; the preferences go to the shell's own verbs.
   const sharedResult = runSharedCommand(verb, arg, {
     run: action => { void runAction(action); }, actions: ACTIONS, hasDocument: !!active, noun: forgeApp.document.noun,
     productName: forgeApp.identity.name, version: __FORGE_VERSION__,
+    openSettings: page => showSettings({ pages: settingsPages(), page }), settingsPages: () => settingsPages().map(page => page.id),
     recent: () => api.preview ? [] : recentReports.list(), openPath: path => { void openRecent(String(recentReports.list().indexOf(path))); },
     fontSize: () => prefs.terminalFontSize, setFontSize: size => updatePrefs({ terminalFontSize: size }),
   }) ?? shellPreferenceCommand(verb, arg, { settings: prefs, update: updatePrefs, panes: PANES, selectPane: pane => selectBottom(pane) });
@@ -1540,6 +1609,8 @@ function trackWelcomeBox(welcome: HTMLElement, backdrop: HTMLElement): void {
   measure();
 }
 async function boot(): Promise<void> {
+  window.addEventListener("blur", () => autosave.blurred(projects));
+  window.addEventListener("unload", () => health.dispose(), { once: true });
   const closePdf = $<HTMLButtonElement>("pdf-close");
   closePdf.innerHTML = UI_ICONS.close;
   $("pdf-prev").innerHTML = UI_ICONS.chevronLeft; $("pdf-next").innerHTML = UI_ICONS.chevronRight;
@@ -1547,6 +1618,9 @@ async function boot(): Promise<void> {
   closePdf.addEventListener("click", () => { if (!active) return; active.pdfOpen = false; renderTree(); void loadPdf(); });
   const welcome = createEmptyState($("canvas-wrap"), { ...forgeApp.document.welcome, newShortcut: shortcutText("CmdOrCtrl+N"),
     openShortcut: shortcutText("CmdOrCtrl+O"), onNew: () => { void create(); }, onOpen: () => { void open(); } });
+  if (forgeApp.identity.repository) void showUpdateNotice(welcome, infoOptions(__LABFORGE_LOGO__.trimEnd(), __FORGE_VERSION__), forgeApp.identity.repository,
+    { platform: api.preview ? undefined : api.platform, install: api.installUpdate, onProgress: api.onUpdateProgress,
+      storageKey: `${settingsStorageKey(forgeApp)}.updates` });
   const backdrop = welcomeSketch();
   welcome.prepend(backdrop);
   trackWelcomeBox(welcome, backdrop);
@@ -1592,6 +1666,7 @@ async function boot(): Promise<void> {
     for (const shortcut of collectShortcuts(menu)) if (shortcut.id !== "edit.selectAll" && matchesKey(event, shortcut.key)) { event.preventDefault(); void runAction(shortcut.id); return; }
   });
   api.onOpened(value => { void include(value); });
+  api.onOpenRequest?.(file => { void openReportAt(file); });
   api.onChanged(value => { const hadPdf = projects.find(item => item.id === value.id)?.hasPdf ?? false; const project = updateSnapshot(value); if (project === active && !hadPdf && value.hasPdf && !value.building) void loadPdf(); void checkExternal(project); void checkSupportingExternal(project); });
   api.onError((id, error) => report(problemText(error), "error", projects.find(item => item.id === id) ?? null));
   api.onCommand(id => { void runAction(id); });
@@ -1601,6 +1676,6 @@ async function boot(): Promise<void> {
   try { const tex = await api.checkTex("xelatex"); texWarning = tex.ok ? "" : tex.message; texLink = tex.ok ? null : { url: tex.url }; } catch { texWarning = ""; }
   for (const project of projects) warnTex(project);
   if (projects.length) await activate(projects[0]); else setWorkspace();
-  void noteUpdate();
+  await restoreDrafts();
 }
 void boot().catch(error => { const empty = document.getElementById("empty-state"); if (empty) empty.textContent = `LabForge could not start: ${String(error)}`; });
