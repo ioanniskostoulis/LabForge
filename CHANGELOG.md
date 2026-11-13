@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.0
+
+- Updates the shared Forge frame to forge-shell 4.5.0: overlay scrollbars that take no room, Terminal preferences (`terminal font|banner|caret|spacing|wrap`, `history limit`) in the Terminal and Settings › Terminal, Settings pages that follow changes made in the Terminal, and an update that waits for, or offers to save, reports with unsaved work. The bare `font` command is now `terminal font`.
+- Fixes an error in the main process when the window closed: the export bookkeeping read the window's contents after they were destroyed.
+
 ## 2.8.0
 
 - Adds the shell's Health page and local break reminders, autosave choices, and crash recovery for unsaved report text.

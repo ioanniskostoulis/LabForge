@@ -35,7 +35,9 @@ import { customTools, figureTools, insertFamilies, searchCommands, type InsertTo
 import { commandDefinition, commandProblem, parseCustomCommands } from "./tex-commands";
 import { addToPreamble } from "../engine/preamble";
 import { findFrameworkCommand, getCustomCommands, latexHelp, setCustomCommands, setReportPackageSource } from "./framework-commands";
-import { settingsStorageKey, terminalHistoryStorageKey } from "forge-shell/app/profile";
+import { settingsStorageKey, terminalHistoryStorageKey, terminalPreferencesStorageKey } from "forge-shell/app/profile";
+import { installScrollbars } from "forge-shell/app/scrollbars";
+import { createTerminalPreferences } from "forge-shell/app/terminal-preferences";
 import { createAutosave, createRecovery, askToRecover, type AutosaveChoice } from "forge-shell/app/saving";
 import { createHealthTracker, healthCommand, healthPage, type HealthTracker } from "forge-shell/app/health";
 import { forgeApp } from "./profile";
@@ -117,6 +119,8 @@ type Api = {
   onCommand(callback: (id: string) => void): void; onCloseRequest(callback: () => void): void; closeReady(): void; closeCancel(): void;
   onFullScreen(callback: (on: boolean) => void): void;
   updateMenuState(state: MenuState): void;
+  /** Tells the main process whether a report has unsaved work, so an update neither downloads nor quits over it. */
+  setEdited?(edited: boolean): void;
   generated(id: string, kind: "plot" | "table"): Promise<GeneratedListing[]>; regenerate(id: string, files: string[]): Promise<{ file: string; changed?: boolean; error?: string }[]>;
   previewGenerated(id: string, kind: "plot" | "table", code: string, keys?: string): Promise<PreviewResult>;
   pickSpreadsheet(id: string): Promise<string | null>; sheets(id: string, source: string): Promise<string[]>; generatedCode(id: string, settings: GeneratorSettings): Promise<string>;
@@ -423,6 +427,8 @@ const settingsStore = createSettingsStore<Preferences>(settingsStorageKey(forgeA
 });
 const prefs = settingsStore.settings;
 const recovery = createRecovery(`${settingsStorageKey(forgeApp)}.drafts`);
+// The Terminal's history limit, banner, caret, spacing and wrapping, shared by the Terminal and Settings › Terminal.
+const terminalPreferences = createTerminalPreferences(terminalPreferencesStorageKey(forgeApp));
 const health: HealthTracker = createHealthTracker({ storageKey: `${settingsStorageKey(forgeApp)}.health` });
 const supportingViews = new SupportingViews(prefs.editor, prefs.editorFontSize,
   file => { if (active) { renderTabs(); if (file.path === bibliographyPath(active)) refreshCitations(); } }, file => { void closeSupportingView(file); }, file => { revealFiles([file.path]); });
@@ -534,7 +540,14 @@ function updateSnapshot(value: Snapshot): ProjectView {
   if (project === active) { editor.setProjectFiles(project.files.filter(file => file.kind !== "folder").map(file => file.path)); refreshCitations(); refreshMenu(); document.title = `${project.name}: ${forgeApp.identity.name}`; if (figureTools(project.files).map(item => item.id).join("\n") !== figuresShown) { buildInsertFamilies(); setInsertEnabled(true); } renderTree(); renderTabs(); updateStatus(); renderPdfBuildState(); for (const pane of generatorPanes) pane.refreshSources(); }
   return project;
 }
+/** The edited state last sent to the main process. */
+let sentEdited = false;
+function syncEdited(): void {
+  const edited = projects.some(project => project.dirty || supportingViews.hasDirty(project.id));
+  if (edited !== sentEdited) { sentEdited = edited; api.setEdited?.(edited); }
+}
 function renderTabs(): void {
+  syncEdited();
   const mainDirty = projects.map(project => project.dirty);
   projects.forEach(project => { project.dirty ||= supportingViews.hasDirty(project.id); });
   try { tabs.render(projects, active); }
@@ -778,9 +791,9 @@ const autosave = createAutosave<ProjectView>({
   canSave: project => !!project.path,
   save: project => save(project, false),
 });
-async function close(project = active): Promise<boolean> {
+async function close(project = active, ask = true): Promise<boolean> {
   if (!project) return true;
-  if (project.dirty || supportingViews.hasDirty(project.id)) {
+  if (ask && (project.dirty || supportingViews.hasDirty(project.id))) {
     const choice = await askToSave(project.name);
     if (choice === "cancel" || (choice === "save" && !(await save(project)))) return false;
   }
@@ -794,6 +807,17 @@ async function close(project = active): Promise<boolean> {
   const index = projects.indexOf(project); projects.splice(index, 1);
   if (active === project) { active = null; const next = projects[Math.min(index, projects.length - 1)]; if (next) await activate(next); else setWorkspace(); }
   else renderTabs();
+  return true;
+}
+/** Before an update downloads: save each report with unsaved work, or close it unsaved, as the close prompt asks. */
+async function prepareForUpdate(): Promise<boolean> {
+  for (const project of [...projects]) {
+    if (!project.dirty && !supportingViews.hasDirty(project.id)) continue;
+    const choice = await askToSave(project.name);
+    if (choice === "cancel") return false;
+    if (!(choice === "save" ? await save(project) : await close(project, false))) return false;
+  }
+  syncEdited();
   return true;
 }
 function editorChanged(text: string): void {
@@ -1250,15 +1274,16 @@ function shortcutGroups(): [string, [string, string][]][] {
 function settingsPages(): SettingsPage[] {
   const info = infoOptions(__LABFORGE_LOGO__.trimEnd(), __FORGE_VERSION__);
   const updateOptions = { platform: api.preview ? undefined : api.platform, install: api.installUpdate,
-    onProgress: api.onUpdateProgress, storageKey: `${settingsStorageKey(forgeApp)}.updates` };
+    onProgress: api.onUpdateProgress, prepare: prepareForUpdate, storageKey: `${settingsStorageKey(forgeApp)}.updates` };
   const pages: SettingsPage[] = [
-    generalPage({ settings: prefs, update: updatePrefs }),
-    { id: "editor", title: "Editor", icon: UI_ICONS.code, sections: [{ rows: [
+    generalPage({ settings: prefs, update: updatePrefs, subscribe: listener => settingsStore.onSettingsChange(listener) }),
+    { id: "editor", title: "Editor", icon: UI_ICONS.code, subscribe: listener => settingsStore.onSettingsChange(listener), sections: [{ rows: [
       ...editorToggles.filter(item => item.key !== "summaries").map(item => ({ kind: "check" as const, label: item.label, value: () => prefs.editor[item.key], set: (value: boolean) => setEditorSettings({ [item.key]: value }), command: (value: boolean) => `${item.name} ${value ? "on" : "off"}` })),
       { kind: "select" as const, label: "Tab size", choices: [2, 4, 8].map(size => [String(size), `${size} spaces`] as const), value: () => String(prefs.editor.tabSize), set: (value: string) => setEditorSettings({ tabSize: Number(value) as TabSize }), command: (value: string) => `editor tabsize ${value}` },
     ] }] },
-    { id: "files", title: "Files", icon: UI_ICONS.settings, sections: [{ rows: [{ kind: "check", label: "Show hidden files", value: () => prefs.files.showHidden, set: (value: boolean) => setFilesSettings({ showHidden: value }), command: (value: boolean) => `files hidden ${value ? "on" : "off"}` }] }] },
-    terminalPage({ fontSize: () => prefs.terminalFontSize, setFontSize: size => updatePrefs({ terminalFontSize: size }) }),
+    { id: "files", title: "Files", icon: UI_ICONS.settings, subscribe: listener => settingsStore.onSettingsChange(listener), sections: [{ rows: [{ kind: "check", label: "Show hidden files", value: () => prefs.files.showHidden, set: (value: boolean) => setFilesSettings({ showHidden: value }), command: (value: boolean) => `files hidden ${value ? "on" : "off"}` }] }] },
+    terminalPage({ fontSize: () => prefs.terminalFontSize, setFontSize: size => updatePrefs({ terminalFontSize: size }), preferences: terminalPreferences,
+      subscribe: listener => settingsStore.onSettingsChange(listener) }),
     healthPage(health),
   ];
   if (forgeApp.identity.repository) pages.push(updatesPage({ info, repository: forgeApp.identity.repository, ...updateOptions }));
@@ -1315,7 +1340,6 @@ async function consoleCommand(input: string, signal?: AbortSignal): Promise<Cons
     productName: forgeApp.identity.name, version: __FORGE_VERSION__,
     openSettings: page => showSettings({ pages: settingsPages(), page }), settingsPages: () => settingsPages().map(page => page.id),
     recent: () => api.preview ? [] : recentReports.list(), openPath: path => { void openRecent(String(recentReports.list().indexOf(path))); },
-    fontSize: () => prefs.terminalFontSize, setFontSize: size => updatePrefs({ terminalFontSize: size }),
   }) ?? shellPreferenceCommand(verb, arg, { settings: prefs, update: updatePrefs, panes: PANES, selectPane: pane => selectBottom(pane) });
   if (sharedResult) return sharedResult;
   if (shared.some(item => item.spec.name === verb)) return invalidUsage(entry);
@@ -1632,6 +1656,7 @@ async function boot(): Promise<void> {
   document.body.dataset.inspectorSide = prefs.inspectorSide;
   // macOS desktop: room for the window buttons, except in full screen.
   applyDesktopClasses(window.labforge);
+  installScrollbars();
   setupToolbar();
   tabs = new DocumentTabs<ProjectView>($("doc-tabs"), { newTitle: forgeApp.document.tabs.newTitle, closeTitle: forgeApp.document.tabs.closeTitle, onNew: () => { void create(); }, onActivate: project => { void activate(project); }, onClose: project => { void close(project); },
     // Dragging a tab rearranges the open reports; the order is kept for this window only.
@@ -1645,7 +1670,8 @@ async function boot(): Promise<void> {
   $("bottom-tabs").append(clearMessages);
   terminal = new TerminalPanel($("terminal-pane"), __LABFORGE_LOGO__, __FORGE_VERSION__, { execute: consoleCommand, complete },
     { appName: forgeApp.identity.name, tagline: forgeApp.identity.purpose, historyStorageKey: terminalHistoryStorageKey(forgeApp), fontSize: () => prefs.terminalFontSize,
-      setFontSize: size => updatePrefs({ terminalFontSize: size }), onFontSizeChange: listener => settingsStore.onSettingsChange(listener) });
+      setFontSize: size => updatePrefs({ terminalFontSize: size }), onFontSizeChange: listener => settingsStore.onSettingsChange(listener),
+      preferences: terminalPreferences });
   generatorPanes = [new GeneratorPane($("plots-pane"), "plot", generatorHost()), new GeneratorPane($("tables-pane"), "table", generatorHost())];
   applyLayout = createPanelLayout({ center: $("center"), inspector: $("inspector"), inspectorSplit: $("inspector-split"), bottom: $("bottom"), bottomSplit: $("bottom-split"),
     settings: prefs, defaults: { inspectorWidth: 246, bottomPanelHeight: 246 }, save: updatePrefs });

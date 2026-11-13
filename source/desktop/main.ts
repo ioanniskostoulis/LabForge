@@ -67,6 +67,8 @@ let closeAllowed = false;
 let closeRequested = false;
 /** An update is waiting for the app to quit: the window closes through the usual unsaved-work check, then the app quits. */
 let quitAfterClose = false;
+/** Whether a report in the window has unsaved work, as the renderer last said; an update waits for it. */
+let rendererEdited = false;
 let menuState: MenuState = { hasReport: false, showInspector: true, showBottomPanel: true, editor: editorDefaults, files: filesDefaults, appearance: "dark" };
 type InputSourceBridge = { begin(handle?: Buffer): boolean; restore(): boolean };
 let inputSourceBridge: InputSourceBridge | null | undefined;
@@ -209,7 +211,9 @@ function createWindow(): void {
     event.preventDefault();
     if (!closeRequested) { closeRequested = true; window?.webContents.send("app:close-request"); }
   });
-  window.on("closed", () => { if (window) exportIpc.forget(window.webContents.id); window = null; if (quitAfterClose) app.quit(); });
+  // The contents are destroyed by the time the window has closed, so their id is read now.
+  const contentsId = window.webContents.id;
+  window.on("closed", () => { exportIpc.forget(contentsId); window = null; rendererEdited = false; if (quitAfterClose) app.quit(); });
   window.on("blur", () => { commandEditorActive = false; commandInputSource("restore"); });
   // Shown once the page has painted in its saved appearance, so no window colour flashes first.
   window.once("ready-to-show", () => window?.show());
@@ -301,7 +305,7 @@ ipcMain.handle("project:copy", (_event, id: string, from: string, to: string) =>
 // The colours of the Windows window controls follow the page's appearance.
 // Help › Check for updates… installs a release of the public repository named in forge.config.json.
 if (forgeApp.identity.repository && app.isPackaged) registerUpdater(ipcMain, { repository: forgeApp.identity.repository, executable: process.execPath, platform: process.platform,
-  quit: () => { quitAfterClose = true; if (window) window.close(); else app.quit(); }, openPath: file => shell.openPath(file) });
+  quit: () => { quitAfterClose = true; if (window) window.close(); else app.quit(); }, hasUnsavedWork: () => !!window && rendererEdited, openPath: file => shell.openPath(file) });
 registerTitleBarIpc(ipcMain, event => (event.sender === window?.webContents ? window : null));
 ipcMain.handle("project:add", async (_event, id: string, folder: string) => {
   const choice = await dialog.showOpenDialog(window!, { title: "Add files to report", properties: ["openFile", "multiSelections"] });
@@ -420,6 +424,7 @@ ipcMain.handle("app:check-tex", (_event, builder: ProjectBuilder) => checkTex(bu
 ipcMain.handle("app:open-link", async (_event, url: string) => { if (isTexDownload(url)) await shell.openExternal(url); });
 ipcMain.handle("project:cancel-build", (_event, id: string) => { const session = selected(id); const running = !!session.abort; session.abort?.abort(); return running; });
 ipcMain.on("app:close-ready", () => { closeAllowed = true; window?.close(); });
+ipcMain.on("app:edited", (event, edited: unknown) => { if (event.sender === window?.webContents) rendererEdited = edited === true; });
 ipcMain.on("app:close-cancel", () => { closeRequested = false; quitAfterClose = false; });
 ipcMain.on("app:menu-state", (event, state: MenuState) => {
   if (event.sender !== window?.webContents || !state || typeof state.hasReport !== "boolean" ||

@@ -61,6 +61,7 @@ contextBridge.exposeInMainWorld("labforge", {
   onError: (callback: (id: string, error: string) => void) => ipcRenderer.on("project:error", (_event, id, error) => callback(id, error)),
   onCommand: (callback: (id: string) => void) => ipcRenderer.on("app:command", (_event, id) => callback(id)),
   updateMenuState: (state: MenuState) => ipcRenderer.send("app:menu-state", state),
+  setEdited: (edited: boolean) => ipcRenderer.send("app:edited", edited),
   onCloseRequest: (callback: () => void) => ipcRenderer.on("app:close-request", callback),
   onFullScreen: (callback: (on: boolean) => void) => ipcRenderer.on("fullScreen", (_event, on: boolean) => callback(on)),
   closeReady: () => ipcRenderer.send("app:close-ready"),

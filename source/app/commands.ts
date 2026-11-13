@@ -170,7 +170,7 @@ export function firstArguments(verb: string, welcome: boolean): string[] {
   if (verb === "editor") return [...editorVerbs];
   if (editorFamilies.some(family => family.name === verb)) return familyArguments(verb);
   if (verb === "files") return ["hidden"];
-  if (verb === "history") return ["clear"];
+  if (verb === "history") return ["clear", "limit"];
   if (verb === "latex") return [...latexTopics, "new", ...latexNames()];
   if (verb === "plot") return ["add", "open", "regenerate", "remove", "default", "defaults"];
   if (verb === "table") return ["add", "open", "regenerate", "remove", "header", "align", "smart"];

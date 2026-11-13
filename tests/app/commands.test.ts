@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { checkCommandSyntax, commandHelp, generalHelp, helpAlias, invalidUsage } from "forge-shell/app/command-help";
-import { availableOnWelcome, commands, findCommand, helpCatalog } from "../../source/app/commands";
+import { availableOnWelcome, commands, findCommand, helpCatalog, shared } from "../../source/app/commands";
 
 test("every command syntax follows the shell's help notation", () => {
   const problems = commands.flatMap(command => [command.syntax, ...(command.subcommands ?? []).map(form => form.syntax)].flatMap(checkCommandSyntax));
@@ -12,7 +12,8 @@ test("every command syntax follows the shell's help notation", () => {
 test("descriptions are short imperative fragments without a final period", () => {
   for (const command of commands) for (const text of [command.description, ...(command.subcommands ?? []).map(form => form.description)]) {
     assert.match(text, /^[A-Z][^.]*[^.]$/, `${command.name}: ${text}`);
-    assert.ok(text.length <= 70, `${command.name}: ${text}`);
+    // The shell words its shared commands; the length rule is LabForge's own.
+    if (!shared.some(item => item.spec.name === command.name)) assert.ok(text.length <= 70, `${command.name}: ${text}`);
   }
 });
 
@@ -69,9 +70,10 @@ test("the shared document verbs exist, and tabs works without a report", () => {
 });
 
 test("the shell's shared commands are used, with no LabForge duplicates", () => {
-  for (const name of ["new", "open", "recent", "save", "close", "zoom", "font", "version", "changes", "about", "licenses", "shortcuts"]) assert.ok(findCommand(name), name);
+  for (const name of ["new", "open", "recent", "save", "close", "zoom", "terminal", "version", "changes", "about", "licenses", "shortcuts"]) assert.ok(findCommand(name), name);
   assert.equal(commands.filter(command => command.name === "zoom").length, 1);
   assert.ok(!findCommand("fit"), "LabForge has no Fit");
+  assert.ok(!findCommand("font"), "the Terminal text size is terminal font");
   assert.deepEqual(findCommand("panel")!.choices, ["on", "off", "terminal", "plots", "tables", "messages"]);
   assert.equal(new Set(commands.map(command => command.name)).size, commands.length);
 });
