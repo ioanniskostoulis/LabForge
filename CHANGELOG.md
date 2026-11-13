@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.2
+
+- Updates the shared Forge frame to forge-shell 4.5.3.
+
 ## 2.9.1
 
 - An untitled report that was typed in and emptied again closes, or lets the window close, without asking to save, and keeps no recovery draft.
