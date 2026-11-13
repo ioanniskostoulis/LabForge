@@ -1,7 +1,6 @@
 // Licensed under the GNU General Public License v2 or later. See LICENSE.
 // The inspector's Files section: the shell's file tree (`renderFileTree`) with LabForge's rules, which paths are locked,
 // which must stay in their folder, where a dropped file goes, and the framework command that places a file in the text.
-import { createCheckRow } from "forge-shell/app/builders";
 import { buildTree, moveTarget as shellMoveTarget, renameProblem as shellRenameProblem, renameTarget, renderFileTree, topLevel, type FileSelection, type FileTreeHost, type MoveRules, type TreeFile, type TreeNode } from "forge-shell/app/file-tree";
 import type { MenuEntry } from "forge-shell/app/context-menu";
 import { isProtectedProjectPath, renameBlockReason } from "../engine/project-paths";
@@ -85,7 +84,6 @@ export interface FileAreaHost {
   selection: FileSelection;
   /** Folder paths the user collapsed; kept for the session. */
   collapsed: Set<string>;
-  setSettings(patch: Partial<FilesSettings>): void;
   open(file: ProjectFile): void;
   reveal(path: string): void;
   /** Delete a file or folder: it goes to the system Trash or Recycle Bin, where it can be recovered. */
@@ -114,11 +112,13 @@ export interface FileAreaHost {
   rerender(): void;
 }
 
-/** The Files section: a hidden-file toggle and the report's files as the shell's file tree. */
+/**
+ * The Files section: the report's files as the shell's file tree. Showing hidden files is a preference, so it is set in
+ * Settings › Files, View › Show hidden files or the Terminal, never here.
+ */
 export function renderFileArea(section: HTMLElement, files: readonly ProjectFile[], host: FileAreaHost): void {
-  const hiddenField = createCheckRow("Show hidden files", host.settings.showHidden, checked => host.setSettings({ showHidden: checked }));
   const list = document.createElement("div");
-  section.append(hiddenField, list);
+  section.append(list);
 
   // The shell has one icon for text files, so a .tex file is drawn as text; the report's own kind is looked up by path.
   const own = (file: TreeFile) => files.find(item => item.path === file.path)!;

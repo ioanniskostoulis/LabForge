@@ -39,6 +39,7 @@ import { settingsStorageKey, terminalHistoryStorageKey, terminalPreferencesStora
 import { installScrollbars } from "forge-shell/app/scrollbars";
 import { createTerminalPreferences } from "forge-shell/app/terminal-preferences";
 import { createAutosave, createRecovery, askToRecover, type AutosaveChoice } from "forge-shell/app/saving";
+import { hasUnsavedWork } from "forge-shell/app/documents";
 import { createHealthTracker, healthCommand, healthPage, type HealthTracker } from "forge-shell/app/health";
 import { forgeApp } from "./profile";
 import { infoOptions, showAbout, showLicenses, showWritingHelper } from "./about";
@@ -791,9 +792,18 @@ const autosave = createAutosave<ProjectView>({
   canSave: project => !!project.path,
   save: project => save(project, false),
 });
+/**
+ * Whether a report has work to lose (the shell's `hasUnsavedWork`, against what main.tex held when it was last read):
+ * a saved report while it is dirty, an untitled one only once its text differs from its start by more than whitespace,
+ * or any supporting file with unsaved changes.
+ */
+function hasWork(project: ProjectView): boolean {
+  const work = hasUnsavedWork({ path: project.path, dirty: project.dirty, text: project.text, startText: project.diskText });
+  return work || supportingViews.hasDirty(project.id);
+}
 async function close(project = active, ask = true): Promise<boolean> {
   if (!project) return true;
-  if (ask && (project.dirty || supportingViews.hasDirty(project.id))) {
+  if (ask && hasWork(project)) {
     const choice = await askToSave(project.name);
     if (choice === "cancel" || (choice === "save" && !(await save(project)))) return false;
   }
@@ -812,7 +822,7 @@ async function close(project = active, ask = true): Promise<boolean> {
 /** Before an update downloads: save each report with unsaved work, or close it unsaved, as the close prompt asks. */
 async function prepareForUpdate(): Promise<boolean> {
   for (const project of [...projects]) {
-    if (!project.dirty && !supportingViews.hasDirty(project.id)) continue;
+    if (!hasWork(project)) continue;
     const choice = await askToSave(project.name);
     if (choice === "cancel") return false;
     if (!(choice === "save" ? await save(project) : await close(project, false))) return false;
@@ -829,7 +839,7 @@ function editorChanged(text: string): void {
   if (importing) return;
   // Edits stay dirty until Save, Build PDF or an enabled autosave writes them; closing or quitting asks first.
   active.dirty = true;
-  recovery.keep({ key: active.id, name: active.name, path: active.path, text });
+  recovery.keep({ key: active.id, name: active.name, path: active.path, text }, active.diskText);
   autosave.edited(active);
   renderPdfBuildState();
   renderTabs(); syncClassControls();
@@ -943,7 +953,6 @@ function renderTree(): void {
     settings: prefs.files,
     selection: project ? selectedFiles.get(project.id)! : { path: null },
     collapsed: project ? collapsedFolders.get(project.id)! : new Set(),
-    setSettings: patch => setFilesSettings(patch),
     open: file => { if (project) void openSupportingFile(project, file.path).catch(error => report(`Could not open ${file.path}: ${problemText(error)}`, "error", project)); },
     trash: path => { if (project) void api.trash(project.id, path).then(value => { updateSnapshot(value); report(`Moved ${path} to the ${api.platform === "win32" ? "Recycle Bin" : "Trash"}.`, "info", project); }).catch(error => report(`Could not remove ${path}: ${problemText(error)}`, "error", project)); },
     reveal: path => { if (project) void api.reveal(project.id, path).catch(error => report(`Could not show ${path}: ${problemText(error)}`, "error", project)); },

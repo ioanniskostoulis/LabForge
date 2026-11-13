@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.1
+
+- An untitled report that was typed in and emptied again closes, or lets the window close, without asking to save, and keeps no recovery draft.
+- Show hidden files is no longer a checkbox in the inspector's Files section: it is a preference, set in Settings › Files, View › Show hidden files or `files hidden on|off`.
+- Updates the shared Forge frame to forge-shell 4.5.2: tool flyouts keep wide icons in their own column, selects outside a field row are the shared control, Settings Terminal commands stay on one line and copy on a click, File › Open recent tells apart files with the same name, and buttons show the arrow cursor.
+
 ## 2.9.0
 
 - Updates the shared Forge frame to forge-shell 4.5.0: overlay scrollbars that take no room, Terminal preferences (`terminal font|banner|caret|spacing|wrap`, `history limit`) in the Terminal and Settings › Terminal, Settings pages that follow changes made in the Terminal, and an update that waits for, or offers to save, reports with unsaved work. The bare `font` command is now `terminal font`.
