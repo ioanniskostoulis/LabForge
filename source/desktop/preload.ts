@@ -67,4 +67,6 @@ contextBridge.exposeInMainWorld("labforge", {
   closeReady: () => ipcRenderer.send("app:close-ready"),
   closeCancel: () => ipcRenderer.send("app:close-cancel"),
   installUpdate: (asset: unknown) => ipcRenderer.invoke("installUpdate", asset),
+  onUpdateProgress: (fn: (progress: { done: number; total: number }) => void) =>
+    ipcRenderer.on("updateProgress", (_event, progress) => fn(progress)),
 });

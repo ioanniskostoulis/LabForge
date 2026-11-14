@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.4
+
+- When a newer release is published, LabForge asks at launch in a dialog: Update… opens Settings › Updates, where Update and restart installs it, and Later closes it for this launch.
+- Update and restart shows its download progress instead of staying at 0 %.
+- Updates the shared Forge frame to forge-shell 4.5.6: in Settings, a row whose edit changes other rows redraws the page at once, and Terminal commands such as `terminal spacing comfortable` show in full beside their row.
+
 ## 2.9.3
 
 - `\myreaction` takes several aligned rows, as the old framework did: with `\\` in it the rows are aligned math, the chemistry in `\ce{…}` and `&` aligning a ΔH row under the reaction; the reaction keeps one number, R1, R2…, on its last row.

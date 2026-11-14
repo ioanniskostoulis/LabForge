@@ -1653,7 +1653,7 @@ async function boot(): Promise<void> {
     openShortcut: shortcutText("CmdOrCtrl+O"), onNew: () => { void create(); }, onOpen: () => { void open(); } });
   if (forgeApp.identity.repository) void showUpdateNotice(welcome, infoOptions(__LABFORGE_LOGO__.trimEnd(), __FORGE_VERSION__), forgeApp.identity.repository,
     { platform: api.preview ? undefined : api.platform, install: api.installUpdate, onProgress: api.onUpdateProgress,
-      storageKey: `${settingsStorageKey(forgeApp)}.updates` });
+      storageKey: `${settingsStorageKey(forgeApp)}.updates`, openSettings: page => showSettings({ pages: settingsPages(), page }) });
   const backdrop = welcomeSketch();
   welcome.prepend(backdrop);
   trackWelcomeBox(welcome, backdrop);
