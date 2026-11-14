@@ -1,10 +1,10 @@
 # Changelog
 
-## 2.9.2
+## 2.9.3
 
 - `\myreaction` takes several aligned rows, as the old framework did: with `\\` in it the rows are aligned math, the chemistry in `\ce{…}` and `&` aligning a ΔH row under the reaction; the reaction keeps one number, R1, R2…, on its last row.
 - The default theme colour is midnight blue, 061027, as in the thesis style.
-- Updates the shared Forge frame to forge-shell 4.5.3.
+- Updates the shared Forge frame to forge-shell 4.5.4: in Settings, only a checkbox itself takes a click, not its label.
 
 ## 2.9.1
 
