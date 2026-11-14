@@ -17,6 +17,7 @@
 %   \myformula [label=, place=]{math}        each top-level row numbered
 %   \myequation[place=]{math}                unnumbered
 %   \myreaction[label=, place=]{chemistry}   numbered R1, R2, ...
+%            rows split by \\ are aligned math with \ce{...}, one number
 %   \mysection [label=]{title}               also \mysubsection, \mysubsubsection
 %
 %   label    reference name; graphics, plots and tables default to the file name
@@ -290,7 +291,7 @@
     section-numbers = true, section-hang = true, section-center = false,
     number-depth = 2,
     caption-align = justify, caption-hyphenate = true, caption-color = black, caption-theme = false,
-    theme-color = 451B13,
+    theme-color = 061027,
     plot-line-width = 0.8pt, plot-axis-width = 0.5pt, plot-tick-length = 4pt,
     plot-minor-ticks = 1, plot-padding = 0.06, plot-balance = 0.5,
     plot-mark-size = 2pt, plot-grid = none, plot-colors = black,
@@ -2103,10 +2104,23 @@
     \lf_place:n { \lf_math:nnn { } { } { \begin{aligned} #2 \end{aligned} } }
   }
 
+% A reaction with \\ in it is a set of aligned rows, as in \myequation: the
+% chemistry goes in \ce{...}, & aligns the rows (a ΔH row under the
+% reaction, say) and \nonumber is ignored. The whole reaction takes one
+% number, on its last row. Without \\ the argument is a single \ce formula.
+\cs_new_protected:Npn \lf_reaction_rows:n #1
+  {
+    \cs_set_eq:NN \nonumber \scan_stop:
+    \cs_set_eq:NN \notag \scan_stop:
+    \begin{aligned}[b] #1 \end{aligned}
+  }
+
 \NewDocumentCommand \myreaction { O{} m }
   {
     \lf_keys:nnn { myreaction } { label } {#1}
-    \lf_place:n { \lf_math:nnn { lfreaction } { reaction } { \ce {#2} } }
+    \tl_if_in:nnTF {#2} { \\ }
+      { \lf_place:n { \lf_math:nnn { lfreaction } { reaction } { \lf_reaction_rows:n {#2} } } }
+      { \lf_place:n { \lf_math:nnn { lfreaction } { reaction } { \ce {#2} } } }
   }
 
 

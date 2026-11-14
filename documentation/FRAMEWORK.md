@@ -38,7 +38,7 @@ Every command has the form `\my<thing>[keys]{content}` and uses the same key nam
 | `\mytable` | table file in `tables/` | `label`, `caption`, `caption-align`, `hyphenate`, `width`, `place` |
 | `\myformula` | math; `&` aligns top-level rows and each `\\` row gets a number | `label`, `place` |
 | `\myequation` | math, unnumbered | `place` |
-| `\myreaction` | mhchem formula, numbered R1, R2… | `label`, `place` |
+| `\myreaction` | mhchem formula, numbered R1, R2…; with `\\` the rows are aligned math with the chemistry in `\ce{…}`, `&` aligning them (a ΔH row under the reaction, say) and one number on the last row | `label`, `place` |
 | `\mysection`, `\mysubsection`, `\mysubsubsection` | title | `label` |
 | `\myreport` | none | `header`, `title`, `author`, `conducted`, `submitted`, `institution` |
 | `\mythesis` | none | `title`, `subtitle`, `author`, `email`, `orcid`, `degree`, `supervisor`, `institution`, `place`, `date` |
@@ -169,7 +169,7 @@ The class stores the baseline values below. `.settings.tex` defines styles with 
 | `caption-hyphenate` (`true`, `false`) | true | | |
 | `caption-color` | black | | |
 | `caption-theme` (captions in the theme colour; wins over `caption-color`) | false | false | true |
-| `theme-color` (hex, no `#`; a dark brown-red, midnight blue in `thesis`) | 451B13 | | 061027 |
+| `theme-color` (hex, no `#`; midnight blue) | 061027 | | |
 | `main-font`, `math-font`, `mono-font` | Libertinus Serif, Libertinus Math, DejaVu Sans Mono | | |
 
 Plot defaults (`plot default` in Terminal writes them as `\labforgesetup{plot-<key> = <value>}` in the preamble of `main.tex`) are applied to every pgfplots axis, so a plot file sets only what is specific to it and its own options win. Axes are boxed with ticks on all four sides pointing in, plus minor ticks and a small font for labels and legend. With `plot-colors=black` the first plots are black and solid, then dashed, dotted, dash-dotted, loosely dashed and densely dotted, so a plot reads in greyscale; `color` keeps pgfplots' own colours. To make a plot value part of a named style, set it inside that style's block in `.settings.tex`.

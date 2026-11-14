@@ -1,7 +1,7 @@
 {
   "name": "labforge",
   "productName": "LabForge",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "private": true,
   "description": "LaTeX report framework and spreadsheet table builder",
   "author": "Ioannis Shi Kostoulis",

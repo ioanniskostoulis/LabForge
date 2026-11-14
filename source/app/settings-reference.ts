@@ -42,7 +42,7 @@ export const settingRows: readonly SettingRow[] = [
   { key: "caption-hyphenate", takes: "true, false", initial: "true", what: "Hyphenation inside captions; hyphenate= in a block's keys changes one caption." },
   { key: "caption-color", takes: "a colour name: black, blue", initial: "black", what: "Caption colour; ignored when caption-theme is on." },
   { key: "caption-theme", takes: "true, false", initial: "false", what: "Puts captions in the theme colour." },
-  { key: "theme-color", takes: "six hex digits without #: 061027", initial: "451B13", what: "The theme colour." },
+  { key: "theme-color", takes: "six hex digits without #: 061027", initial: "061027", what: "The theme colour." },
   { key: "main-font", takes: "an installed font name", initial: "empty (Libertinus Serif)", what: "Replaces the text font." },
   { key: "math-font", takes: "an installed font name", initial: "empty (Libertinus Math)", what: "Replaces the maths font." },
   { key: "mono-font", takes: "an installed font name", initial: "empty (DejaVu Sans Mono)", what: "Replaces the code font." },

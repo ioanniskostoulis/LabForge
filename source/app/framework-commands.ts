@@ -56,7 +56,7 @@ export const frameworkCommands: readonly FrameworkCommand[] = [
   entry("mytable", "\\mytable[<keys>]{<file>}", "Insert a table file from tables/", "\\mytable[caption={Mass, time and yield.}]{yields}", ["label", "caption", "caption-align", "hyphenate", "width", "spread", "place"]),
   entry("myformula", "\\myformula[<keys>]{<math>}", "Write a numbered formula; & aligns rows and each \\\\ row gets a number", "\\myformula[label=equilibrium]{K = \\frac{[C]}{[A][B]}}", ["label", "place"]),
   entry("myequation", "\\myequation[<keys>]{<math>}", "Write an unnumbered equation", "\\myequation{E = mc^2}", ["place"]),
-  entry("myreaction", "\\myreaction[<keys>]{<formula>}", "Write a numbered mhchem reaction (R1, R2…)", "\\myreaction[label=formation]{2H2 + O2 -> 2H2O}", ["label", "place"]),
+  entry("myreaction", "\\myreaction[<keys>]{<formula>}", "Write a numbered mhchem reaction (R1, R2…); with \\\\ the rows are aligned and \\ce{…} holds the chemistry", "\\myreaction[label=formation]{2H2 + O2 -> 2H2O}", ["label", "place"]),
   entry("mysection", "\\mysection[<keys>]{<title>}", "Start a section", "\\mysection[label=intro]{Introduction}", ["label"]),
   entry("mysubsection", "\\mysubsection[<keys>]{<title>}", "Start a subsection", "\\mysubsection{Method}", ["label"]),
   entry("mysubsubsection", "\\mysubsubsection[<keys>]{<title>}", "Start a subsubsection", "\\mysubsubsection{Reagents}", ["label"]),

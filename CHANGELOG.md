@@ -2,6 +2,8 @@
 
 ## 2.9.2
 
+- `\myreaction` takes several aligned rows, as the old framework did: with `\\` in it the rows are aligned math, the chemistry in `\ce{…}` and `&` aligning a ΔH row under the reaction; the reaction keeps one number, R1, R2…, on its last row.
+- The default theme colour is midnight blue, 061027, as in the thesis style.
 - Updates the shared Forge frame to forge-shell 4.5.3.
 
 ## 2.9.1
